@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>essays — ROHAM</title>
+    <title>thoughts — ROHAM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -122,15 +122,6 @@
       .entry-list a:hover .entry-title {
         color: rgba(255, 255, 255, 1);
       }
-      .entry-list a.greyed .entry-title {
-        color: rgba(255, 255, 255, 0.35);
-      }
-      .entry-list a.greyed:hover .entry-title {
-        color: rgba(255, 255, 255, 0.6);
-      }
-      .entry-list a.greyed .entry-date {
-        color: rgba(255, 255, 255, 0.15);
-      }
       .entry-title {
         font-family: 'Oswald', sans-serif;
         font-size: 18px;
@@ -147,7 +138,40 @@
         color: rgba(255, 255, 255, 0.3);
         text-transform: uppercase;
       }
+      .date-heading {
+        font-family: 'Oswald', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
 
+      .thought {
+        margin-bottom: 48px;
+      }
+      .thought-date {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .thought p {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .thought-divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 48px 0;
+      }
     </style>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
@@ -160,69 +184,23 @@
     <div class="page-content">
     <header>
       <nav>
-        <a href="essays.html" class="active">essays</a>
+        <a href="/essays">essays</a>
         <span class="sep">|</span>
-        <a href="thoughts.html">thoughts</a>
+        <a href="/thoughts" class="active">thoughts</a>
       </nav>
-      <a href="index.html" class="home-link">ROHAM</a>
+      <a href="/" class="home-link">ROHAM</a>
     </header>
 
     <main>
-      <h1>Essays</h1>
+      <h1>Thoughts</h1>
 
-      <ul class="entry-list">
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">Instagram Fitness Marketing</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">College President Campaign</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">Door to Door Solar Sales</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">Door to Door Clinic Sales</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">Clinic Phone Calls</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">Gaming YouTube Channel</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">LinkedIn Commenting for Doctors</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed">
-            <div class="entry-title">LinkedIn B2B Marketing</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-      </ul>
+      <div class="thought">
+        <div class="thought-date">Jan 29, 2026</div>
+        <p>Don't do anything negative over email. If you have something critical to say, pick up the phone or say it face to face. Email strips tone, strips context, strips humanity. The words sit there forever, re-read in the worst possible voice. A two-minute conversation resolves what a twenty-email thread never will. Written negativity compounds. Spoken words can be softened, clarified, walked back in real time. The convenience of email is exactly what makes it dangerous for hard conversations — it lets you hide behind a screen while lobbing grenades into someone's inbox.</p>
+      </div>
     </main>
     </div>
 
-    <script type="text/javascript" src="index.js?v=20260229g"></script>
+    <script type="text/javascript" src="index.js?v=20260229f"></script>
   </body>
 </html>
