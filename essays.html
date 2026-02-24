@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>essays — ROHAM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Rajdhani', sans-serif;
+        min-height: 100vh;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      header {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+      }
+      .home-link {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        min-height: 100vh;
+      }
+
+      h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 48px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        color: #fff;
+        margin-bottom: 48px;
+      }
+
+      .entry-list {
+        list-style: none;
+      }
+      .entry-list li {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .entry-list li:last-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .entry-list a {
+        display: block;
+        padding: 20px 0;
+        text-decoration: none;
+      }
+      .entry-list a .entry-title {
+        transition: color 0.3s ease;
+      }
+      .entry-list a:hover .entry-title {
+        color: rgba(255, 255, 255, 1);
+      }
+      .entry-list a.greyed .entry-title {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .entry-list a.greyed:hover .entry-title {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .entry-list a.greyed .entry-date {
+        color: rgba(255, 255, 255, 0.15);
+      }
+      .entry-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 4px;
+      }
+      .entry-date {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+      }
+
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="essays.html" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="thoughts.html">thoughts</a>
+      </nav>
+      <a href="index.html" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <h1>Essays</h1>
+
+      <ul class="entry-list">
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">Instagram Fitness Marketing</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">College President Campaign</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">Door to Door Solar Sales</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">Door to Door Clinic Sales</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">Clinic Phone Calls</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">Gaming YouTube Channel</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">LinkedIn Commenting for Doctors</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="greyed">
+            <div class="entry-title">LinkedIn B2B Marketing</div>
+            <div class="entry-date">2026</div>
+          </a>
+        </li>
+      </ul>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="index.js?v=20260229g"></script>
+  </body>
+</html>

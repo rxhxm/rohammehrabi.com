@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>thoughts — ROHAM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Rajdhani', sans-serif;
+        min-height: 100vh;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      header {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+      }
+      .home-link {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        min-height: 100vh;
+      }
+
+      h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 48px;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        color: #fff;
+        margin-bottom: 48px;
+      }
+
+      .entry-list {
+        list-style: none;
+      }
+      .entry-list li {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .entry-list li:last-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .entry-list a {
+        display: block;
+        padding: 20px 0;
+        text-decoration: none;
+      }
+      .entry-list a .entry-title {
+        transition: color 0.3s ease;
+      }
+      .entry-list a:hover .entry-title {
+        color: rgba(255, 255, 255, 1);
+      }
+      .entry-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 4px;
+      }
+      .entry-date {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+      }
+      .date-heading {
+        font-family: 'Oswald', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .thought {
+        margin-bottom: 48px;
+      }
+      .thought-date {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .thought p {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .thought-divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        margin: 48px 0;
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="essays.html">essays</a>
+        <span class="sep">|</span>
+        <a href="thoughts.html" class="active">thoughts</a>
+      </nav>
+      <a href="index.html" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <h1>Thoughts</h1>
+
+      <div class="thought">
+        <div class="thought-date">Jan 29, 2026</div>
+        <p>Don't do anything negative over email. If you have something critical to say, pick up the phone or say it face to face. Email strips tone, strips context, strips humanity. The words sit there forever, re-read in the worst possible voice. A two-minute conversation resolves what a twenty-email thread never will. Written negativity compounds. Spoken words can be softened, clarified, walked back in real time. The convenience of email is exactly what makes it dangerous for hard conversations — it lets you hide behind a screen while lobbing grenades into someone's inbox.</p>
+      </div>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="index.js?v=20260229f"></script>
+  </body>
+</html>
