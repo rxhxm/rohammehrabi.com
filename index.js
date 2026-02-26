@@ -25,9 +25,20 @@ function loadFile(filename) {
 loadFile('shaders/utils.glsl').then((utils) => {
   THREE.ShaderChunk['utils'] = utils;
 
-  // Create Renderer - Camera looking down from above
-  const camera = new THREE.PerspectiveCamera(50, width / height, 0.01, 100);
-  camera.position.set(0, 1.2, 0);
+  // Camera looking down from above, FOV adapts to aspect ratio so the
+  // pool always fills the viewport (prevents seeing beyond the pool on ultrawides).
+  const cameraHeight = 1.2;
+  const poolExtent = 1.0;
+  const baseFOV = 50;
+
+  function computeFOV(aspect, h) {
+    h = h || cameraHeight;
+    var maxFOV = 2 * Math.atan(poolExtent / (h * aspect)) * (180 / Math.PI);
+    return Math.min(baseFOV, Math.max(maxFOV, 20));
+  }
+
+  const camera = new THREE.PerspectiveCamera(computeFOV(width / height), width / height, 0.01, 100);
+  camera.position.set(0, cameraHeight, 0);
   camera.up.set(0, 0, -1);
   camera.lookAt(0, 0, 0);
 
@@ -112,8 +123,10 @@ loadFile('shaders/utils.glsl').then((utils) => {
 
         const updateMaterial = new THREE.RawShaderMaterial({
           uniforms: {
-              delta: { value: [1 / 256, 1 / 256] },  // TODO: Remove this useless uniform and hardcode it in shaders?
+              delta: { value: [1 / 256, 1 / 256] },
               texture: { value: null },
+              damping: { value: 0.995 },
+              speed: { value: 2.0 },
           },
           vertexShader: vertexShader,
           fragmentShader: updateFragmentShader,
@@ -142,8 +155,13 @@ loadFile('shaders/utils.glsl').then((utils) => {
       this._render(renderer, this._normalMesh);
     }
 
+    set damping(val) { this._updateMesh.material.uniforms['damping'].value = val; }
+    get damping() { return this._updateMesh.material.uniforms['damping'].value; }
+
+    set speed(val) { this._updateMesh.material.uniforms['speed'].value = val; }
+    get speed() { return this._updateMesh.material.uniforms['speed'].value; }
+
     _render(renderer, mesh) {
-      // Swap textures
       const oldTexture = this.texture;
       const newTexture = this.texture === this._textureA ? this._textureB : this._textureA;
 
@@ -151,7 +169,6 @@ loadFile('shaders/utils.glsl').then((utils) => {
 
       renderer.setRenderTarget(newTexture);
 
-      // TODO Camera is useless here, what should be done?
       renderer.render(mesh, this._camera);
 
       this.texture = newTexture;
@@ -506,6 +523,19 @@ loadFile('shaders/utils.glsl').then((utils) => {
   // Surface floaters disabled for now — call createSurfaceFloaters() to re-enable
   // createSurfaceFloaters();
 
+  // Tunable parameters (driven by GUI)
+  const params = {
+    dropFrequency: 0.02,
+    dropRadius: 0.03,
+    dropStrength: 0.01,
+    mouseRadius: 0.03,
+    mouseStrength: 0.04,
+    waveSpeed: 2.0,
+    damping: 0.995,
+    cameraHeight: cameraHeight,
+    simStepsPerFrame: 1,
+  };
+
   // Animation time tracker
   let animationTime = 0;
 
@@ -513,16 +543,20 @@ loadFile('shaders/utils.glsl').then((utils) => {
   function animate() {
     animationTime += 0.016;
 
-    // Periodic random drops to keep water alive
-    if (Math.random() < 0.02) {
+    waterSimulation.speed = params.waveSpeed;
+    waterSimulation.damping = params.damping;
+
+    if (Math.random() < params.dropFrequency) {
       waterSimulation.addDrop(
         renderer,
         Math.random() * 2 - 1, Math.random() * 2 - 1,
-        0.03, (Math.random() > 0.5) ? 0.01 : -0.01
+        params.dropRadius, (Math.random() > 0.5) ? params.dropStrength : -params.dropStrength
       );
     }
-    
-    waterSimulation.stepSimulation(renderer);
+
+    for (var s = 0; s < params.simStepsPerFrame; s++) {
+      waterSimulation.stepSimulation(renderer);
+    }
     waterSimulation.updateNormals(renderer);
 
     const waterTexture = waterSimulation.texture.texture;
@@ -530,7 +564,7 @@ loadFile('shaders/utils.glsl').then((utils) => {
     const causticsTexture = caustics.texture.texture;
 
     renderer.setRenderTarget(null);
-    renderer.setClearColor(white, 1);
+    renderer.setClearColor(black, 1);
     renderer.clear();
 
     pool.draw(renderer, waterTexture, causticsTexture);
@@ -550,7 +584,7 @@ loadFile('shaders/utils.glsl').then((utils) => {
     const intersects = raycaster.intersectObject(targetmesh);
 
     for (let intersect of intersects) {
-      waterSimulation.addDrop(renderer, intersect.point.x, intersect.point.z, 0.03, 0.04);
+      waterSimulation.addDrop(renderer, intersect.point.x, intersect.point.z, params.mouseRadius, params.mouseStrength);
     }
   }
 
@@ -574,10 +608,12 @@ loadFile('shaders/utils.glsl').then((utils) => {
   window.addEventListener('resize', () => {
     const newWidth = window.innerWidth;
     const newHeight = window.innerHeight;
-    
-    camera.aspect = newWidth / newHeight;
+    const newAspect = newWidth / newHeight;
+
+    camera.fov = computeFOV(newAspect, camera.position.y);
+    camera.aspect = newAspect;
     camera.updateProjectionMatrix();
-    
+
     renderer.setSize(newWidth, newHeight);
   });
 
