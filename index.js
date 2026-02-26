@@ -520,8 +520,7 @@ loadFile('shaders/utils.glsl').then((utils) => {
 
   }
 
-  // Surface floaters disabled for now — call createSurfaceFloaters() to re-enable
-  // createSurfaceFloaters();
+  createSurfaceFloaters();
 
   // Tunable parameters (driven by GUI)
   const params = {

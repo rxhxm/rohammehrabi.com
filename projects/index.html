@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>ESSAYS</title>
+    <title>PROJECTS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
@@ -106,50 +106,53 @@
         margin-bottom: 48px;
       }
 
-      .entry-list {
-        list-style: none;
+      .project-grid {
+        display: grid;
+        gap: 24px;
       }
-      .entry-list li {
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-      }
-      .entry-list li:last-child {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-      .entry-list a {
+      .project-card {
         display: block;
-        padding: 20px 0;
+        padding: 28px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 4px;
         text-decoration: none;
+        transition: border-color 0.3s ease, background 0.3s ease;
       }
-      .entry-list a .entry-title {
-        transition: color 0.3s ease;
+      .project-card:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.03);
       }
-      .entry-list a:hover .entry-title {
-        color: rgba(255, 255, 255, 1);
+      .project-card.greyed {
+        opacity: 0.4;
+        pointer-events: none;
       }
-      .entry-list a.greyed .entry-title {
-        color: rgba(255, 255, 255, 0.35);
-      }
-      .entry-list a.greyed:hover .entry-title {
-        color: rgba(255, 255, 255, 0.6);
-      }
-      .entry-list a.greyed .entry-date {
-        color: rgba(255, 255, 255, 0.15);
-      }
-      .entry-title {
+      .project-name {
         font-family: 'Oswald', sans-serif;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 400;
         letter-spacing: 0.04em;
         color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 4px;
+        margin-bottom: 8px;
       }
-      .entry-date {
+      .project-desc {
         font-family: 'Rajdhani', sans-serif;
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 400;
-        letter-spacing: 0.1em;
-        color: rgba(255, 255, 255, 0.3);
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .project-tag {
+        display: inline-block;
+        margin-top: 12px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 3px 10px;
+        border-radius: 2px;
       }
 
     </style>
@@ -164,86 +167,30 @@
     <div class="page-content">
     <header>
       <nav>
-        <a href="/essays" class="active">essays</a>
+        <a href="/essays">essays</a>
         <span class="sep">|</span>
         <a href="/thoughts">thoughts</a>
         <span class="sep">|</span>
-        <a href="/projects">projects</a>
+        <a href="/projects" class="active">projects</a>
       </nav>
       <a href="/" class="home-link">ROHAM</a>
     </header>
 
     <main>
-      <h1>ESSAYS</h1>
+      <h1>PROJECTS</h1>
 
-      <ul class="entry-list">
-        <li>
-          <a href="/essays/the-closing-email">
-            <div class="entry-title">The Closing Email I Probably Shouldn't Have Sent</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">Instagram Fitness Marketing</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">College President Campaign</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">Door to Door Solar Sales</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">Door to Door Clinic Sales</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">Clinic Phone Calls</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">Gaming YouTube Channel</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">LinkedIn Commenting for Doctors</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">LinkedIn B2B Marketing</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">Recruiting for Org</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
-            <div class="entry-title">Instagram Outreach for Users</div>
-            <div class="entry-date">2026</div>
-          </a>
-        </li>
-      </ul>
+      <div class="project-grid">
+        <a href="/" class="project-card">
+          <div class="project-name">This Website</div>
+          <div class="project-desc">Interactive Three.js pool with floating objects, essays, and thoughts. Built from scratch.</div>
+          <span class="project-tag">webgl</span>
+        </a>
+
+        <div class="project-card greyed" title="Coming soon">
+          <div class="project-name">Coming Soon</div>
+          <div class="project-desc">More projects on the way.</div>
+        </div>
+      </div>
     </main>
     </div>
 
