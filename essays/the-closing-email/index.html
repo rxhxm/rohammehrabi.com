@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Closing Email I Probably Shouldn't Have Sent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Rajdhani', sans-serif;
+        min-height: 100vh;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      header {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+      }
+      .home-link {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        min-height: 100vh;
+      }
+
+      .essay-date {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 42px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 48px;
+      }
+
+      .essay-body p {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">Jan 2026</div>
+      <h1>The Closing Email I Probably Shouldn't Have Sent</h1>
+
+      <div class="essay-body">
+        <p>My friend Sasha has this rule about sales communication that I think about. He says anything that isn't good news should be delivered face to face, or at minimum on a call where you can see the person. When you're looking at someone, you can gauge how they're receiving what you're saying in real time. If you were too sharp, you soften it. If they didn't fully get it, you clarify.</p>
+
+        <p>I had been working with a buyer at an industrial tech company for a few weeks. We'd done a lot for him by this point. He'd seen the depth of what we could pull and on one of our calls he basically said there's no refuting it. The data checked out, the sources were there, and it was work his team wasn't able to do with their existing tools.</p>
+
+        <p>But the deal kept not closing.</p>
+
+        <p>First he needed internal approval. Then a colleague in another region expressed interest, and suddenly it became a potential company-wide initiative. The scope kept expanding and the timeline kept sliding. Every conversation ended with genuine enthusiasm and zero commitment.</p>
+
+        <p>I found out later that he was relatively new at the company. Everything he was doing in this evaluation was about protecting himself. Bringing in other regions wasn't about alignment for the sake of alignment. It was about distributing risk so that if the tool didn't work out, it wasn't purely his decision.</p>
+
+        <p>That context made everything make sense. He wasn't stalling because he didn't want to buy. He was stalling because buying too easily would make him look careless.</p>
+
+        <p>I think this is actually a really common dynamic that doesn't get talked about enough. A lot of what looks like indecision in B2B sales is actually reputation management. The person you're selling to isn't just evaluating your product. They're evaluating how the act of choosing your product will reflect on them. And those are two very different calculations.</p>
+
+        <p>Knowing all of this, I still sent the email. This is where I broke Sasha's rule in a way that could have cost me the deal entirely. I wrote something pretty direct. I told him I didn't want this to drag out while he aligned multiple regions on a $1,600/month decision. I said we'd stopped offering pilots at this price point, so this was already the smallest commitment we had. And I told him if he needed more time for company-wide buy-in, we should reconnect when he's actually ready to move.</p>
+
+        <p>That last line is the one that could have done real damage. On a call, I would have seen his reaction and adjusted. Over email, you don't get that option. He reads it in whatever state he's in when he opens it, and you just hope the relationship absorbs the bluntness.</p>
+
+        <p>He signed the next day.</p>
+
+        <p>I've been thinking about why it worked, and I think the answer is somewhat unsatisfying. It probably worked because we had spent enough time demonstrating real value that the directness read as conviction rather than impatience. But that's a very thin line, and the problem with email is you don't get to walk it in real time. You just draw it and find out which side you landed on.</p>
+
+        <p>The broader thing I keep coming back to, though, is that deals almost never die because someone says no. They die because nothing happens. Momentum fades, the person gets pulled into other priorities, the urgency you built over weeks of work quietly dissolves, and eventually you're following up with someone who's already mentally moved on. At some point you have to decide if you're going to keep sending polite check-ins or ask for a real answer. Yes or not yet, both are fine. It's the space between them where deals go to disappear.</p>
+
+        <p>If I could redo it, I'd say everything in that email, but I'd say it on a call first and send the written version after as something he could forward to his team. That way I get to read the room and he still gets the documentation he needs to show he did his diligence. Sasha's advice isn't about avoiding hard conversations. It's about giving yourself the room to have them well. Emails are monologues, and closing almost always goes better as a conversation.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229h"></script>
+  </body>
+</html>
