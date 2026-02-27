@@ -54,12 +54,12 @@
       .page-content {
         position: relative;
         z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100vh;
       }
 
       header {
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background: transparent;
         position: sticky;
         top: 0;
         z-index: 2;
@@ -109,9 +109,7 @@
         max-width: 680px;
         margin: 0 auto;
         padding: 60px 36px 120px;
-        background: rgba(0, 0, 0, 0.55);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: transparent;
         min-height: 100vh;
       }
 
@@ -144,14 +142,43 @@
       .entry-list a:hover .entry-title {
         color: rgba(255, 255, 255, 1);
       }
+      .entry-list li.greyed-item {
+        position: relative;
+      }
+      .entry-list a.greyed {
+        cursor: default;
+      }
       .entry-list a.greyed .entry-title {
-        color: rgba(255, 255, 255, 0.35);
+        color: rgba(255, 255, 255, 0.2);
       }
       .entry-list a.greyed:hover .entry-title {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.2);
       }
       .entry-list a.greyed .entry-date {
-        color: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.08);
+      }
+      .entry-list li.greyed-item::after {
+        content: 'Coming soon';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Oswald', sans-serif;
+        font-size: 14px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0);
+        background: rgba(0, 0, 0, 0);
+        transition: color 0.3s ease, background 0.3s ease;
+        pointer-events: none;
+      }
+      .entry-list li.greyed-item:hover::after {
+        color: rgba(255, 255, 255, 0.6);
+        background: rgba(0, 0, 0, 0.5);
       }
       .entry-title {
         font-family: 'Oswald', sans-serif;
@@ -184,8 +211,6 @@
       <nav>
         <a href="/essays" class="active">essays</a>
         <span class="sep">|</span>
-        <a href="/thoughts">thoughts</a>
-        <span class="sep">|</span>
         <a href="/projects">projects</a>
       </nav>
       <a href="/" class="home-link">ROHAM</a>
@@ -201,62 +226,62 @@
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">Instagram Fitness Marketing</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">College President Campaign</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">Door to Door Solar Sales</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">Door to Door Clinic Sales</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">Clinic Phone Calls</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">Gaming YouTube Channel</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">LinkedIn Commenting for Doctors</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">LinkedIn B2B Marketing</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">Recruiting for Org</div>
             <div class="entry-date">2026</div>
           </a>
         </li>
-        <li>
-          <a href="#" class="greyed" title="Coming soon">
+        <li class="greyed-item">
+          <a href="#" class="greyed">
             <div class="entry-title">Instagram Outreach for Users</div>
             <div class="entry-date">2026</div>
           </a>
@@ -265,7 +290,8 @@
     </main>
     </div>
 
-    <script type="text/javascript" src="/index.js?v=20260229h"></script>
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
     <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
   </body>
 </html>

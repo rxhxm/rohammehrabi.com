@@ -14,8 +14,8 @@ const white = new THREE.Color('white');
 function loadFile(filename) {
   return new Promise((resolve, reject) => {
     const loader = new THREE.FileLoader();
-
-    loader.load(filename, (data) => {
+    const path = filename.startsWith('/') ? filename : '/' + filename;
+    loader.load(path, (data) => {
       resolve(data);
     });
   });
@@ -72,14 +72,14 @@ loadFile('shaders/utils.glsl').then((utils) => {
   const cubetextureloader = new THREE.CubeTextureLoader();
 
   const textureCube = cubetextureloader.load([
-    'xpos.jpg', 'xneg.jpg',
-    'ypos.jpg', 'ypos.jpg',
-    'zpos.jpg', 'zneg.jpg',
+    '/xpos.jpg', '/xneg.jpg',
+    '/ypos.jpg', '/ypos.jpg',
+    '/zpos.jpg', '/zneg.jpg',
   ]);
 
   const textureloader = new THREE.TextureLoader();
 
-  const tiles = textureloader.load('tiles.jpg');
+  const tiles = textureloader.load('/tiles.jpg');
 
   class WaterSimulation {
 
