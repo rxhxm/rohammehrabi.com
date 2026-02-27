@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Playbook for Closing Deals at Tech Events</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How I went from zero startup events to 20k MRR by qualifying fast, skipping the networkers, and booking meetings on the spot.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/closing-deals-at-tech-events">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="My Playbook for Closing Deals at Tech Events">
+    <meta property="og:description" content="How I went from zero startup events to 20k MRR by qualifying fast, skipping the networkers, and booking meetings on the spot.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/closing-deals-at-tech-events">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="My Playbook for Closing Deals at Tech Events">
+    <meta name="twitter:description" content="How I went from zero startup events to 20k MRR by qualifying fast and booking meetings on the spot.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Rajdhani', sans-serif;
+        min-height: 100vh;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100vh;
+      }
+
+      header {
+        background: transparent;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+      }
+      .home-link {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+        min-height: 100vh;
+      }
+
+      .essay-date {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 42px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 48px;
+      }
+
+      .essay-body h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .essay-body p {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">Jan 2026</div>
+      <h1>My Playbook for Closing Deals at Tech Events</h1>
+
+      <div class="essay-body">
+        <p>I moved to San Francisco about a year ago and had never been to a startup event. I showed up to my first one and the mandate was just go close deals without a playbook.</p>
+
+        <p>We got to 20k MRR largely from showing up to these things, and some of our best customers today started as conversations at events. I'm by no means a pro at this yet. These are just my learnings. Here's what the playbook I made.</p>
+
+        <h2>Most events aren't worth going to.</h2>
+
+        <p>A lot of what you'll find on Luma is not great. The good ones are usually at full capacity already. The way I started picking events was asking VC friends and close contacts about invite-only stuff. But beyond that, I'd actually take the attendee list from each event I registered for and run it through our research platform to enrich everyone, how senior they are, what company, what they do. Before I even showed up I'd have a rough idea of how many people there I could actually sell to versus how many were just students or pre-revenue founders.</p>
+
+        <p>That pre-work matters because the reality is 95% of people you'll meet at these things have nothing going on. They're early and still figuring things out. And a lot of them are there trying to close deals too, but they end up just talking to each other. They show up for the right reasons and do the completely wrong things. That's why I wanted to write this.</p>
+
+        <h2>The most approachable person in the room is usually not the best conversation.</h2>
+
+        <p>The person working the room, high energy, bouncing between groups, is almost never the one with budget or authority. Being a great socializer and being a great customer are unrelated.</p>
+
+        <p>The conversations that led somewhere for me were with more senior folks standing off to the side, on their phone, or talking to one person. At my first event, an AWS GenAI loft thing, there was a guy outside the venue on his phone. Older, maybe mid-forties. Nobody was talking to him. I sat down next to him and it turned out he was a CEO of a company that had raised over a hundred million recently for a series B. He was just there visiting his friend who was hosting. This was not the type of event he'd normally show up to.</p>
+
+        <p>Nobody else in the room was going to talk to that guy. He didn't look like someone at a startup event. That was the point.</p>
+
+        <h2>Speakers are another overlooked opportunity.</h2>
+
+        <p>A lot of these events, especially the ones hosted by bigger companies, bring in legitimately senior speakers. Most people are intimidated and don't approach them after their talk. But if you walk up right when they finish and start a genuine conversation, they're usually very open to it. It's a free shot at talking to someone you'd normally never get access to.</p>
+
+        <h2>Qualify in five minutes.</h2>
+
+        <p>Most people spend 15 minutes per group. If there are 100 people in the room, maybe 5 to 10 are a genuine fit. Two hours at 15 minutes per conversation means eight groups. You're probably never going to find your people that way.</p>
+
+        <p>What I do is figure out within five minutes whether someone is worth more time. The questions are simple: what do you do, what stage are you at, how long have you been at it, what's your role. If something sounds interesting I go deeper on that thread specifically. The key is making it feel like genuine curiosity and not an interrogation. "That sounds super interesting, how long have you guys been doing this?" goes a lot further than just rattling through a checklist.</p>
+
+        <p>Don't pitch. If they ask what you do, give one sentence and turn it back to them. You need to control the conversation to qualify efficiently. If they're a fit, then start selling and building a real connection. If not, wrap it up cleanly and move on.</p>
+
+        <p>When it's time to actually sell, the transition is pretty natural because you've spent all this time learning about them. You're not giving a generic pitch. You can talk about their specific use case because they just told you everything you need to know. Something like "I'd love to help you do this as well, let me show you" is usually the line that gets the meeting. That's the close. It doesn't need to be more complicated than that.</p>
+
+        <h2>How to actually start conversations.</h2>
+
+        <p>The easiest approach is just talking about the event. "How are you finding the event so far?" or referencing a recent talk works because it's contextual and low pressure. One thing I used a lot early on was something like "were you at the AWS event a couple weeks ago?" It's vague enough that it works as an icebreaker. They'll usually say no, and you just say "must be thinking of someone else, what's your name?" and you're in a conversation.</p>
+
+        <p>For groups that are mid-conversation, I'd walk up and say "seems like you guys are having an interesting conversation, mind if I join?" and actually contribute to whatever they're discussing before steering anything.</p>
+
+        <h2>For the people who matter, get their number.</h2>
+
+        <p>LinkedIn gets flooded after these events. Everyone sends requests in the same 24 hour window and your message drowns. For people you've actually qualified, ask for their phone number instead. If the conversation went well, most people are fine with this. If someone says no, don't push it. Just get their LinkedIn and move on. You need to have built enough of a connection that it's a natural ask.</p>
+
+        <p>Once you have their number, take a selfie with them. Say "let me send you a photo so you have my contact." This sounds odd but it works really well. When you text them later they immediately know who you are. My phone is honestly flooded with these selfies at this point. Months later when we were closing a deal with a Series B company over dinner, I pulled up the photo from the first time I met the guy. We had a laugh about it. The direct attribution is hard to measure, but it's a thing that almost nobody does and it compounds over time.</p>
+
+        <p>Text them within an hour or two that same night. Not the next morning. Out of roughly 10 people I qualify at an event, about 6 end up on a call. The rest either don't respond after the event or drop off somewhere in the follow-up. But 6 out of 10 is a strong conversion rate for what is essentially a cold interaction if you do cold outbound.</p>
+
+        <h2>Book the meeting before you leave.</h2>
+
+        <p>If you've qualified someone and there's a reason to talk further, don't say "let's find a time." Get their availability right there. "Free Thursday afternoon?" They give you a slot, you lock it in, and you skip the back-and-forth over text where momentum dies. That moment at the event is your peak engagement with this person. That's your best shot at landing something.</p>
+
+        <p>If you can't book on the spot, you still have their number. But on-the-spot is always better.</p>
+
+        <p>Think about what this replaces in your normal workflow. Instead of doing outreach, getting a few people on calls, and then qualifying them, you're doing five-minute qualifications in person back to back. It's like having a full calendar of discovery calls except you're walking between them instead of waiting for Calendly links. And because you're face to face, they're already warmer than any cold outreach would get you. It takes a lot of energy but it's way more effective per hour than anything you'd do from your laptop.</p>
+
+        <h2>The transactional filtering is what makes real relationships possible.</h2>
+
+        <p>This whole approach is transactional and I'm not going to pretend it isn't. But the best relationships I've built from events are with people who I genuinely connect with and who also happen to be a fit for what we do. Some of my closest friends started as customers I met at these things. The quick filtering is what makes that possible. You're spending your limited time with people where there's actual alignment instead of whoever happened to be standing nearest to you.</p>
+
+        <p>Early on I definitely fell into the trap of just making friends at these events. Good conversations, zero business value. If you want to make friends, there are better places for that.</p>
+
+        <p>I actually stopped doing events for a while and I'm just now getting back into it. Writing this was partly to remind myself what worked.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>
