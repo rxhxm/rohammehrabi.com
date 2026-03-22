@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Typography Preview Options (Round 2)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Import all the font options -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #000; color: #fff; min-height: 100vh; transition: all 0.5s ease; }
+      
+      /* Base styles (similar to current) */
+      .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100vh; }
+      header { background: transparent; position: sticky; top: 0; z-index: 2; padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a { font-size: 13px; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; }
+      header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
+      .home-link { font-size: 24px; color: rgba(255,255,255,0.5); text-decoration: none; }
+      
+      main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100vh; }
+      
+      /* Control Panel */
+      .controls {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(20, 20, 20, 0.95);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 15px 20px;
+        border-radius: 12px;
+        display: flex;
+        gap: 15px;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      }
+      .controls button {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.2);
+        color: rgba(255,255,255,0.7);
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        transition: all 0.2s;
+      }
+      .controls button:hover {
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+      }
+      .controls button.active {
+        background: #fff;
+        color: #000;
+      }
+
+      /* OPTION 1: "Avant-Garde Minimal" (Syne + Manrope) - The current applied style */
+      body.opt-1 { font-family: 'Manrope', sans-serif; }
+      .opt-1 header nav a { font-family: 'Manrope', sans-serif; font-weight: 500; letter-spacing: 0.05em; }
+      .opt-1 .home-link { font-family: 'Syne', sans-serif; font-weight: 700; text-transform: lowercase; letter-spacing: -0.02em; }
+      .opt-1 h1 { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 700; letter-spacing: -0.04em; color: #fff; line-height: 1.05; margin-bottom: 48px; text-transform: lowercase; }
+      .opt-1 .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 16px; }
+      .opt-1 .essay-body p { font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 400; line-height: 1.75; color: rgba(255,255,255,0.75); margin-bottom: 28px; }
+
+      /* OPTION 2: "Neo-Editorial" (Playfair Display + Lora) - Extremely elegant, classic, trustworthy */
+      body.opt-2 { font-family: 'Lora', serif; }
+      .opt-2 header nav a { font-family: 'Lora', serif; font-weight: 500; letter-spacing: 0.1em; font-style: italic; }
+      .opt-2 .home-link { font-family: 'Playfair Display', serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 20px; }
+      .opt-2 h1 { font-family: 'Playfair Display', serif; font-size: 50px; font-weight: 600; letter-spacing: -0.01em; color: #fff; line-height: 1.1; margin-bottom: 40px; }
+      .opt-2 .essay-date { font-family: 'Lora', serif; font-size: 13px; font-weight: 400; font-style: italic; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+      .opt-2 .essay-body p { font-family: 'Lora', serif; font-size: 19px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 28px; }
+
+      /* OPTION 3: "Digital Brutalist" (Space Grotesk + IBM Plex Mono) - Cooked, digital native, sharp */
+      body.opt-3 { font-family: 'IBM Plex Mono', monospace; }
+      .opt-3 header nav a { font-family: 'IBM Plex Mono', monospace; font-weight: 500; letter-spacing: -0.05em; }
+      .opt-3 .home-link { font-family: 'Space Grotesk', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: -0.05em; }
+      .opt-3 h1 { font-family: 'Space Grotesk', sans-serif; font-size: 46px; font-weight: 600; letter-spacing: -0.04em; color: #fff; line-height: 1.05; margin-bottom: 40px; }
+      .opt-3 .essay-date { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 24px; }
+      .opt-3 .essay-body p { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
+
+      /* OPTION 4: "Hyper Modern" (Clash Display + Satoshi) - Very popular in modern high-end SaaS */
+      body.opt-4 { font-family: 'Satoshi', sans-serif; }
+      .opt-4 header nav a { font-family: 'Satoshi', sans-serif; font-weight: 500; letter-spacing: 0.05em; }
+      .opt-4 .home-link { font-family: 'Clash Display', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; font-size: 22px; }
+      .opt-4 h1 { font-family: 'Clash Display', sans-serif; font-size: 52px; font-weight: 500; letter-spacing: 0; color: #fff; line-height: 1.1; margin-bottom: 32px; }
+      .opt-4 .essay-date { font-family: 'Satoshi', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 16px; }
+      .opt-4 .essay-body p { font-family: 'Satoshi', sans-serif; font-size: 19px; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,0.85); margin-bottom: 32px; }
+
+    </style>
+  </head>
+
+  <!-- Defaulting to Avant-Garde Minimal -->
+  <body class="opt-1">
+    
+    <div class="controls">
+      <button onclick="setOpt('1')" id="btn-1" class="active">1: Avant-Garde (Current)</button>
+      <button onclick="setOpt('2')" id="btn-2">2: Neo-Editorial</button>
+      <button onclick="setOpt('3')" id="btn-3">3: Digital Brutalist</button>
+      <button onclick="setOpt('4')" id="btn-4">4: Hyper Modern</button>
+    </div>
+
+    <script>
+      function setOpt(opt) {
+        document.body.className = 'opt-' + opt;
+        document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+        document.getElementById('btn-' + opt).classList.add('active');
+      }
+    </script>
+
+    <div class="page-content">
+      <header>
+        <nav>
+          <a href="#" class="active">essays</a>
+          <span class="sep">|</span>
+          <a href="#">projects</a>
+        </nav>
+        <a href="#" class="home-link">ROHAM</a>
+      </header>
+
+      <main>
+        <div class="essay-date">Jan 2026</div>
+        <h1>Every Churning Customer Should Talk to You</h1>
+
+        <div class="essay-body">
+          <p>Most companies let customers cancel through a button. That's a grave mistake if you're early stage and every customer matters.</p>
+
+          <p>The way I set things up, nobody can cancel without going through us. When someone wants to leave, they have to reach out. And when they do, I just say let's get on a call.</p>
+
+          <p>I don't have some forced system where the cancel button is hidden. It's simpler than that. If you've built a real relationship with your customers, the ones that matter will tell you before they leave. They won't just click a button. The person who owns the deal needs to have enough of a relationship with the customer that leaving feels like a conversation, not a transaction. For the accounts that matter, that's how it should work.</p>
+
+          <p>That's it. No "I'm sorry to hear that." No "can you tell me what went wrong over Slack." Just: let's get on a call without anything else. The reason this works is that most people will say yes. They feel like they owe you the conversation, especially if you've been responsive and helpful during the relationship. And once you're on a call, everything changes because you can actually do something about it.</p>
+
+          <p>Most recently, a customer messaged me on Slack saying they wanted to cancel. I said no worries I'll sort this out, and then immediately asked if they had time for a call that day. They said yes.</p>
+
+          <p>On the call, I learned the problem. They'd been pulling personal phone numbers through our platform and a lot of them were dead. So their cold calling wasn't converting and they decided the tool wasn't worth it. Fair enough on the surface. But when I dug in, it turned out they'd never tried using our Google Maps block to pull business phone numbers directly, which is what most of our customers doing similar outreach actually use. They'd been using the platform for a use case that wasn't the best fit and didn't know the better approach existed.</p>
+
+          <p>I think this is actually one of the most common reasons people churn from early stage products. It's not that the product can't do what they need. It's that they can't get the same results on their own that you showed them in the demo. You're a professional on your own platform. They're not. The gap between what you demo and what they experience alone is where most churn lives.</p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

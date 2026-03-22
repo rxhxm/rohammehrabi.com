@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Every Churning Customer Should Talk to You</title>
+    <title>Make Them Say It to Your Face</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Most companies let customers cancel through a button. That's a grave mistake if you're early stage and every customer matters.">
     <meta name="theme-color" content="#000000">
@@ -30,26 +30,46 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { background: #000; color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
+      body { background: #000; color: #fff; font-family: 'Manrope', sans-serif; min-height: 100vh; }
       #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
       .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100vh; }
       header { background: transparent; position: sticky; top: 0; z-index: 2; padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; }
       header nav { display: flex; align-items: center; gap: 8px; }
-      header nav a { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.15em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
       header nav a:hover { color: rgba(255,255,255,0.85); }
       header nav a.active { color: rgba(255,255,255,0.85); }
       header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
-      .home-link { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
       .home-link:hover { color: #fff; }
       main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100vh; }
-      .essay-date { font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
-      h1 { font-family: 'Bebas Neue', sans-serif; font-size: 42px; font-weight: 400; letter-spacing: 0.06em; color: #fff; line-height: 1.1; margin-bottom: 48px; }
-      .essay-body p { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
-      .back-link { display: inline-block; margin-top: 48px; font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 0.15em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
+      .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase; color: #fff; line-height: 1.1; margin-bottom: 48px; }
+      .essay-body p { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
       .back-link:hover { color: rgba(255,255,255,0.85); }
     </style>
 
@@ -72,7 +92,7 @@
 
     <main>
       <div class="essay-date">Jan 2026</div>
-      <h1>Every Churning Customer Should Talk to You</h1>
+      <h1>Make Them Say It to Your Face</h1>
 
       <div class="essay-body">
         <p>Most companies let customers cancel through a button. That's a grave mistake if you're early stage and every customer matters.</p>

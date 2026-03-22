@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Let Me Cook on You</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A barber, a chef, and finding the novelty that makes people stop scrolling.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/let-me-cook-on-you">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Let Me Cook on You">
+    <meta property="og:description" content="A barber, a chef, and finding the novelty that makes people stop scrolling.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/let-me-cook-on-you">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Let Me Cook on You">
+    <meta name="twitter:description" content="A barber, a chef, and finding the novelty that makes people stop scrolling.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #000; color: #fff; font-family: 'Manrope', sans-serif; min-height: 100vh; }
+      #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+      .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100vh; }
+      header { background: transparent; position: sticky; top: 0; z-index: 2; padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
+      header nav a:hover { color: rgba(255,255,255,0.85); }
+      header nav a.active { color: rgba(255,255,255,0.85); }
+      header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
+      .home-link:hover { color: #fff; }
+      main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100vh; }
+      .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase; color: #fff; line-height: 1.1; margin-bottom: 48px; }
+      .essay-body p { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
+      .back-link:hover { color: rgba(255,255,255,0.85); }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">Mar 2026</div>
+      <h1>Let Me Cook on You</h1>
+
+      <div class="essay-body">
+        <p>I went to a new barber today. While he was cutting my hair we got to talking and he mentioned he'd been a chef before this. The conversation eventually turned to social media. He wanted to grow on Instagram and TikTok but nothing was landing. I told him I'd been doing content for a while and on our best days we pull 100k impressions from a single LinkedIn post. He asked me for advice.</p>
+
+        <p>I gave him some generic stuff but quickly narrowed down to these two. Novelty and volume.</p>
+
+        <p>Volume is the easier one to explain. Hormozi talks about this a lot. You just have to keep posting, see what gets traction, and do more of that. You don't learn content strategy by studying content strategy. You learn it by putting things out there constantly and paying attention to what happens. Most people overthink this part. They want to have it figured out before they start. You figure it out by starting and picking up the little skills with every post that you can’t learn from watching or listening.</p>
+
+        <p>Novelty is harder. Instagram and TikTok are a flood of people holding up billboards. Everyone is posting. The only question is whether someone stops scrolling for yours. Your billboard has to look different from every other one they've seen. Not better. Different. You need the thing that makes someone pause for you.</p>
+
+        <p>I started thinking about what that would be for him. There are barbers on TikTok who play with fire or caress their clients' faces. Those videos work because they immediately hook you with something you haven't seen before. He needed his version of that. Something that was actually his, not borrowed from someone else's playbook.</p>
+
+        <p>Then it hit me. He was a chef. That's the whole thing.</p>
+
+        <p>I told him he should cut hair using chef's tools. Imagine a butcher's knife lining up someone's hairline. That image alone would stop anyone mid-scroll. Then I kept building on it. Wear a full chef's coat while you cut. Not as a bit, as your entire identity. Put your hair products in cooking packaging. Pomade in a Tabasco bottle. Powder in a salt shaker. When a client sits down you ask "how would you like your hair cooked?" and they say "well done." Your catchphrase is "let me cook on you." Every video ends with "I'm Chef Gonzales, let me cook on you" and the shop address in Santa Cruz.</p>
+
+        <p>He went from politely chatting with me to fully locked in. By the end he asked for my number so we could keep talking about it. He couldn't believe some random guy in his chair was handing him this. The conversation before had been the usual barber small talk.</p>
+
+        <p>I told him to think about the people who've actually done this. Salt Bae built a massive business off one gesture and a consistent look. The food was fine. I know because I’ve been. There's the Dagestani kebab guy who became a meme and turned it into a real business. The Turkish smiling guy, CZN Burak, did the same thing. He went viral for his facial expression while cooking, then backed it up with genuinely good food and built a restaurant chain out of it. The pattern is always the same. One unusual detail, committed to fully, backed up by actual quality. Chef Gonzales already has a better foundation than most of these people because the chef background is real. It's not a costume. He actually was a chef. He's just repackaging something true about himself. He also didn’t want to discard his skills and past but he didn’t need to now.</p>
+
+        <p>This is the same way I think about marketing in my actual work. Someone who read my posts initially told me that people in San Francisco love tech gossip. That one observation turned into our Sixtyfour Signals series where we use our platform's data to analyze companies and compare things like where Anthropic versus OpenAI employees went to school. Those posts average around 50k impressions each. The insight wasn't complicated. People love gossip, we have interesting data, put the two together. But the reason it works is because nobody else was doing that specific thing. That's novelty. I've noticed this pattern enough times now to trust it. You're not looking for the best version of what everyone else is doing. You're looking for the detail that's sitting right in front of you that nobody thought to lean into. For the barber it was his chef background. For us it was our data. The skill is connecting those dots.</p>
+
+        <p>He told me he worries about what people will think. I know that feeling personally. I went through the same thing when I started posting fitness and motivational content on my Instagram. I was worried people I knew would watch it and think I was being weird and some of that is real. Most people don't want to watch you do better than them. Some will find it strange. But here's what actually happens when you post anyway: the world doesn't end. Nothing bad happens. And after you do it enough times, you stop caring entirely because you realize the fear was always bigger than the reality.</p>
+
+        <p>I told him if the pressure of doing it on his existing account is too much, he can start a new one. Slightly harder to grow from zero but it removes the fear of being judged by people who already know you. Either way, the important thing is to start.</p>
+
+        <p>I also told him not to sit on this. This is the kind of idea that sounds great in conversation and then never gets executed because life gets in the way. But what he has here is rare. A built-in hook for every video, a memorable catchphrase, a visual identity that's instantly recognizable, and a real backstory that ties it all together. Most people trying to grow on social media have none of those things. He has all four from one haircut. If he commits to it and backs it up with genuinely good cuts, he could turn this into his own shop eventually. Call it Chef something. He has the foundation to build an actual brand here, not just a social media following.</p>
+
+        <p>We'll see what he does with it. But the idea is sound. Whether it’s helping a family business, for work, or a side project I love solving problems like these. I can't turn it off. I see the ingredients everywhere. I just have to cook.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>

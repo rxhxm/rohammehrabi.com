@@ -386,141 +386,9 @@ loadFile('shaders/utils.glsl').then((utils) => {
   const debug = new Debug();
 
   // ============================================
-  // FLOATING 3D OBJECTS IN THE POOL
+  // FLOATING 3D OBJECTS IN THE POOL (REMOVED)
+  // Saved in ball_context_reference.js for future reference
   // ============================================
-  
-  const poolObjects = [];
-  const objectsScene = new THREE.Scene();
-  
-  // Add strong lighting for underwater objects
-  const ambientLight = new THREE.AmbientLight(0x88ccff, 0.8); // Slight blue tint underwater
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-  directionalLight.position.set(0, 5, 0); // Light from above
-  const pointLight1 = new THREE.PointLight(0xffffff, 0.8, 5);
-  pointLight1.position.set(0, -0.5, 0); // Light inside pool
-  const pointLight2 = new THREE.PointLight(0x44aaff, 0.5, 3);
-  pointLight2.position.set(0, -0.8, 0); // Blue underwater light
-  objectsScene.add(ambientLight);
-  objectsScene.add(directionalLight);
-  objectsScene.add(pointLight1);
-  objectsScene.add(pointLight2);
-  
-  // Pool boundaries (objects stay within these)
-  const poolBounds = { minX: -0.85, maxX: 0.85, minZ: -0.85, maxZ: 0.85 };
-
-  // ============================================
-  // WATER HEIGHT READING (GPU -> CPU)
-  // ============================================
-  const waterHeightBuffer = new Float32Array(256 * 256 * 4);
-  let heightBufferReady = false;
-
-  function readWaterHeights() {
-    renderer.readRenderTargetPixels(
-      waterSimulation.texture, 0, 0, 256, 256, waterHeightBuffer
-    );
-    heightBufferReady = true;
-  }
-
-  function getWaterHeight(worldX, worldZ) {
-    if (!heightBufferReady) return 0;
-    const u = Math.max(0, Math.min(255, Math.floor((worldX * 0.5 + 0.5) * 255)));
-    const v = Math.max(0, Math.min(255, Math.floor((worldZ * 0.5 + 0.5) * 255)));
-    return waterHeightBuffer[(v * 256 + u) * 4];
-  }
-
-  function getWaterGradient(worldX, worldZ) {
-    const d = 0.02;
-    const hL = getWaterHeight(worldX - d, worldZ);
-    const hR = getWaterHeight(worldX + d, worldZ);
-    const hB = getWaterHeight(worldX, worldZ - d);
-    const hF = getWaterHeight(worldX, worldZ + d);
-    return {
-      x: (hR - hL) / (2 * d),
-      z: (hF - hB) / (2 * d)
-    };
-  }
-
-  // ============================================
-  // SURFACE FLOATING OBJECTS (ride the waves)
-  // ============================================
-  const surfaceFloaters = [];
-
-  class SurfaceFloater {
-    constructor(mesh, config = {}) {
-      this.mesh = mesh;
-      this.baseRotationX = mesh.rotation.x;
-      this.baseRotationZ = mesh.rotation.z;
-      this.heightOffset = config.heightOffset || 0.02;
-      this.waterInfluence = config.waterInfluence || 0.015;
-      this.tiltAmount = config.tiltAmount || 1.5;
-      this.spinSpeed = config.spinSpeed || 0.003;
-      this.baseDriftX = (Math.random() - 0.5) * 0.0004;
-      this.baseDriftZ = (Math.random() - 0.5) * 0.0004;
-      objectsScene.add(this.mesh);
-    }
-
-    update(time) {
-      const x = this.mesh.position.x;
-      const z = this.mesh.position.z;
-
-      const h = getWaterHeight(x, z);
-      this.mesh.position.y = h + this.heightOffset;
-
-      const grad = getWaterGradient(x, z);
-
-      this.mesh.position.x += grad.x * this.waterInfluence + this.baseDriftX;
-      this.mesh.position.z += grad.z * this.waterInfluence + this.baseDriftZ;
-
-      this.mesh.rotation.x = this.baseRotationX + (-grad.z * this.tiltAmount);
-      this.mesh.rotation.z = this.baseRotationZ + (grad.x * this.tiltAmount);
-      this.mesh.rotation.y += this.spinSpeed;
-
-      const margin = 0.05;
-      if (this.mesh.position.x < poolBounds.minX + margin) {
-        this.mesh.position.x = poolBounds.minX + margin;
-        this.baseDriftX = Math.abs(this.baseDriftX);
-      }
-      if (this.mesh.position.x > poolBounds.maxX - margin) {
-        this.mesh.position.x = poolBounds.maxX - margin;
-        this.baseDriftX = -Math.abs(this.baseDriftX);
-      }
-      if (this.mesh.position.z < poolBounds.minZ + margin) {
-        this.mesh.position.z = poolBounds.minZ + margin;
-        this.baseDriftZ = Math.abs(this.baseDriftZ);
-      }
-      if (this.mesh.position.z > poolBounds.maxZ - margin) {
-        this.mesh.position.z = poolBounds.maxZ - margin;
-        this.baseDriftZ = -Math.abs(this.baseDriftZ);
-      }
-    }
-  }
-
-  function createSurfaceFloaters() {
-    const discColors = [0xff3333, 0x33ff99, 0xffcc00, 0xff66cc, 0x3399ff];
-    for (let i = 0; i < 5; i++) {
-      const geo = new THREE.CircleGeometry(0.07 + Math.random() * 0.04, 24);
-      const mat = new THREE.MeshBasicMaterial({
-        color: discColors[i],
-        side: THREE.DoubleSide,
-      });
-      const disc = new THREE.Mesh(geo, mat);
-      disc.rotation.x = -Math.PI / 2;
-      disc.position.set(
-        (Math.random() - 0.5) * 1.4,
-        0,
-        (Math.random() - 0.5) * 1.4
-      );
-      surfaceFloaters.push(new SurfaceFloater(disc, {
-        heightOffset: 0.02,
-        waterInfluence: 0.02,
-        tiltAmount: 1.5,
-        spinSpeed: 0.002 + Math.random() * 0.003,
-      }));
-    }
-
-  }
-
-  createSurfaceFloaters();
 
   // Tunable parameters (driven by GUI)
   const params = {
@@ -562,12 +430,23 @@ loadFile('shaders/utils.glsl').then((utils) => {
     caustics.update(renderer, waterTexture);
     const causticsTexture = caustics.texture.texture;
 
+    // Read water heights from GPU for surface floaters (REMOVED)
+    // readWaterHeights();
+
+    // Update floaters physics (REMOVED)
+    // for (let floater of surfaceFloaters) {
+    //   floater.update(animationTime);
+    // }
+
     renderer.setRenderTarget(null);
     renderer.setClearColor(black, 1);
     renderer.clear();
 
     pool.draw(renderer, waterTexture, causticsTexture);
     water.draw(renderer, waterTexture, causticsTexture);
+
+    // Draw the 3D objects over the water (REMOVED)
+    // renderer.render(objectsScene, camera);
 
     window.requestAnimationFrame(animate);
   }
