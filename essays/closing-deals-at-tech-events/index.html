@@ -38,11 +38,11 @@
         padding: 0;
         box-sizing: border-box;
       }
+      html, body { min-height: 100%; height: 100%; }
       body {
         background: #000;
         color: #fff;
         font-family: 'Manrope', sans-serif;
-        min-height: 100vh;
       }
       #canvas {
         position: fixed;
@@ -57,11 +57,13 @@
         position: relative;
         z-index: 1;
         background: rgba(0, 0, 0, 0.94);
-        min-height: 100vh;
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
       }
 
       header {
-        background: transparent;
+        background: #000;
         position: sticky;
         top: 0;
         z-index: 2;
@@ -114,7 +116,7 @@
         margin: 0 auto;
         padding: 60px 36px 120px;
         background: transparent;
-        min-height: 100vh;
+        min-height: 100%;
       }
 
       .essay-date {
@@ -192,7 +194,7 @@
     </header>
 
     <main>
-      <div class="essay-date">Jan 2026</div>
+      <div class="essay-date">February 26, 2026 &nbsp;&middot;&nbsp; 5 min read</div>
       <h1>Working the Room</h1>
 
       <div class="essay-body">
