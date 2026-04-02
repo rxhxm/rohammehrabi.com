@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Running the Floor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How to run the floor at conferences and book meetings on the spot.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/running-the-floor">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Running the Floor">
+    <meta property="og:description" content="How to run the floor at conferences and book meetings on the spot.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/running-the-floor">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Running the Floor">
+    <meta name="twitter:description" content="How to run the floor at conferences and book meetings on the spot.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Manrope', sans-serif;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+      }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+        min-height: 100%;
+      }
+
+      .essay-date {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 48px;
+      }
+
+      .essay-body h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .essay-body p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">March 30, 2026 &nbsp;&middot;&nbsp; 5 min read</div>
+      <h1>Running the Floor</h1>
+
+      <div class="essay-body">
+        <p>RSA was two blocks from the office. We had just finished a sprint, I had no time to prep, and I walked in with 650 booths and a rough plan. In a few hours I had five meetings booked with ICP contacts and a couple dozen phone numbers. Here is exactly how that happened because I am running it again tomorrow.</p>
+        <p>Most conferences won't give you an attendee list but you almost always get access to speakers and booths. I pulled every booth from RSA, fed them into Claude with my ICP criteria, and had it rank the top 30 and explain why each one fit. I did this right when I arrived since we had been heads down on a sprint. From those 30 I had a company overview for each, a sense of where we could fit, and who I should actually be talking to inside each team. I opened the RSA map, marked all 30 booths, and started hitting them by area so I wasn't zigzagging across the floor.</p>
+        <p>My first instinct was to walk up, show I knew what they did, explain what we do, and pitch a partnership. I ran that at five booths. One call booked. That's a 20 percent rate on your highest-signal targets at one of the biggest security conferences of the year and something was clearly wrong. I sat down on a staircase and spent twenty minutes thinking about it. The problem was obvious once I stopped moving. I was walking into their space and immediately selling. These people are booth staff at a conference. Their entire job that week is to pitch visitors. I was just another person they had to process. I was in their frame, not mine, and to change that I needed to get them talking first.</p>
+        <p>Two things changed everything after that. The first was questions before pitching. I had Claude generate a set of questions tailored to each company that would naturally surface the problem we solve. For a security company I might open with something like: how are you pulling intelligence on threat actors right now, is that databases you're querying or something more agentic? That question does a few things at once. It shows familiarity with their world, it gets them explaining their workflow, and it leads directly to the gap we fill without me ever announcing I'm selling. By the time I describe what we do they have already told me why they need it. The second thing was stopping approaching the wrong person. Every booth has marketing staff whose job is to manage foot traffic. Instead of trying to get past them on my own I'd walk up, introduce myself, explain who I was looking for and roughly why, and ask if they could point me to the right person or introduce me. Half the time they'd walk me over themselves. That handoff is warmer than any cold approach because now I'm someone their colleague vouched for.</p>
+        <p>Once I was talking to the right person my opener was word for word: my team told me to come talk to you, I've heard great things, what do you guys do? I already knew exactly what they did. The point is to give them the floor. It never got questioned because it's their job to be there and talk to people. From there the conversation goes where it naturally goes. I listen for the use case, find the overlap, and let the idea of working together come up as something we arrived at together rather than something I was trying to sell them.</p>
+        <p>Once the conversation is going well there are four things I do in order. First, nail down the actual use case and make sure there's a real fit. If there isn't one, move. Second, get their personal number. Never LinkedIn, never a badge scan. LinkedIn disappears into a flood of connection requests after the conference. When someone hesitates I ask when they're headed back home and say we should grab a drink before then. Even if that doesn't happen it usually gets the first text started, which is all you need. Third, book a time on the calendar while you're standing there. If they're too busy, push it two weeks out. If they hesitate, say let's make it tentative and I'll send resources ahead of time. Having something tentative is infinitely better than having nothing because their inbox after three days at RSA will be flooded and you will look identical to fifty other follow-up emails. Fourth, take a picture. This sounds odd and it works. Booth staff talk to hundreds of people over three days and you will blur together. A photo keeps you specific. I send it to them that night as the first text, which gives me a natural opener and locks in your face. When they see you on the call a week later you are not starting from scratch. My phone is full of these. One came up with a prospect who became a customer months after an event. I pulled it up at the table and said this is the first day we met and we had a laugh about it. The photo was still doing work.</p>
+        <p>After I have the number and a time I stay in the conversation as long as it's useful. Every extra minute builds more of what they'll remember when the RSA noise settles. If I can't get a meeting I come back later. Booth teams rotate throughout the day and two or three hours later there's often a different person at that same space, and you get a clean start with someone who might connect better. If the most relevant contact isn't available I'll get a meeting with anyone else at that company who will take one. Even if that person isn't the buyer they can connect you internally and you arrive warm instead of cold.</p>
+        <p>The bars near the conference are worth your time. I did this after a Sculpt event and I'm still in active conversations with founders I met that night months later. People are off duty, guards are down, and the conversations are more genuine than anything happening at a booth. If you spend three days at a conference and skip the nights you are leaving real value behind.</p>
+        <p>After each conversation, before the next one, I write down who I spoke to and where it landed. Rejection, contact info, calendar booked. Notes app, reviewed when I'm sending follow-ups that night. You will forget otherwise. The conversations stack fast and they blur. Tracking also shows you what's converting. If you're getting contacts but no calendar time you know exactly where the approach is breaking.</p>
+        <p>From noon to 5 on the first day, running the rebuilt version of this, I walked out with five booked calls and a couple doezen phone numbers. If I had run all three days plus the evenings I would have filled the top of the funnel more than I could manage. Whenever pipeline is thin the answer is to go to a conference and run this. I'm doing it again tomorrow for another event.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
