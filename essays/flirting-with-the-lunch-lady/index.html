@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Flirting with the Lunch Lady</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How to get more than the standard portion by talking to the person, not the system.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/flirting-with-the-lunch-lady">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Flirting with the Lunch Lady">
+    <meta property="og:description" content="How to get more than the standard portion by talking to the person, not the system.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/flirting-with-the-lunch-lady">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Flirting with the Lunch Lady">
+    <meta name="twitter:description" content="How to get more than the standard portion by talking to the person, not the system.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Manrope', sans-serif;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+      }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+        min-height: 100%;
+      }
+
+      .essay-date {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 48px;
+      }
+
+      .essay-body h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .essay-body p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">March 31, 2026 &nbsp;&middot;&nbsp; 3 min read</div>
+      <h1>Flirting with the Lunch Lady</h1>
+
+      <div class="essay-body">
+        <p>I used to be a very skinny kid. Somewhere in middle school that became unacceptable to me and I started bulking hard, which meant I needed more food than the school was willing to give me. The lunch lady was one of my first sales targets and I got very good at her.</p>
+        
+        <p>Her name was Aireen. I know that because I asked. The moment I used her name in a sentence her demeanor would change towards me, not dramatically, but noticeably. Most kids treated her like a vending machine. I would open with something close enough to genuine, a compliment on her shirt, asking how she was doing, using her name when I did it.</p>
+        
+        <p>The lunch line moves fast because that's what the job demands and when someone disrupts that rhythm it pulls them out of autopilot. So when she asked what I wanted I would pause for four or five seconds, looking at the food like I was genuinely deciding. This would initially frustrate them. But I figured this out through testing. What it does is break her cadence and bring her into mine. Now we are operating at my speed, not hers, and she is paying attention to me specifically rather than just processing another tray.</p>
+        
+        <p>From there I would say I was extremely hungry and prepare her by saying "we're going to make a really big bowl together, alright?" and I would show her with my hands exactly how big, holding them apart like I was describing a fish I caught. The ask was always light, always with eye contact, never demanding, and always playful.</p>
+        
+        <p>Then once she did I would ask for just a little more. And when she gave me that I would say something like I really appreciate you, thank you for always being so kind to me. A token of appreciation out of the norm that she hears a thousand times a day. People want to feel like the generosity they showed was worth it and it would be a reward system.</p>
+        
+        <p>I still do this at Chipotle when I'm getting lunch with the team. I run the whole setup on the first scoop, the compliment, the pause, the hungry ask with the hands, and they give me the maximum amount for a single portion. Then I ask them to double it. They have to match what they already gave me because that is now the baseline. Nobody pushes back because they set the number.</p>
+        
+        <p>At the airport recently I tried something different. After they handed me my portion I looked at it and asked if that was the regular portion size. They always say yes. I said oh I'm sorry, I must have misunderstood, I thought the portion was going to be bigger. They explain that no, this is correct, this is what everyone gets. I say okay, that makes sense, and then I lean in slightly and ask in almost a whisper like it's me and them in our own world and ask if there's any way they could give me a little more anyway and make eye contact. Something about that sequence works every time. They never want to let someone who took it well walk away empty. I come up with these on the spot when I see an opening.</p>
+        
+        <p>The through line in all of these is that these people have nothing to lose by giving you more food. Reciprocity is not a trick. It is just how people work. The times this has failed I was not yet good at reading the room or I had not built enough warmth before asking. It almost never fails now.</p>
+        
+        <p>I think about this the same way I think about everything where you are trying to get something from a system. The system has rules and the people running it have discretion, incentives, and a pattern interrupt goes a long way. Most people only work with the rules but I always go talk to the person and not the rule. I talk to Aireen and not the lunch lady.</p>
+        
+        <p>Aireen never said no to me. Not once.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
