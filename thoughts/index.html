@@ -111,7 +111,7 @@
       }
 
       main {
-        max-width: 680px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 60px 36px 120px;
         background: transparent;
@@ -128,25 +128,30 @@
         margin-bottom: 48px;
       }
 
-      .entry-list {
-        list-style: none;
+      .thoughts-container {
+        position: relative;
+        min-height: 600px;
+        width: 100%;
       }
-      .entry-list li {
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-      }
-      .entry-list li:last-child {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
+
       .thought-item {
-        padding: 32px 0;
+        position: absolute;
+        max-width: 300px;
+        padding: 20px;
+        transition: transform 0.3s ease;
       }
+
+      .thought-item:hover {
+        transform: scale(1.02);
+      }
+
       .thought-item p {
         font-family: 'Syne', sans-serif;
         font-size: 24px;
         font-weight: 500;
-        line-height: 1.4;
+        line-height: 1.3;
         letter-spacing: -0.01em;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(255, 255, 255, 0.85);
       }
     </style>
 
@@ -172,18 +177,14 @@
     <main>
       <h1>THOUGHTS</h1>
 
-      <ul class="entry-list">
-        <li>
-          <div class="thought-item">
-            <p>You become by already being.</p>
-          </div>
-        </li>
-        <li>
-          <div class="thought-item">
-            <p>Don't let perfect be the enemy of progress.</p>
-          </div>
-        </li>
-      </ul>
+      <div class="thoughts-container">
+        <div class="thought-item" style="top: 50px; left: 10%;">
+          <p>You become by already being</p>
+        </div>
+        <div class="thought-item" style="top: 250px; left: 55%;">
+          <p>Don't let perfect be the enemy of progress</p>
+        </div>
+      </div>
     </main>
     </div>
 
