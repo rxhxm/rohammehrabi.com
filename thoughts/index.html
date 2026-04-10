@@ -36,11 +36,12 @@
         padding: 0;
         box-sizing: border-box;
       }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
       body {
         background: #000;
         color: #fff;
         font-family: 'Manrope', sans-serif;
-        min-height: 100vh;
       }
       #canvas {
         position: fixed;
@@ -55,6 +56,9 @@
         position: relative;
         z-index: 1;
         background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
       }
 
       header {
@@ -111,7 +115,7 @@
         margin: 0 auto;
         padding: 60px 36px 120px;
         background: transparent;
-        min-height: 100vh;
+        min-height: 100%;
       }
 
       h1 {
@@ -133,66 +137,16 @@
       .entry-list li:last-child {
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
-      .entry-list a {
-        display: block;
-        padding: 20px 0;
-        text-decoration: none;
+      .thought-item {
+        padding: 32px 0;
       }
-      .entry-list a .entry-title {
-        transition: color 0.3s ease;
-      }
-      .entry-list a:hover .entry-title {
-        color: rgba(255, 255, 255, 1);
-      }
-      .entry-title {
+      .thought-item p {
         font-family: 'Syne', sans-serif;
-        font-size: 22px;
-        font-weight: 600;
-        letter-spacing: -0.02em;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.4;
+        letter-spacing: -0.01em;
         color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 4px;
-      }
-      .entry-date {
-        font-family: 'Manrope', sans-serif;
-        font-size: 13px;
-        font-weight: 400;
-        letter-spacing: 0.1em;
-        color: rgba(255, 255, 255, 0.3);
-        text-transform: uppercase;
-      }
-      .date-heading {
-        font-family: 'Oswald', sans-serif;
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0.2em;
-        color: rgba(255, 255, 255, 0.3);
-        text-transform: uppercase;
-        margin-bottom: 24px;
-      }
-
-      .thought {
-        margin-bottom: 48px;
-      }
-      .thought-date {
-        font-family: 'Manrope', sans-serif;
-        font-size: 13px;
-        font-weight: 400;
-        letter-spacing: 0.1em;
-        color: rgba(255, 255, 255, 0.25);
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-      .thought p {
-        font-family: 'Manrope', sans-serif;
-        font-size: 17px;
-        font-weight: 400;
-        line-height: 1.7;
-        color: rgba(255, 255, 255, 0.75);
-      }
-      .thought-divider {
-        border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
-        margin: 48px 0;
       }
     </style>
 
@@ -218,31 +172,18 @@
     <main>
       <h1>THOUGHTS</h1>
 
-      <div class="thought">
-        <div class="thought-date">March 31, 2026</div>
-        <p>I think about this the same way I think about everything where you are trying to get something from a system. The system has rules and the people running it have discretion, incentives, and a pattern interrupt goes a long way. Most people only work with the rules but I always go talk to the person and not the rule. I talk to Aireen and not the lunch lady.</p>
-      </div>
-
-      <hr class="thought-divider">
-
-      <div class="thought">
-        <div class="thought-date">March 30, 2026</div>
-        <p>After each conversation, before the next one, I write down who I spoke to and where it landed. Rejection, contact info, calendar booked. Notes app, reviewed when I'm sending follow-ups that night. You will forget otherwise. The conversations stack fast and they blur. Tracking also shows you what's converting. If you're getting contacts but no calendar time you know exactly where the approach is breaking.</p>
-      </div>
-
-      <hr class="thought-divider">
-
-      <div class="thought">
-        <div class="thought-date">February 26, 2026</div>
-        <p>The person working the room, high energy, bouncing between groups, is almost never the one with budget or authority. Being a great socializer and being a great customer are unrelated. The conversations that led somewhere for me were with more senior folks standing off to the side, on their phone, or talking to one person.</p>
-      </div>
-
-      <hr class="thought-divider">
-
-      <div class="thought">
-        <div class="thought-date">Jan 29, 2026</div>
-        <p>Don't do anything negative over email. If you have something critical to say, pick up the phone or say it face to face. Email strips tone, strips context, strips humanity. The words sit there forever, re-read in the worst possible voice. A two-minute conversation resolves what a twenty-email thread never will. Written negativity compounds. Spoken words can be softened, clarified, walked back in real time. The convenience of email is exactly what makes it dangerous for hard conversations — it lets you hide behind a screen while lobbing grenades into someone's inbox.</p>
-      </div>
+      <ul class="entry-list">
+        <li>
+          <div class="thought-item">
+            <p>You become by already being.</p>
+          </div>
+        </li>
+        <li>
+          <div class="thought-item">
+            <p>Don't let perfect be the enemy of progress.</p>
+          </div>
+        </li>
+      </ul>
     </main>
     </div>
 
