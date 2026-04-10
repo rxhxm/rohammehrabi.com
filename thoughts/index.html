@@ -54,16 +54,15 @@
       .page-content {
         position: relative;
         z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
       }
 
       header {
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background: #000;
         position: sticky;
-        top: 0;
+        top: -3px;
         z-index: 2;
-        padding: 32px 36px;
+        padding: 35px 36px 32px 36px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -74,10 +73,10 @@
         gap: 8px;
       }
       header nav a {
-        font-family: 'Manrope', sans-serif;
-        font-size: 13px;
+        font-family: 'Syne', sans-serif;
+        font-size: 16px;
         font-weight: 500;
-        letter-spacing: 0.05em;
+        letter-spacing: -0.01em;
         color: rgba(255, 255, 255, 0.45);
         text-transform: lowercase;
         text-decoration: none;
@@ -91,7 +90,7 @@
       }
       header nav .sep {
         color: rgba(255, 255, 255, 0.2);
-        font-size: 13px;
+        font-size: 16px;
       }
       .home-link {
         font-family: 'Syne', sans-serif;
@@ -111,9 +110,7 @@
         max-width: 680px;
         margin: 0 auto;
         padding: 60px 36px 120px;
-        background: rgba(0, 0, 0, 0.55);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: transparent;
         min-height: 100vh;
       }
 
@@ -220,6 +217,27 @@
 
     <main>
       <h1>THOUGHTS</h1>
+
+      <div class="thought">
+        <div class="thought-date">March 31, 2026</div>
+        <p>I think about this the same way I think about everything where you are trying to get something from a system. The system has rules and the people running it have discretion, incentives, and a pattern interrupt goes a long way. Most people only work with the rules but I always go talk to the person and not the rule. I talk to Aireen and not the lunch lady.</p>
+      </div>
+
+      <hr class="thought-divider">
+
+      <div class="thought">
+        <div class="thought-date">March 30, 2026</div>
+        <p>After each conversation, before the next one, I write down who I spoke to and where it landed. Rejection, contact info, calendar booked. Notes app, reviewed when I'm sending follow-ups that night. You will forget otherwise. The conversations stack fast and they blur. Tracking also shows you what's converting. If you're getting contacts but no calendar time you know exactly where the approach is breaking.</p>
+      </div>
+
+      <hr class="thought-divider">
+
+      <div class="thought">
+        <div class="thought-date">February 26, 2026</div>
+        <p>The person working the room, high energy, bouncing between groups, is almost never the one with budget or authority. Being a great socializer and being a great customer are unrelated. The conversations that led somewhere for me were with more senior folks standing off to the side, on their phone, or talking to one person.</p>
+      </div>
+
+      <hr class="thought-divider">
 
       <div class="thought">
         <div class="thought-date">Jan 29, 2026</div>
