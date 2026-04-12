@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Making People Ask for Things in Front of Everyone They Know</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How we used viral LinkedIn giveaways to drive 500k monthly views and close massive deals.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/making-people-ask-for-things">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Making People Ask for Things in Front of Everyone They Know">
+    <meta property="og:description" content="How we used viral LinkedIn giveaways to drive 500k monthly views and close massive deals.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/making-people-ask-for-things">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Making People Ask for Things in Front of Everyone They Know">
+    <meta name="twitter:description" content="How we used viral LinkedIn giveaways to drive 500k monthly views and close massive deals.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Manrope', sans-serif;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Syne', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+      }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+        min-height: 100%;
+      }
+
+      .essay-date {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 48px;
+      }
+
+      .essay-body h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .essay-body p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">April 1, 2026 &nbsp;&middot;&nbsp; 4 min read</div>
+      <h1>Making People Ask for Things in Front of Everyone They Know</h1>
+
+      <div class="essay-body">
+        <p>When I joined the company my CEO had ~3000 followers, my COO had ~2500, and I had ~1200. Eight months later my CEO has 9k, my COO has 11k, and I have 7k. Across 172 posts we have done 4 million views, 13k likes, and 1.4k clicks. That is about 500k views a month, 17k a day, 21 posts a month.</p>
+        <p>A good chunk of San Francisco has seen or at least heard of us through the content. CEOs of Series B and C companies have commented on our posts to claim what we were giving away. One of those comments turned into a half million dollar deal. This is one of the systems I came up with and I want to document it.</p>
+        <p>The mechanic is simple and you have probably seen it everywhere. Comment X to get Y. The idea is that you give something valuable enough that people will publicly engage to claim it, and that engagement pushes the post to more people in a recursive loop until it goes viral.</p>
+        <p>The platform rewards engagement velocity. The more people who comment in the first hour, the more LinkedIn surfaces it to others, which brings more comments, which surfaces it further. You are engineering a signal. Algorithm hacking.</p>
+        <p>The first line is everything. On LinkedIn you only see the first line before the "see more" cutoff and it has to do all the work. I found 90 to 110 characters is the sweet spot. Use simple present language and tell them exactly what they are getting and exactly how to get it. Not teased, not implied. Flat out. "I am giving away X to everyone who comments Y."</p>
+        <p>Right after that, you mention they have to follow you in order for you to be able to share the resource and make sure they engage/like your post as well to push it even more. Mentioning that people that repost get priority is a method I have seen people apply here as well but I haven't tried it personally.</p>
+        <p>In the middle of the post you describe what they are getting, make it sound as valuable as possible, and create a lot urgency. Something like comment before everyone gets access or this isn't something that comes around.</p>
+        <p>Then for the thumbnail, use big bold text on a colorful background. Not subtle. A massive banner. The ones that absolutely blew up for us had things like YC companies hiring in large white text on an orange background with our logo at the bottom. People stop for those because it's hard to not read.</p>
+        <p>The key is targeting the right resource to the right audience. If you give recruiters the best engineering talent dataset in SF they will comment. They will do it publicly, and when they do LinkedIn tells everyone they know. Their college roommates, their former managers, their current colleagues all see that this person commented on your post asking for a dataset. They do it anyway because they want it that badly.</p>
+        <p>That tells you something about how good the resource has to be. It has to be something your target customer would go out of their way to claim in front of everyone. When we were targeting recruiters we would drop candidate datasets and the entire market would show up. If you get this right you will have your entire market self-selecting into your inbox.</p>
+        <p>Once they comment, respond in batches every twenty minutes in the first 3-4 hours. LinkedIn is watching how fast engagement compounds and you want to keep feeding it.</p>
+        <p>When you send someone the resource in their DMs, respond in the comment thread after, something generated by an LLM, asking if they received it in their DMs. They always say yes and say thank you. That reply counts as engagement on the post and also shows other people in the comments that real humans are receiving real things and makes more people want to comment.</p>
+        <p>If someone thanks you in DMs you respond with a template asking them to say so in the comments and out of reciprocity they always do. You also keep the comment thread alive by asking people what they plan to do with the resource, whether they have tried something like this before, when they plan to use it. Every reply is more signal to the algorithm to blow up.</p>
+        <p>After you send someone the resource you can ask them why they wanted it. You send it to everyone but for the ones you can sell to, you ask what they are working on. They tell you. Then you say you can build them something much more specific. I used to say this is a very general dataset, I can curate this so it is exactly what you need, and that would get them on a meeting.</p>
+        <p>The reciprocity dynamic also makes them more likely to respond to outreach after you have given them something. Even if it's months after. You have already done something for them and now you are asking for twenty minutes. That is a much easier yes than cold.</p>
+        <p>The biggest deal we closed through this started with a recruiter commenting on a candidate dataset post. I had already given him a resource once before. When I reached out he responded. We got on a call to sell him more of what he had already gotten a taste of and somewhere in that conversation our teams discovered a completely different use case. That turned into a half million dollar deal.</p>
+        <p>We also ran a different version of this to hire people. I would post that we had hired a few people using this method recently and we were looking for operators or engineers, and that we would be enriching everyone who commented. We would scrape the comments, run them through our own platform, and out of maybe a thousand comments find thirty or forty genuinely strong candidates who had already raised their hand.</p>
+        <p>It did two things at once. It surfaced real candidates who had already signaled interest and it showed everyone watching that we research people at scale. A hiring post that demonstrates your product while it recruits.</p>
+        <p>If you get people to comment their email you can pull them into an outbound sequence later since LinkedIn will eventually limit how many DMs you can send.</p>
+        <p>Be very careful about optimizing for vanity metrics. If you attract a flood of followers who will never buy from you, LinkedIn starts showing your next post to that same audience. They don't engage, the algorithm reads that as low interest content, and your future posts get buried.</p>
+        <p>I have managed accounts that never recovered from this. The wrong follower base nerfs you permanently and removing followers signals bad account health and is so tedious it is not worth doing. Every lead magnet needs to be targeted enough that the people commenting are people you would actually want in your pipeline. Bored unemployed LinkedIn scrollers will comment on anything free. Build for buyers not for numbers.</p>
+        <p>Timing matters. Ten in the morning on weekdays PST. Tuesday, Wednesday, and Friday are the strongest. Post then, watch it in the first hour, respond fast.</p>
+        <p>To be honest our top of funnel was usually so filled that a lot of the leads this generated I could not follow up on properly because my hands were full elsewhere. Given a closing team and this technique running once a week, the top of funnel fills faster than most people can manage.</p>
+        <p>The thing that always got me was that these are real people with real networks publicly raising their hand in front of everyone they went to school with, everyone they have ever worked with, everyone who might one day hire them. And they do it anyway.</p>
+        <p>If you can build something worth that, you have built something worth selling.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
