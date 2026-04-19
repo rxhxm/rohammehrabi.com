@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Picking up strangers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How I spent a decade turning the act of approaching strangers into a science.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/picking-up-strangers">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Picking up strangers">
+    <meta property="og:description" content="How I spent a decade turning the act of approaching strangers into a science.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/picking-up-strangers">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Picking up strangers">
+    <meta name="twitter:description" content="How I spent a decade turning the act of approaching strangers into a science.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Manrope', sans-serif;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Syne', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+      }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+        min-height: 100%;
+      }
+
+      .essay-date {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 48px;
+      }
+
+      .essay-body h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .essay-body p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">April 18, 2026 &nbsp;&middot;&nbsp; 6 min read</div>
+      <h1>Picking up strangers</h1>
+
+      <div class="essay-body">
+        <p>This is an essay about how I spent a decade turning the act of approaching strangers into a science. I've done this in Japan, Dubai, the US, at conferences, at nightlife, at gyms, on the street, any place you can think of.</p>
+        <p>It started when I was 13 in Dubai when I got infected with an idea. I wanted the city to know me. Not fame exactly, more where you walk into a room and something has already preceded you.</p>
+        <p>I did not know what to call it then but I knew I wanted it badly enough that it started shaping how I moved through the world before I understood what I was doing.</p>
+        <p>Back in Dubai I would go to malls and just approach people. Not to sell anything, not with a goal. Just to talk. I made it a rule. Ten people a day, carry the conversation as long as possible. I was 13 doing this.</p>
+        <p>When I moved to the US at 18, I did not know a single person. Within my first three days I went to a mall and sat down next to a young guy eating alone. He had a nice suit on. I asked if I could join him.</p>
+        <p>That conversation led to him telling me about solar sales, how much the reps made, and what the work actually looked like. That was how I met my good friend Ruben and how I got my entire start in sales.</p>
+        <p>A stranger eating lunch in a mall became the first chapter of everything I have built since. I did not plan that again, I just walked up.</p>
+        <p>That story set the tone for everything that followed. I started door knocking for solar between 100-150 doors a day. After work I would go to the jacuzzi at 24 Hour Fitness and keep selling.</p>
+        <p>When I wasn’t selling, I would hit up malls, gyms, parks, anywhere people were. The rule stayed the same. Ten people a day, minimum to speak to.</p>
+        <p>By the time I got to UCSD the number was not ten anymore. It was fifty, sometimes a hundred people in a day. I was training. UCSD is split into different colleges and my opener became simple: hey, are you guys from Marshall College? The opener does not have to be clever. It just has to be a question they can easily answer. If they say no, you ask where they are from and go from there. If they say yes, you ask what is worth knowing, tell them you just moved here.</p>
+        <p>Weaponized ignorance. You are not performing confusion, you are removing any reason for them to feel defensive. You walked up needing something minor from them and that changes the entire energy of what follows.</p>
+        <p>The more I did this the more I learned what was actually happening underneath a good approach. The goal is never to be interesting. It is to be interested. The more you ask about them, the more they talk about what they love and what they care about, the more interesting you become to them.</p>
+        <p>You are courting their attention by giving yours away first. You pull them into their own world and position yourself to then pull them into yours. There is a version of this that is pure technique and a version that is genuine curiosity. The genuine version works better because people are more fascinated with you when you ask the right questions, which is an art by itself.</p>
+        <p>What I am always looking for inside a conversation is a point of overlap. Something we are both standing inside of together. Both at the same event, both from the same place, both into the same thing. Once you find it you go deep on it. Not exclusively, you come in and out of it and other topics to keep it interesting, but it becomes the anchor. A useful test: if you had to text them tomorrow about one thing from this conversation to make them remember you, what would it be? Whatever that is, that is the thread you want to pull on.</p>
+        <p>The physical side of this matters too. I am 6'3 and I work out, which means walking up to someone at night has a natural tension to it. What I figured out is what I call the waiter voice. Instead of my natural register I make my voice a little more playful, a little lighter, a little more like someone who is seeking help rather than someone who showed up with an agenda.</p>
+        <p>I smile and laugh. Smiling is not decoration, it transfers energy directly and the person in front of you picks it up before they have processed anything you said. Between the voice, the smile, and the fact that I am leading with a question, the opening almost always lands.</p>
+        <p>One time I used the are you from around here opener and someone said “can't you see I am on the phone”. After thousands of approaches I only remember this one. It stung for a second. But the way someone responds to a polite question from a stranger says a lot more about them than it does about you. Any decent normal person does not behave that way.</p>
+        <p>One of the things that changed my conversion rate at bigger venues was the group approach. I did this in Washington DC. You never want to be the lone person approaching groups cold. What I do instead is find the warmest group in the room, usually the guys on the dance floor who are clearly having a great time, and go there first. You crack a few jokes, you get into their energy, and now you are with a group. The entire dynamic of the room shifts when you are no longer alone. From that baseline you can approach anyone and the social proof is already there.</p>
+        <p>Once a connection is made there is one thing that matters more than most people think. Instagram over phone numbers, almost always for making freinds. A phone number gets buried in a backlog of contacts and you never reach out and neither do they. Instagram keeps you in each other's periphery for years without requiring active maintenance. Phone numbers are better for business and romance. For everyone else, Instagram is a much longer thread.</p>
+        <p>All of this compounds in ways that are hard to describe until you have felt it. The SEALs have a saying that under pressure you do not rise to the occasion, you fall to the level of your training. When the moment comes where you really need to sell someone, or you really want to make a connection with someone who matters, you will not perform at your best. You will perform at the level of your systems. This is why the reps matter.</p>
+        <p>And the reps taught me something beyond just opening conversations, which is how to guide them. Every conversation has a direction and most people just let it drift. After enough practice you learn how to steer it gently toward whatever you are actually there for, a sale, a friendship, a connection, without it ever feeling forced.</p>
+        <p>One thing I started doing to sharpen this further is recording myself after a run where I was on fire, when a specific line worked and the energy in the conversation was exactly right. I go back and listen to the tone, the pacing, the way I was saying things. When I need to tap into that mode again I play it back. You can return to a version of yourself if you have documented it.</p>
+        <p>The proof that the skill transfers is everywhere once you are looking for it. When I was interviewing for sales roles at companies like Aflac, I mentioned I spent my free time approaching strangers in cities I had never been to. The interviewer gave me an offer on the spot. When I first joined Sixtyfour, Chris told me to go to an event and close someone. He told me to approach it the exact same way I approach anyone on the street. It clicked instantly and I brought a Series B company into our pipeline.</p>
+        <p>The question at the event was as simple as how has the event been for you so far. The skill is the same whether you are in a mall or a startup event in San Francisco.</p>
+        <p>Every time you limit yourself to existing circles you are cutting off the version of your life that was waiting on the other side of a stranger.</p>
+        <p>There was a 13-year-old in a mall in Dubai who just wanted everyone to know him. He did not know what conversion rates were or what weaponized ignorance meant or how to modulate his voice to bring someone's guard down.</p>
+        <p>He just walked up to strangers because something in him knew that the world was bigger than the people he had already met.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
