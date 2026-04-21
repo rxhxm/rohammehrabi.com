@@ -162,6 +162,33 @@
         margin-top: 12px;
         display: block;
       }
+
+      @media (max-width: 768px) {
+        .thoughts-container {
+          min-height: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 60px;
+          padding-top: 20px;
+        }
+        .thought-item {
+          position: relative !important;
+          top: auto !important;
+          left: auto !important;
+          max-width: 85% !important;
+          padding: 0 10px;
+        }
+        .thought-item:nth-child(odd) {
+          align-self: flex-start;
+        }
+        .thought-item:nth-child(even) {
+          align-self: flex-end;
+          text-align: right;
+        }
+        .thought-item p {
+          font-size: 20px;
+        }
+      }
     </style>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
