@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Most Dangerous Amount of Knowledge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is an essay about what happens when someone learns everything about something they have never actually done.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/the-most-dangerous-amount-of-knowledge">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Most Dangerous Amount of Knowledge">
+    <meta property="og:description" content="This is an essay about what happens when someone learns everything about something they have never actually done.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/the-most-dangerous-amount-of-knowledge">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="The Most Dangerous Amount of Knowledge">
+    <meta name="twitter:description" content="This is an essay about what happens when someone learns everything about something they have never actually done.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Manrope', sans-serif;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Syne', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+      }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+        min-height: 100%;
+      }
+
+      .essay-date {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 48px;
+      }
+
+      .essay-body h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .essay-body p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">April 20, 2026 &nbsp;&middot;&nbsp; 3 min read</div>
+      <h1>The Most Dangerous Amount of Knowledge</h1>
+
+      <div class="essay-body">
+        <p>This is an essay about what happens when someone learns everything about something they have never actually done.</p>
+        <p>I introduced two friends recently. One of them had just raised a Series A, had 15 people, and was selling in the easiest way possible. The other had spent years consuming every piece of sales content he could find.</p>
+        <p>The interview started fine. My friend that was getting interviewed was asking good questions about the business. But somewhere in the middle he started asking about offer stacks, down sells, upsells, and payment plans. The founder paused and said something like that's a really bad framework for this business. My friend kept going. He asked about money models, about whether they had a sales script, about role playing. The founder answered politely and moved on.</p>
+        <p>Imagine someone who has read every cooking blog and watched every Gordon Ramsay video walks into a Michelin-starred kitchen and starts quizzing the head chef on their sear technique and why they are not using sous vide. The chef does not think you are sophisticated. They think you have never actually cooked anything.</p>
+        <p>My friend had done everything right by one definition of right. He knew what an offer stack was. He could talk about quantifying the cost of inaction. He had genuinely put in the work to learn selling concepts. The problem was not that he learned the wrong things. The problem was that he learned them in the wrong context.</p>
+        <p>The guy he was learning from Hormozi himself has said: you sell when you cannot market, and you market when you cannot build a great product. The companies in SF that are doing real numbers are usually not out here selling. The product is doing the work. The conversation is not about closing, it is about figuring out if there is a fit. When you come in with a heavy sales framework on top of a product that sells itself, you are not helping. You are introducing friction that was not there.</p>
+        <p>It is also worth saying something about where that content comes from. Folks like Hormozi that publish sales for the widest possible audience. The playbooks he puts out publicly have to be aggressive and transactional because that is what works for that world and that is what makes for content people will share. The one-size-fits-all version of any framework is always the most salesy version of it, because it has to work on the most people in the most contexts.</p>
+        <p>When I first moved to San Francisco I made the same mistake in my own way. The city rewards something different. Here it is coffee chats. It is showing up to the right dinners, getting introduced through the right people, having the right conversations where nobody is trying to sell anything.</p>
+        <p>The relationships come first and the business comes out of the relationships. If I had walked into my first months here the way I operated before, trying to push deals, applying high-pressure frameworks to people, I would have been done.</p>
+        <p>My friend is going to be great at this. He has instincts. He just has to figure out which room he is walking into before he starts getting carried away with theory.</p>
+        <p>Hormozi himself put it best: the messenger is inextricably linked with the message. If you haven't done the thing, no matter how well you can describe it, you don't have credibility.</p>
+        <p>You can learn every framework in existence and still walk into the wrong room and say all the wrong things. Knowledge without reps is just vocabulary. And vocabulary in the wrong room is the most dangerous amount of knowledge there is.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript" src="/index.js?v=20260229i"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
