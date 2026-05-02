@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sales Openings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A walkthrough of how I thought about openings, cold outreach, and the first contact moments.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/sales-openings-and-outreach">
+
+    <meta property="og:type" content="video.other">
+    <meta property="og:title" content="Sales Openings — Video Essay">
+    <meta property="og:description" content="A walkthrough of how I thought about openings, cold outreach, and the first contact moments.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/sales-openings-and-outreach">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Sales Openings — Video Essay">
+    <meta name="twitter:description" content="A walkthrough of how I thought about openings, cold outreach, and the first contact moments.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Manrope', sans-serif;
+      }
+      #canvas {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
+        font-family: 'Syne', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover, header nav a.active { color: rgba(255, 255, 255, 0.85); }
+      header nav .sep { color: rgba(255, 255, 255, 0.2); font-size: 16px; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover { color: #fff; }
+
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+      }
+
+      .essay-date {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .essay-date .pill {
+        display: inline-block;
+        margin-right: 12px;
+        padding: 3px 8px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 3px;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 0.18em;
+        font-size: 11px;
+      }
+
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      .video-context {
+        font-family: 'Manrope', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 32px;
+        max-width: 680px;
+      }
+
+      /* Sticky video box: stays pinned at the top of the scroll area
+         while the transcript scrolls underneath. */
+      .video-sticky-sentinel {
+        height: 1px;
+        margin-bottom: -1px;
+      }
+      .video-sticky {
+        position: sticky;
+        /* Header is sticky and ~104px tall (35 padding + ~37 nav line + 32 padding). */
+        top: 92px;
+        z-index: 5;
+        margin-bottom: 40px;
+        padding: 14px 0 18px;
+        /* Solid backdrop so transcript text scrolling behind is masked cleanly. */
+        background: rgba(0, 0, 0, 0.96);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition: padding 0.25s ease, box-shadow 0.25s ease;
+      }
+      .video-sticky.is-pinned {
+        padding: 12px 0 14px;
+        box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.85);
+      }
+      .video-shell {
+        position: relative;
+        /* Cap height so the pinned video never dominates the viewport.
+           aspect-ratio + width-cap keeps a clean 16:9 box regardless of viewport. */
+        width: min(100%, calc(56vh * 16 / 9));
+        margin: 0 auto;
+        background: #000;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 10px;
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+        box-shadow: 0 10px 30px -16px rgba(0, 0, 0, 0.7),
+                    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, max-width 0.25s ease;
+      }
+      .video-sticky.is-pinned .video-shell {
+        width: min(100%, calc(46vh * 16 / 9));
+        box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.85),
+                    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+      }
+      .video-shell video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #000;
+      }
+
+      .transcript-section {
+        margin-top: 24px;
+        max-width: 680px;
+      }
+      .transcript-label {
+        font-family: 'Syne', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .transcript-label .meta {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: none;
+      }
+      .transcript-body p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 22px;
+      }
+      .transcript-body h3 {
+        font-family: 'Syne', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.92);
+        margin-top: 40px;
+        margin-bottom: 14px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .transcript-body h3:first-child { padding-top: 0; border-top: none; margin-top: 0; }
+      .transcript-body .t-q {
+        position: relative;
+        margin-left: 18px;
+        padding-left: 18px;
+        border-left: 2px solid rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+      .transcript-body .t-q strong {
+        font-family: 'Syne', sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        display: inline-block;
+        margin-right: 8px;
+      }
+      .transcript-pending {
+        padding: 24px;
+        border: 1px dashed rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+        font-family: 'Manrope', sans-serif;
+        font-size: 15px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 56px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover { color: rgba(255, 255, 255, 0.85); }
+
+      @media (max-width: 600px) {
+        main { padding: 40px 20px 80px; }
+        h1 { font-size: 34px; }
+        .video-context { font-size: 15px; }
+        .transcript-body p { font-size: 16px; line-height: 1.75; }
+        .transcript-body .t-q { font-size: 15px; margin-left: 12px; padding-left: 14px; }
+        /* Mobile sticky: header is ~80-90px tall, scope tighter top offset and smaller cap */
+        .video-sticky { top: 76px; padding: 10px 0 12px; }
+        .video-shell { width: min(100%, calc(40vh * 16 / 9)); border-radius: 8px; }
+        .video-sticky.is-pinned .video-shell { width: min(100%, calc(34vh * 16 / 9)); }
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date"><span class="pill">VIDEO</span>49 min &nbsp;&middot;&nbsp; 2023</div>
+      <h1>Sales Openings</h1>
+      <p class="video-context">A walkthrough of how I thought about openings, cold outreach, and the first contact moments.</p>
+
+      <div class="video-sticky-sentinel" aria-hidden="true"></div>
+      <div class="video-sticky">
+        <div class="video-shell">
+          <video controls preload="metadata" playsinline poster="/essays/_video-thumb-sales-openings.jpg">
+            <source src="/videos/sales-openings-and-outreach.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="transcript-section">
+        <div class="transcript-label">Transcript</div>
+        <div class="transcript-body" id="transcript">
+          <h3>Welcome & Introduction</h3>
+          <p>Today we're going to be going over essentially the first part of what it means to do commerce, and the reason this is so important — we're going to be covering opening and outreach strategies. The reason this is so important is because whatever it is that you want to do, you will need to open. Whether you're trying to apply to college or trying to apply for a job, when it comes down to it, your process will begin with an opener.</p>
+          <p>We're going to cover everything of what it exactly means to open. And even if you do know every single thing that I'm going to mention throughout the meeting, I will assure you that you are not applying everything — because if you did, you would be the best opener out there, and you'd be making millions right now.</p>
+
+          <h3>What Is Sales?</h3>
+          <p>So to get down to the very basic aspects of it, I want to ask you a question: what do you think sales is?</p>
+          <p class="t-q"><strong>Student:</strong> I think sales is more than just bargaining. I think it's you and your client need to converge somewhere. You need to get to know them, you need to ask them questions, and not come off as desperate.</p>
+          <p>Okay. What would you say sales is?</p>
+          <p class="t-q"><strong>Student:</strong> I feel like sales would be well-defined as being able to understand your client, so in a way you'll be able to make a deal that'll make both of you guys happy at the same time — like, you know, both parties benefit. Not only just you, but you also have to give them the reason why they will benefit from this.</p>
+          <p>Good, good. That is a very solid point, which I'll get into again — the whole mutual benefit aspect of things.</p>
+
+          <h3>Three Steps of Sales</h3>
+          <p>Now, one of the things that we do — one of our codes in Rozzy — is actionable metrics. So sales is broken down into three steps, right? Three actionable steps. And most people just apply two, and it's the second two. The first three steps are: one, understand who your market is. What are you trying to do and who are you trying to sell to? Most startups, most businesses have an idea, but they don't really understand their prospect — who they're trying to sell to, why they are there in the first place, what problem are they trying to solve.</p>
+          <p>Number one is understanding who your prospect is, who you're trying to sell to. Number two is understanding the person you're selling to. Now, let's say — I'm going to be using the restaurants and cafes example throughout this meeting — we want to sell to restaurants and cafes because we're able to provide a service, because we're so right for them. Once you understand who it is, when you've opened the sales process, you need to understand what the prospect wants and needs. But more importantly, you need to realize what they <em>want</em>, because sales is an emotional process. It is not logical.</p>
+          <p>People don't buy because they need things. Chances are, in life, every single person has everything that they need — whether it's shelter, food — in terms of needs, they're covered. So you need to sell them what they <em>want</em>. And therefore it's an emotional process. Because of this, you don't need to sell what the product is — what you need to sell is the goal of the product. What are they going to be getting out of, again, your opening? What are they going to be getting out of the sale? Not what the product is and how they're going to be benefiting, but what benefits will they be reaping much later down the line? You need to instill this image in them.</p>
+          <p>So three steps: understanding your market, understanding your prospect, and then the third step is pitching your product tailored directly to their needs. Once you've understood their wants, you tailor the product — because the pitch is the same, the product doesn't change. You can change it later on, but once you're on a call, you can't really change the product. So what you need to change is your pitch and tailor it exactly to what it is that they want, or refer to how it could be helping them.</p>
+
+          <h3>Believe in the Product</h3>
+          <p>Now, there are three other things that you need to do in sales — and I'm going sales generally; we're going to get more into opening soon. The first one is a necessity: you need to use the product yourself. If you're selling something — unless in some cases it's different and you can't be using it yourself — you need to have this connection with the product that you're selling. You need to understand it, but more importantly, believe in it.</p>
+          <p>A lot of salespeople that I've seen were great salespeople, but they failed simply because they did not believe in the product they were selling, because they were not using it themselves. I was actually facing this issue as well. A while ago, I was so focused on pushing the app and marketing it out there and getting people to go on it that I was not necessarily getting involved with the app. But I saw how much that changed once I started getting involved with the product itself. So you need to be able to be connected with the product and be using it as well.</p>
+
+          <h3>The One Action in Sales</h3>
+          <p>Secondly, all sales is — and there's one action that sales is all about. What would you say is the one action you need to do in sales? There's just one simple thing you need to do, and the whole process consists of it. What would you say that is?</p>
+          <p>What would you say?</p>
+          <p class="t-q"><strong>Student:</strong> I would say it's satisfying your buyer's needs.</p>
+          <p>Yes, okay. Those are both good answers and they're a part of it, but it's not the single action. The one action consists of asking questions. That's all it is. You don't need to be informing people, you don't need to be doing anything. All you need to do throughout your whole process — the A to Z of the process — is asking questions. It's about asking questions first off to understand what they need and what they're looking for. Obviously there is some pitching involved and some informing, but then it's constantly asking to see how it applies to their case.</p>
+          <p>The reason we ask questions and try to understand the prospect is this: if they deem themselves as a person who needs this product, later on when you're able to pitch it, you're able to have them trust you through the sales process. If you're able to have them trust you, there's no way they can back out of it, because they've established this desire for the product, and if you're able to provide that for them, there's no reason to back out. So sales is a constant process of asking questions — the whole process. Even when you're closing the sale it's like, "Would this be a product that you'd be using?" It's all, like I said, a question.</p>
+
+          <h3>Sales & Dating</h3>
+          <p>Lastly, one thing that I see that is very interesting is that individuals that are very successful in their dating lives are also very good in their sales careers. The conclusion that I've come to is those two are very synonymous — in that, at the end of the day, even when you're dating, you're selling yourself. When you're in sales, you're just selling a product. How effectively you do either is kind of synonymous. You know, they can both be applied to each other. So keep that in mind.</p>
+
+          <h3>What Is Opening?</h3>
+          <p>Now, opening and outreach is today's concept. What would you say opening is — opening in terms of outreach?</p>
+          <p class="t-q"><strong>Student:</strong> At least in my experience, when it came to opening, it was like we talked about hooking them in and then giving them something that actually interests them or will give them value. But also, I think in my experience, it also meant building trust and building an actual intentional relationship with them.</p>
+          <p>Very good. Yes. All opening is is establishing that connection. Opening is not sales — you're not selling them anything. But this is the first step and this is the most important step of sales. Opening is only about establishing a connection. A lot of openers get mixed up thinking that they need to sell to them while they're opening, and the reason for this is they try to open and close and keep the customer satisfied all under the same process. But you have to realize: opening is not the sale. It's purely about establishing connection and making it memorable. In simple terms, to sum up — you're supposed to create the hook to start the sale. You haven't started the sale when you start opening. It is the hook. It's like the title of an essay — it is not the essay itself. So that's what opening is as a whole.</p>
+          <p>Again: don't try to sell to them in the opening. That is the single biggest mistake. It will feel rushed, it'll feel unsolicited, and people will get annoyed if you try to sell to them when you're opening. It's purely about establishing connection.</p>
+
+          <h3>Who Qualifies?</h3>
+          <p>Now, another very important thing is: people like to open to everyone, but it is very important to, one, understand your market, but two, understand if they qualify in the first place. This is what your opening needs to do. You need to make sure that if I'm trying to sell to this cafe, they qualify in the first place to have use of my services. So you need to set those standards up on what it is exactly that you're providing and what it is that they would be able to need from you. So make sure they qualify. Establish the connection — but before that, you need to make sure that they qualify.</p>
+          <p>Opening is the most important part of the sale. It is a job of its own. A lot of people are purely openers and they get along just fine and make a very solid living because they're so good at establishing that initial connection — but sometimes they're not so good at maintaining that connection or actually closing the sale. Opening as itself is its own profession.</p>
+
+          <h3>What Makes a Good Open?</h3>
+          <p>My question for you is: what do you think opening consists of? What are the factors that you need to do in an opening for it to be a successful entry into the sale?</p>
+          <p class="t-q"><strong>Student:</strong> I think there's definitely the fact that you need to make sure you're building a specific, particular relationship with them. But I also think you need to have clarity about yourself and your product — if you're not clear enough about what you're selling to them and what you're pitching to them, that could lead to confusion on both sides and maybe not such a good impression.</p>
+          <p>Very good. What is one other quality that you feel would lead to a successful open? Clarity is one of them — what is one other quality that you would say?</p>
+          <p class="t-q"><strong>Student:</strong> Just a personal connection between the buyer and the seller. Once you connect on that personal level, it's easier to make those business transactions run smoothly.</p>
+          <p>Okay, that's a decent one. Someone says charisma — okay, that's alright, but we're talking more like tangible metrics of what the opening needs to consist of, rather than the qualities of the opener. What would you say a solid opening consists of?</p>
+          <p class="t-q"><strong>Student:</strong> Like you said, when it comes to sales it's kind of like a relation with your customers — it needs to be a win-win for both sides. So when you're opening, I guess ideally you need to identify a market that's suitable and really wants your services as much as you want to sell it to them. Just entering the correct sector and promoting the product to the correct consumer would be an effective opening.</p>
+          <p>Yes, yes — I'd say you should do that even before the opening. Before you even start opening it's about understanding them. But what would you say is one last aspect that leads to a successful open?</p>
+          <p class="t-q"><strong>Student:</strong> Identifying the customer's needs and making sure there's a right fit between what you're selling and what the customer needs.</p>
+          <p>Very good. Okay, all very solid answers — none of them were wrong. But I'm going to give you the mandatory aspects of the opening, and I'm going to put them in order from most important to least important. This is what your hook, this is what your opening needs to consist of.</p>
+
+          <h3>The Six Qualities of an Opening</h3>
+          <p>The first quality is a hook. Nobody's trying to hear, "Hey, how are you doing today?" You don't really care. They know you don't care. They don't like to hear that. It needs to have a hook that catches their eye in the first few words. How is it different from every other DM they've ever gotten? Make sure that it has the hook. This is the most important thing. They will not read any of your messages if it doesn't have a hook. Opening is the hook of the business. If your opening doesn't have a hook, you fail. So first thing: the hook.</p>
+          <p>The second most important thing is make sure it's concise — and as one of you said, it's clear. There's clarity. It's straight to the point. They're not trying to read two paragraphs, they're not trying to read a bunch of text. They want to know exactly what it is you're providing and why you're sending them this message. Make sure that it's as short as possible. The ideal length — and I'm going to be giving you guys templates to analyze as well — but the ideal length for an opening in terms of, let's say, DMs would be three to four messages at most. A mistake that we made pretty recently is that we created a slightly long pitch, but I'll get into where that comes in as well. Make it short, concise.</p>
+          <p>The third most important thing: most sales are not closed purely because the person didn't ask to close the sale. You need to ask — there needs to be a call to action. It's like, yes, I've received this message, but what is it for? Yes, I've watched this video, but what is it for? Are you looking for followers? Are you looking for a sale? There needs to be a clear call to action — that is the third most important thing. Because if there's no call to action, what is the point of your text? They need to know what you're in it for. So there needs to be a clear call to action on what you're looking for.</p>
+          <p>The fourth most important quality is giving them a guarantee based on what you think they need. There needs to be a crazy guarantee. It's like, yes, you're telling me you can do these things, but what can you ensure? What can you 100% guarantee that I'm getting out of this? How can I trust you? It's creating that credibility, that trust. How do you create that guarantee? That is the biggest way most opens bring in leads — because of that crazy guarantee. Like, oh yeah, if these guys can give me an extra thousand dollars a month, why would I not go for them? They seem pretty reputable through their Instagram or whatever it is you're reaching out through. And again, they're guaranteeing me this, so I have to hold them up to it.</p>
+          <p>The fifth most important thing is make it personal. They want to feel special. They need to know that this message was tailored for them — that you're writing this to them specifically, not to one of the thousand people you sent a message to. Even though they might be, you want to make sure that you seem like you've done your background research and looked into them before. Make them feel special, make it personal. And I'll talk about how you have to make it even more personal as the importance of the open increases.</p>
+          <p>Sixth quality: make it different. What is your differentiating factor? If you're reaching out to businesses to sell your service, they already get all of that. You need to understand your competitors and understand what is making you different. Everyone's giving crazy guarantees, everyone has hooks, everyone has personalization — talk about your differentiating factor and how it helps their processes.</p>
+
+          <h3>No Questions, No Opening</h3>
+          <p>But most importantly — and this is the biggest thing that you need to do — you need to start off with asking them a question that they cannot refuse to answer. There is no chance that they can refuse it. Seriously, if you try to pitch to someone, chances are they're going to ignore you right off the bat. But if you're able to ask a question, understand them, and get a response from them — that should be your goal: establishing that connection. So make sure in your opening you ask a question they cannot refuse to answer.</p>
+          <p>Make it genuine. Let's use the cafes and restaurants example. I go to a restaurant called Fish Tacos Whatever and I comment, "Oh, love it." But why? That's not genuine — you can comment that on anything. As far as they're concerned, it's a bot. You have to make it genuine to a point where you're actually commenting on something you're interested in, something you genuinely like, something that you can't be using for anyone else. Make them feel like you really believe your words. And the way you do that is through specificity and actually believing what you're saying.</p>
+          <p>And another thing — when you're being genuine, don't be a yes man. Nobody wants to hear, "Yes, you're great, yes, I love this." Everyone's already doing that. Here are two things you can do to avoid that and attract their attention right off the bat. One: provide value to them — something they could be using as of now. What could they be doing right now that they could be doing better? Provide value. But the second important thing is question something — not in a very confrontational manner, but question why they do something so you're able to learn more about what they do. Make sure to challenge them a little bit, but not too much, so they don't feel attacked.</p>
+
+          <h3>Opening vs. Outreach</h3>
+          <p>Now, there are two methods of outreach and opening that we do. With your past experience, what would you say is the difference between opening and outreach?</p>
+          <p>What would you say is the difference between opening and outreach?</p>
+          <p class="t-q"><strong>Student:</strong> I would say outreach is like a spray-and-pray tactic — you're going to want to reach as many people as possible with a broad script. And then opening is like a catered line that you would open with to someone, like premeditated, basically after you've already warmed up the sale.</p>
+          <p>Good answer, very solid. But it's much simpler than that. Outreach is mostly through DMs and actual text behind a screen. Opening is usually done on calls as well as in person — that's the difference. You can open on text as well, but it's more so for in-person and actual human-to-human connections.</p>
+
+          <h3>The 3-2-1-1 System</h3>
+          <p>Now, the first aspect we'll be covering is the online — let's say the DM strategy. Cold outreach, DM outreach, whatever the outreach methods — here's what we use for Instagram. You can use this system on any other platform as well. I call this the 3-2-1-1 platform, right, and I made this myself, so I'm very proud of it.</p>
+          <p>So 3-2-1-1. You need to do three actions of one specific thing, two actions of another, and then 1-1. So I find a page — I go to a page and I want to sell them my marketing services. I need to like three of their posts that I genuinely like. Make sure that every single step we take in the 3-2-1-1, when you're liking something, make sure it is the least-liked post that you also enjoy — because you don't want to be one out of a thousand likes, you want to be one out of a hundred. Very simple. Same thing with the comments.</p>
+          <p>So you like three things on the profile. You comment on two — one of them is again being genuine and actually giving a meaningful comment, and the second one is letting them know to check their messages. Because if you are doing outreach, chances are you're reaching out to them cold and you're going to be in their requests rather than their DMs. So make sure you reach out to them — give a comment, but also let them know to check their DMs. Be like, "Hey, I have an interesting proposal, I have a question for you — would you be able to please check your DMs?" And then — so that was three likes, two comments — you do one follow, and you do one message. That's a simple ask. Those are the numbers.</p>
+
+          <h3>In-Person Opening</h3>
+          <p>Let me talk to you guys more about the in-person side of it. Obviously you're not going to be able to like and comment on people in real life, but let me talk about how that's different. In real life, your hook is the way you present yourself, the way you are addressed, and the way you speak. That is your hook. There is no message. It's purely about how you present yourself. And in terms of in-person, arguably the way you carry yourself and present yourself is much, much more important than what you are saying. You need to have both of them be great, but I've had a lot of clients sit with me on deals purely because they liked my enthusiasm — and the pitch was horrible, because the pitch was assigned to me by the business I was working with. But because of the way I carried myself, because of the way I spoke, they sat down. Because they believed in my belief in the product. You know what I mean?</p>
+          <p>So that is going to be your hook. Even on Instagram, your hook — besides just your message — is the way your profile looks. Is this a fake account? How many followers do they have? These things are checked. So make sure there's a hook before the hook, and that's what it is. Enthusiasm is very important. You need to go into every single open — and you're going to get rejected a lot, that's</p>
+
+          <h3>Enthusiasm and Assumption</h3>
+
+          <p>The whole point of it, right — the whole point of commerce — it's a numbers game. Not everyone's going to be buying what you're selling, but the whole art of it is this art over here that we're doing: how do we increase those chances as much as possible to reach 100%? Because if it was 100%, like I said, hopefully we'll get there, but 100% means we're not doing sales anymore. We're simply marketing and they're going to buy our product. Every person that we market to buys our product.</p>
+
+          <p>But you need to be enthusiastic, and therefore you need to assume. And what that means is every single call, every single open — whether in real life or messages (this is less applicable to messages because you're just literally sending out a message) — every single approach you need to take, it doesn't matter if you had a hundred failures before it. It doesn't matter if you're the worst version of yourself you could possibly be. You need to go into it assuming that you are going to open well and establish that connection.</p>
+
+          <p>If you don't assume that, if you don't have the enthusiasm — you have to know that you're going to close. Like I said, forget about your past, forget about your future. You're only there in the moment, and you need to go into it with 100% belief that you're going to do what you set out to do. And believe me, your enthusiasm and your belief in what you're doing is going to rub off on the other person. And when it rubs off, that is simply what they need. Sales is an emotional process. Your emotions will be conveyed to them, and the sales process will go so much smoother if you follow that.</p>
+
+          <h3>How Many Times to Follow Up</h3>
+
+          <p>Now, here's another thing I want to cover. We send one initial outreach message, right? Let's ask — what do you believe is the optimum number of times you need to reach out initially to be able to establish that connection? What would you say?</p>
+
+          <p class="t-q"><strong>Student:</strong> I mean, like you said, I feel like we shouldn't be too interfering with clients. You kind of want to just give them the idea, show them what you're proposing, and then just leave them and give them some time and space to think it through. So I'd say, in the first week, if you reach out to them and pitch the idea, you should give them at least a week to think it through and decide what they want to do. Then maybe after a week you can re-approach them and see where their head is at. I'd say twice — reach out twice.</p>
+
+          <p>Okay. What would you say is the optimum amount to reach out? Go ahead and send a number in the chat.</p>
+
+          <p class="t-q"><strong>Student:</strong> Ten times at least, depending on the industry.</p>
+
+          <p>Very interesting. So this question is again depending on the industry. In one case, someone in the group has been involved in real estate sales — there are so much bigger deals there than restaurants and cafes, right? And I'll talk about it more. When I first came to the U.S. I was involved in sales a lot, and I was working with a life insurance company — I don't know if you guys have heard of Aflac. I was kind of affiliated with them. Now, these guys told me most of the sales they close is after the fifth time they have reached out. As annoying as it sounds — after the fifth time. In that case, 10 times is optimal in the industry they're in.</p>
+
+          <p>If it's B2C — for example, when I was reaching out to people for social, I would only reach out once. I've only started reaching out twice recently, but there's an enormous amount of students to reach out to. You'll probably never cover everyone, so you can move on to the next, right? But when you are dealing with businesses, which we will be, I would say a minimum of three times is optimal. And it's not about just saying "hey, did you hear my message?" — it's about making it as non-spammy as possible while still reaching out at minimum three times.</p>
+
+          <p>How long should you wait before you follow up? Two to three days at least, because that means they've definitely received your message. If they're active on Instagram, nobody checks it only every few days — if they're actually active they check it every day. So they've had a chance to receive it. Now, the whole process from when you first reach out to when you do end up sending that final message can take a week to ten days, depending on how many times you reach out. But a minimum of three times seems to be working for everyone. You don't want to make it annoying because that will ensure you will not be able to establish that connection.</p>
+
+          <h3>The Three-Touch Technique</h3>
+
+          <p>The way I do it — the three-piece technique — is: one, you give them that initial pitch. You ask them that question they can't refuse. Let's say they don't answer it. I wait three days. Then for the second touch, I say: "Hey, did you not get a chance to respond to my message?" For the third time, I ask: "Let me know if you're not interested so I stop bothering you." Now, there are better ways to phrase this and I have the templates ready — don't worry.</p>
+
+          <p>Out of those last two messages, what is the recurring theme?</p>
+
+          <p class="t-q"><strong>Student:</strong> You don't want to make the customer feel pressured in any way.</p>
+
+          <p>Good. What would you say is the recurring theme out of those two?</p>
+
+          <p class="t-q"><strong>Student:</strong> I would probably agree.</p>
+
+          <h3>No Questions — Ask "No" Questions</h3>
+
+          <p>I'll tell you what the recurring theme is. In sales back in the day, what they really used to do is they always tried to get a yes out of the customer — say yes to this, yeah — because once they say that yes, they've already sold it to themselves. But you have to realize, in today's society, it is so much harder to say yes than it is to say no. You need to ask no questions. This is the most important thing. If there's one thing you're going to take away from this meeting, it should be this tactic: every single question you ask needs to be a no question.</p>
+
+          <p>"Are you no longer interested anymore?" You have to make sure it's easier for them to commit by saying no than by saying yes. It's not like, "hey, do you want the product?" — they're much more likely to say no to that. You have to say the "if" part first, and then ask the no question. "If I give you everything that I mentioned, would you be opposed to moving forward? Would you be against it?" Make sure it's easier for them to say no. It's so much easier for individuals to commit to something when they say no to it.</p>
+
+          <p>Here's the psychology behind it. Alex Hormozi — one of my favorite businessmen — uses this example. Let's say I ask my wife, "Hey, would you want to go to Cheesecake Factory?" It's kind of like, I don't want to go to Cheesecake Factory — I don't actively want to go there. But then if I ask her, "If it would really make me happy, would you be against going to Cheesecake Factory?" — she's not against going to Cheesecake Factory either, right? So it's much easier to get that no. And the recurring theme between those two follow-up messages is that same principle: "Did you not get a chance to check out my message?" and "Let me know if you're not interested so I don't bother you." Make sure to ask those types of questions.</p>
+
+          <h3>Matching Effort to Market</h3>
+
+          <p>Now, getting into industries: the more high-ticket your market is, the more effort needs to be put into the opening, the more personalized it needs to be, and the more times you need to reach out — because of how limited the market is. If I'm reaching out to consumers about a drink where I'm making a two-dollar profit, I'm only going to reach out once because there are millions of other people I can reach out to. And perhaps the only thing I would change in that template is the name — and the rest of the pitch is the same.</p>
+
+          <p>Whereas if I'm doing real estate — the opposite end of the spectrum — I would tailor every single aspect of my message toward what that specific person desires. And then somewhere in the middle we have the cafes and restaurants, where we have a template but we are still tailoring some aspects of it. So the more high-ticket it is, the more effort you need to put in: doing your background research, making it more personalized, and reaching out more. You need to understand where on the spectrum you lie. Cafes and restaurants are somewhere in the middle, so reaching out three times and having about two out of four sentences tailored to them is definitely ideal.</p>
+
+          <h3>It's a Numbers Game — and AI</h3>
+
+          <p>Now, the fact of the matter is, no matter how good your template is, no matter how good of a salesman you are — at the very end of the day, and this is one thing I actually hate about it, it's a numbers game. The more people you reach out to, the more you get back. So it's about how do you scale it up? Thanks to Elon Musk and many other entrepreneurs, we have access to some top-class AI today that can automate tasks for you. Your goal should be purely improving and strategizing rather than doing the manpower yourself.</p>
+
+          <p>But that does not mean you don't need to put in the manpower first. It's like if you're born rich and you continue being that, you're never going to appreciate what you have. But if you start off laboring through it and sending those messages, you're going to appreciate how much easier it is to scale and how much more valuable your tools become. So like I said, it is a numbers game, and the whole point of sales is to reach out to as many people as possible while increasing the ratio of them getting back to you. The question you need to be constantly asking yourself is: how do I reach out to more people while still maintaining ethics and still being genuine about what I'm providing?</p>
+
+          <h3>The Two-Week Plan</h3>
+
+          <p>So — automate what you must within two weeks' time. This is something I still haven't discussed with most of you. Within two weeks, once you guys are done learning what you do and you've actually done it, I'm going to replace every single one of your tasks — or as much as I possibly can — with AI. Everything that you do, I'm going to figure out how to do it with AI or at least most of what you do, so you're able to advance to the more important tasks.</p>
+
+          <p>But that doesn't change the fact that you still need to get your hands dirty and be in the trenches to understand and value what it is you're doing. Because even one day when you're able to lead a team — which I'm actually planning for each single one of you — you can't push something onto people if you haven't done it yourself. They're not going to listen to you, and you probably won't understand it either. So you need to understand these things. It is the bare minimum.</p>
+
+          <h3>Why Restaurants and Cafes</h3>
+
+          <p>Now, the reason we are targeting restaurants and cafes right now is because there is so much room for mistakes. And because you guys are all starting out, it's fine if you mess up. It's fine if you're figuring yourself out. Unlike real estate, and unlike consumers — which is just all over the place with an infinite number of people — with businesses there are opportunity costs you lose every time you fail. But there are a lot of businesses out there. Moreover, we're not going to do cafes and restaurants as a business forever. We're just starting there to test the waters and grow as a whole. It's the field we've picked to make those mistakes while also growing.</p>
+
+          <p>I've been talking with one of the team, and slowly — depending on how well you guys perform — the end goal is real estate as well as tech sales. I am in talks with a few of you on how we can slowly start integrating into real estate sales, which is much more high-ticket. There's a lot more opportunity cost, but that is going to be the goal. When I tell you guys we're going to do something, I'll explain exactly why we're doing it and what the vision is, so you guys know where we're heading and have something to work towards.</p>
+
+          <p>And that was pretty much opening in a nutshell. That's it — those were the basics. Like I said, even if you already know all of these things, I want you to ask yourself: are you actually applying everything? What can you pick up from this meeting? Within these two weeks I'm going to be covering the basics and fundamentals — opening is relatively the easiest one — and after these two weeks I'm going to get into the specifics, the strategies, and the psychology behind it. Do we have any questions on opening or outreach as a whole?</p>
+
+          <p class="t-q"><strong>Student:</strong> I just had one question. So obviously right now we're in the preparation stages — setting it all up, making it an easy pitch, connecting with the appropriate people. Around how many months or weeks into this project will we actually open officially?</p>
+
+          <p>Within the next two days. So here's how the project basis is going to work. Our next sales meeting is on Wednesday before our general meeting, and that's when the project I'm assigning is going to be due. Our whole thing is actionable metrics and applying them to real life. I don't want to teach you guys theory — I want to teach you how to actually make it work. And the way to do that is to apply what I taught you to current situations we're facing, which I'll get into with the projects. But within two weeks, you're going to know the basic fundamentals of every single thing there is to sales. And you're going to be applying openings in the next two days. Real-world application first, and then two weeks from now I'll be getting down to the very nitty-gritty specifics.</p>
+
+          <h3>Project Assignment</h3>
+
+          <p>Let me tell you about the project I'm assigning. Right now I believe we're around 24 in the commerce group? So I'll split the team 12 and 12. Half of you are going to create a pitch for a very luxury, high-scale, expensive restaurant — one we're working towards but haven't scaled up to yet. You'll be creating a pitch for them, as well as a calling script. Each of the 12 people on a team gets the same business — it's not a group project, you just all have the same business. Every single person will create that initial pitch as well as a cold call script on exactly how you're going to give them a call.</p>
+
+          <p>What we're going to do is give you the feedback to make those changes necessary. The best person out of those 12 is going to get a chance to actually do it — we're going to reach out to that business. We'll send them the message, and if that doesn't work, we'll cold call them with the script that you wrote.</p>
+
+          <p>I'm going to be giving you guys the resources and the templates we currently use, and you have access to the whole web, TikTok, and ChatGPT. Literally, if you just use TikTok and ChatGPT to learn about these things, you'll know more than 80% of people — without the experience, which is obviously crucial, but you'll know 80% of what you need to know. I'll be providing those resources for you guys today regardless.</p>
+
+          <p>So we'll give you feedback, and then we're going to actually pitch them. Once we've given you feedback and you've created that initial pitch, every single person will be making five answered calls. That's it. I don't care if you hop on the call and they say "no" and you close the call — I just need five answered calls. That's all you need, so you get a feel for what it means to open: the nerves, how they don't give a care about you, how they're in a hurry, how they have no interest in what you're selling, and how that feels when you put yourself out there.</p>
+
+          <p>So after we've done the initial DM pitch and the call script, we're going to do five calls. And like I said, try to land at least one — just establishing a connection, them being interested. You don't need to close the sale. Just one out of those five where they say, "Yeah, I'd potentially be interested in that." That's all you want to hear. As well as reaching out to 20 businesses online, which could be done within an hour at most. That is going to be the project. Any questions?</p>
+
+          <p class="t-q"><strong>Student:</strong> For the five calls — are we just going to be calling five businesses around this area or something like that?</p>
+
+          <p>If you have suggestions you could do it, but we can provide the business for you as well. The goal isn't for you to be able to find those businesses — we'll get more into that later. I want the project focus to be on something else. I want you to understand: it's very nice to sit here in a meeting, be comfortable, and absorb this information, but when you're out there you'll go, "Wait — we spoke about this, I felt like I knew it, I felt like I understood it, but why didn't I apply it? Was it the nerves? Was it not understanding who you are as a person?"</p>
+
+          <p>We did this exercise with one of you where we had a spontaneous sales pitch where we tried to onboard a member. They had a document of what Rozzy was, and that initial sales call without any prior experience tells you a lot about yourself — who you are, your instincts, your base level. Are you a natural salesman? Are you not? What things can you work on? What things should you do next time? So the goal is understanding your instinctual salesperson — who you are deep down — and that's what the first few calls are for. The first ones aren't about closing sales. It's about understanding who you are as a salesperson. That's pretty much it.</p>
+
+          <p class="t-q"><strong>Student:</strong> So we'll be creating the pitch and script for the business you give us — and then we also do the five calls before our meeting on Wednesday?</p>
+
+          <p>So preferably, the deadline for the script, the pitch for outreach, and the opening is Wednesday. But what we can literally do is have that pitch and script ready today, I give you the feedback, and you guys send out all those messages and make all those calls before tomorrow. By the time tomorrow comes around, you already have a solid understanding of what opening is, and we can get into the next task at hand. Regarding the 20 reach-outs and the five calls, the deadline would be Friday at most. There's literally no reason why it should be any longer than that. But if you really want to push yourself — and that's the quality of individuals I'm looking for — create the script today, I'll give you feedback today, and tomorrow just make those calls and those messages to get it done. Then we have that data, we can move forward, and you'll understand the next things much better when I start talking about the process and how everything else fits together.</p>
+
+          <p>Anyone else? All right, sounds good. I'm going to be drafting up the document regarding the projects as well as uploading this video onto the Trello. I will see you guys at 5 p.m. today. Take care everyone — let's stay back. Feel free to stay back, and everyone else is free to leave.</p>
+        </div>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript">
+      // Add .is-pinned to the sticky video wrapper once it actually pins to the top.
+      (function () {
+        const sentinel = document.querySelector('.video-sticky-sentinel');
+        const sticky = document.querySelector('.video-sticky');
+        if (!sentinel || !sticky) return;
+        const scroller = document.querySelector('.page-content') || null;
+        const obs = new IntersectionObserver(function (entries) {
+          for (const e of entries) {
+            if (e.isIntersecting) sticky.classList.remove('is-pinned');
+            else sticky.classList.add('is-pinned');
+          }
+        }, { root: scroller, threshold: [0, 1] });
+        obs.observe(sentinel);
+      })();
+    </script>
+    <script type="text/javascript" src="/index.js?v=20260229k"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>

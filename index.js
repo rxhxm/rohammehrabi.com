@@ -466,10 +466,31 @@ loadFile('shaders/utils.glsl').then((utils) => {
     }
   }
 
+  function onTouchMove(event) {
+    if (event.cancelable) event.preventDefault();
+    const touches = event.touches && event.touches.length ? event.touches : event.changedTouches;
+    if (!touches || !touches.length) return;
+    const rect = canvas.getBoundingClientRect();
+
+    for (let i = 0; i < touches.length; i++) {
+      const t = touches[i];
+      mouse.x = (t.clientX - rect.left) * 2 / rect.width - 1;
+      mouse.y = - (t.clientY - rect.top) * 2 / rect.height + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObject(targetmesh);
+      for (let intersect of intersects) {
+        waterSimulation.addDrop(renderer, intersect.point.x, intersect.point.z, params.mouseRadius, params.mouseStrength);
+      }
+    }
+  }
+
   const loaded = [waterSimulation.loaded, caustics.loaded, water.loaded, pool.loaded, debug.loaded];
 
   Promise.all(loaded).then(() => {
     canvas.addEventListener('mousemove', { handleEvent: onMouseMove });
+    canvas.addEventListener('touchstart', onTouchMove, { passive: false });
+    canvas.addEventListener('touchmove', onTouchMove, { passive: false });
 
     for (var i = 0; i < 20; i++) {
       waterSimulation.addDrop(

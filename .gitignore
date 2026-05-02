@@ -1,0 +1,4 @@
+# Local-only video files. The production file (kept under 100 MB so it
+# fits GitHub Pages' single-file cap) is explicitly allowed below.
+videos/*
+!videos/sales-openings-and-outreach.mp4

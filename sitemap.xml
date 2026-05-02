@@ -9,11 +9,43 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.rohammehrabi.com/essays/every-churning-customer</loc>
+    <loc>https://www.rohammehrabi.com/thoughts</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/projects</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/essays/sales-openings-and-outreach</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/essays/the-most-dangerous-amount-of-knowledge</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.rohammehrabi.com/essays/the-closing-email</loc>
+    <loc>https://www.rohammehrabi.com/essays/picking-up-strangers</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/essays/making-people-ask-for-things</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/essays/flirting-with-the-lunch-lady</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/essays/running-the-floor</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/essays/let-me-cook-on-you</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.rohammehrabi.com/essays/every-churning-customer</loc>
     <priority>0.7</priority>
   </url>
   <url>
@@ -21,11 +53,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.rohammehrabi.com/thoughts</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.rohammehrabi.com/projects</loc>
-    <priority>0.8</priority>
+    <loc>https://www.rohammehrabi.com/essays/the-closing-email</loc>
+    <priority>0.7</priority>
   </url>
 </urlset>
