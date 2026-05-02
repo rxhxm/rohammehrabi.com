@@ -170,8 +170,11 @@
       .video-shell {
         position: relative;
         /* Cap height so the video never dominates the viewport at any scroll position.
-           aspect-ratio + width-cap keeps a clean 16:9 box regardless of viewport. */
+           Use svh (small viewport height) — fixed to the smallest viewport so the
+           video does NOT grow/shrink as iOS Safari's URL bar hides/shows on scroll.
+           Falls back to vh on browsers without svh support (Chrome <108, Safari <15.4). */
         width: min(100%, calc(48vh * 16 / 9));
+        width: min(100%, calc(48svh * 16 / 9));
         margin: 0 auto;
         background: #000;
         border: 1px solid rgba(255, 255, 255, 0.10);
@@ -288,9 +291,14 @@
         .transcript-body p { font-size: 16px; line-height: 1.75; }
         .transcript-body .t-q { font-size: 15px; margin-left: 12px; padding-left: 14px; }
         /* Mobile sticky: header is ~80-90px tall, scope tighter top offset and smaller cap.
-           Same rule as desktop: do NOT change layout on pin (avoids scroll oscillation). */
+           Same rule as desktop: do NOT change layout on pin (avoids scroll oscillation).
+           svh is critical here — vh would jitter as iOS URL bar hides on scroll. */
         .video-sticky { top: 76px; padding: 10px 0 12px; }
-        .video-shell { width: min(100%, calc(36vh * 16 / 9)); border-radius: 8px; }
+        .video-shell {
+          width: min(100%, calc(36vh * 16 / 9));
+          width: min(100%, calc(36svh * 16 / 9));
+          border-radius: 8px;
+        }
       }
     </style>
 
