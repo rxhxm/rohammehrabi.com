@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <title>PROJECTS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Projects and published research by Roham Mehrabi — including a NeurIPS 2024 contribution and things I've built.">
+    <meta name="description" content="Projects and published research by Roham Mehrabi — including a NeurIPS 2024 workshop contribution and things I've built.">
     <meta name="theme-color" content="#000000">
     <link rel="canonical" href="https://www.rohammehrabi.com/projects">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Projects — Roham Mehrabi">
-    <meta property="og:description" content="Projects and published research by Roham Mehrabi — including a NeurIPS 2024 contribution and things I've built.">
+    <meta property="og:description" content="Projects and published research by Roham Mehrabi — including a NeurIPS 2024 workshop contribution and things I've built.">
     <meta property="og:url" content="https://www.rohammehrabi.com/projects">
     <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@Ronin_xy">
     <meta name="twitter:title" content="Projects — Roham Mehrabi">
-    <meta name="twitter:description" content="Including a NeurIPS 2024 contribution and things I've built.">
+    <meta name="twitter:description" content="Including a NeurIPS 2024 workshop contribution and things I've built.">
     <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
 
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -161,6 +161,14 @@
         line-height: 1.6;
         color: rgba(255, 255, 255, 0.45);
       }
+      .project-desc + .project-desc {
+        margin-top: 14px;
+      }
+      .project-desc.role {
+        color: rgba(255, 255, 255, 0.35);
+        border-left: 2px solid rgba(255, 255, 255, 0.12);
+        padding-left: 14px;
+      }
       .project-tag {
         display: inline-block;
         margin-top: 12px;
@@ -207,8 +215,9 @@
       <div class="project-grid">
         <a href="https://arxiv.org/abs/2410.22448" target="_blank" rel="noopener" class="project-card">
           <div class="project-name">A Closer Look at Neural Codec Resynthesis</div>
-          <div class="project-desc">NeurIPS 2024 paper from MIT CSAIL on resynthesizing speech from coarse neural audio codec tokens. I designed and ran the Mechanical Turk human evaluation, which surfaced the paper's central finding — that objective audio metrics (SI-SNR, ViSQOL, WER) diverge sharply from what humans actually hear as natural speech.</div>
-          <span class="project-tag accent">NeurIPS 2024</span>
+          <div class="project-desc">NeurIPS 2024 workshop paper (MIT CSAIL) on resynthesizing speech from coarse neural audio codec tokens. The paper's central finding: script-computed audio quality metrics (SI-SNR, ViSQOL, WER) diverge sharply from what humans actually hear as natural speech.</div>
+          <div class="project-desc role">Co-authored the original Interspeech submission as third author. In the final NeurIPS 2024 workshop version I'm credited in the acknowledgments — for designing and running the Mechanical Turk human evaluation experiments that surfaced this finding.</div>
+          <span class="project-tag accent">NeurIPS 2024 Workshop</span>
           <span class="project-tag">Speech AI</span>
         </a>
 
