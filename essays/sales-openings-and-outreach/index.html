@@ -140,7 +140,12 @@
       }
 
       /* Sticky video box: stays pinned at the top of the scroll area
-         while the transcript scrolls underneath. */
+         while the transcript scrolls underneath.
+         IMPORTANT: nothing here changes layout when .is-pinned toggles,
+         to avoid scroll-anchoring oscillation (a layout shift can pull
+         the sentinel back into view, which would un-pin, which would
+         restore size, which would re-pin... endless jitter). Only
+         non-layout properties (box-shadow) react to pin state. */
       .video-sticky-sentinel {
         height: 1px;
         margin-bottom: -1px;
@@ -156,17 +161,17 @@
         background: rgba(0, 0, 0, 0.96);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-        transition: padding 0.25s ease, box-shadow 0.25s ease;
+        transition: box-shadow 0.25s ease;
+        overflow-anchor: none;
       }
       .video-sticky.is-pinned {
-        padding: 12px 0 14px;
         box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.85);
       }
       .video-shell {
         position: relative;
-        /* Cap height so the pinned video never dominates the viewport.
+        /* Cap height so the video never dominates the viewport at any scroll position.
            aspect-ratio + width-cap keeps a clean 16:9 box regardless of viewport. */
-        width: min(100%, calc(56vh * 16 / 9));
+        width: min(100%, calc(48vh * 16 / 9));
         margin: 0 auto;
         background: #000;
         border: 1px solid rgba(255, 255, 255, 0.10);
@@ -175,10 +180,9 @@
         aspect-ratio: 16 / 9;
         box-shadow: 0 10px 30px -16px rgba(0, 0, 0, 0.7),
                     0 0 0 1px rgba(255, 255, 255, 0.03) inset;
-        transition: transform 0.25s ease, box-shadow 0.25s ease, max-width 0.25s ease;
+        transition: box-shadow 0.25s ease;
       }
       .video-sticky.is-pinned .video-shell {
-        width: min(100%, calc(46vh * 16 / 9));
         box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.85),
                     0 0 0 1px rgba(255, 255, 255, 0.06) inset;
       }
@@ -283,10 +287,10 @@
         .video-context { font-size: 15px; }
         .transcript-body p { font-size: 16px; line-height: 1.75; }
         .transcript-body .t-q { font-size: 15px; margin-left: 12px; padding-left: 14px; }
-        /* Mobile sticky: header is ~80-90px tall, scope tighter top offset and smaller cap */
+        /* Mobile sticky: header is ~80-90px tall, scope tighter top offset and smaller cap.
+           Same rule as desktop: do NOT change layout on pin (avoids scroll oscillation). */
         .video-sticky { top: 76px; padding: 10px 0 12px; }
-        .video-shell { width: min(100%, calc(40vh * 16 / 9)); border-radius: 8px; }
-        .video-sticky.is-pinned .video-shell { width: min(100%, calc(34vh * 16 / 9)); }
+        .video-shell { width: min(100%, calc(36vh * 16 / 9)); border-radius: 8px; }
       }
     </style>
 
