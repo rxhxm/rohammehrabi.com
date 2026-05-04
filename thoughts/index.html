@@ -25,17 +25,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
       html { overscroll-behavior-y: none; }
       html, body { min-height: 100%; height: 100%; }
       body {
@@ -45,10 +41,8 @@
       }
       #canvas {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
         z-index: 0;
         pointer-events: none;
       }
@@ -71,11 +65,7 @@
         align-items: center;
         justify-content: space-between;
       }
-      header nav {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+      header nav { display: flex; align-items: center; gap: 8px; }
       header nav a {
         font-family: 'Syne', sans-serif;
         font-size: 16px;
@@ -86,16 +76,8 @@
         text-decoration: none;
         transition: color 0.3s ease;
       }
-      header nav a:hover {
-        color: rgba(255, 255, 255, 0.85);
-      }
-      header nav a.active {
-        color: rgba(255, 255, 255, 0.85);
-      }
-      header nav .sep {
-        color: rgba(255, 255, 255, 0.2);
-        font-size: 16px;
-      }
+      header nav a:hover, header nav a.active { color: rgba(255, 255, 255, 0.85); }
+      header nav .sep { color: rgba(255, 255, 255, 0.2); font-size: 16px; }
       .home-link {
         font-family: 'Syne', sans-serif;
         font-size: 24px;
@@ -106,16 +88,23 @@
         text-decoration: none;
         transition: color 0.3s ease;
       }
-      .home-link:hover {
-        color: #fff;
-      }
+      .home-link:hover { color: #fff; }
 
       main {
-        max-width: 1000px;
+        max-width: 1280px;
         margin: 0 auto;
-        padding: 60px 36px 120px;
+        padding: 60px 0 120px;
         background: transparent;
-        min-height: 100%;
+      }
+
+      .thoughts-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 0 36px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
       }
 
       h1 {
@@ -125,27 +114,138 @@
         letter-spacing: -0.04em;
         text-transform: lowercase;
         color: #fff;
-        margin-bottom: 48px;
+        line-height: 1;
       }
 
-      .thoughts-container {
+      /* ============ Layout switcher ============ */
+      .layout-switch {
+        display: inline-flex;
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .layout-switch button {
+        font-family: 'Syne', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 7px 16px;
+        background: transparent;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: color 0.25s ease, background 0.25s ease;
+      }
+      .layout-switch button:hover { color: rgba(255, 255, 255, 0.85); }
+      .layout-switch button.active {
+        color: #000;
+        background: #fff;
+      }
+
+      /* ============ Carousel layout ============ */
+      .carousel {
         position: relative;
-        min-height: 2400px;
         width: 100%;
+        /* Edge fades so cards drift in/out softly */
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      }
+      .carousel-row {
+        display: flex;
+        overflow: hidden;
+        padding: 14px 0;
+      }
+      .carousel-track {
+        display: flex;
+        gap: 20px;
+        width: max-content;
+        will-change: transform;
+        animation-name: scroll-left;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      .carousel-track[data-dir="right"] { animation-name: scroll-right; }
+      /* Pause when the user hovers the row */
+      .carousel-row:hover .carousel-track { animation-play-state: paused; }
+      /* Touch-pause for mobile */
+      .carousel-row.is-touched .carousel-track { animation-play-state: paused; }
+
+      @keyframes scroll-left {
+        0%   { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-50%, 0, 0); }
+      }
+      @keyframes scroll-right {
+        0%   { transform: translate3d(-50%, 0, 0); }
+        100% { transform: translate3d(0, 0, 0); }
       }
 
-      .thought-item {
+      .quote-card {
+        flex: 0 0 320px;
+        min-height: 150px;
+        padding: 22px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.005));
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 14px;
+        transition: transform 0.4s cubic-bezier(.2,.8,.2,1),
+                    border-color 0.4s ease,
+                    background 0.4s ease,
+                    box-shadow 0.4s ease;
+      }
+      .quote-card:hover {
+        transform: translateY(-6px) scale(1.015);
+        border-color: rgba(255, 255, 255, 0.25);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+        box-shadow: 0 18px 36px -22px rgba(0, 0, 0, 0.8),
+                    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      }
+      .quote-card p {
+        font-family: 'Syne', sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.35;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.92);
+      }
+      .quote-card .quote-author {
+        font-family: 'Manrope', sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+      }
+      .quote-card.featured {
+        flex: 0 0 380px;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .quote-card.featured p { font-size: 20px; }
+
+      /* ============ Floating layout (legacy) ============ */
+      .floating {
+        position: relative;
+        width: 100%;
+        min-height: 2400px;
+        padding: 0 36px;
+      }
+      .floating .thought-item {
         position: absolute;
         max-width: 340px;
         padding: 20px;
         transition: transform 0.3s ease;
       }
-
-      .thought-item:hover {
-        transform: scale(1.02);
-      }
-
-      .thought-item p {
+      .floating .thought-item:hover { transform: scale(1.02); }
+      .floating .thought-item p {
         font-family: 'Syne', sans-serif;
         font-size: 24px;
         font-weight: 500;
@@ -153,42 +253,33 @@
         letter-spacing: -0.01em;
         color: rgba(255, 255, 255, 0.85);
       }
-      .thought-author {
+      .floating .quote-author {
         font-family: 'Manrope', sans-serif;
         font-size: 14px;
         font-weight: 500;
         letter-spacing: 0.05em;
         color: rgba(255, 255, 255, 0.4);
-        margin-top: 192px;
+        margin-top: 12px;
         display: block;
       }
 
+      /* ============ Mobile ============ */
       @media (max-width: 768px) {
-        .thoughts-container {
-          min-height: auto;
-          display: flex;
-          flex-direction: column;
-          gap: 60px;
-          padding-top: 200px;
-        }
-        .thought-item {
-          position: relative !important;
-          top: auto !important;
-          left: auto !important;
-          max-width: 85% !important;
-          padding: 0 10px;
-        }
-        .thought-item:nth-child(odd) {
-          align-self: flex-start;
-        }
-        .thought-item:nth-child(even) {
-          align-self: flex-end;
-          text-align: right;
-        }
-        .thought-item p {
-          font-size: 20px;
-        }
+        .thoughts-head { padding: 0 20px; }
+        h1 { font-size: 36px; }
+        .quote-card { flex-basis: 280px; min-height: 140px; padding: 20px; }
+        .quote-card.featured { flex-basis: 300px; }
+        .quote-card p { font-size: 17px; }
+        .floating { min-height: auto; padding: 0 20px; display: flex; flex-direction: column; gap: 56px; padding-top: 20px; }
+        .floating .thought-item { position: relative !important; top: auto !important; left: auto !important; max-width: 85% !important; padding: 0; }
+        .floating .thought-item:nth-child(odd) { align-self: flex-start; }
+        .floating .thought-item:nth-child(even) { align-self: flex-end; text-align: right; }
+        .floating .thought-item p { font-size: 20px; }
       }
+
+      /* Hide whichever layout isn't active */
+      .stage[data-mode="carousel"] .floating { display: none; }
+      .stage[data-mode="floating"] .carousel { display: none; }
     </style>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
@@ -211,56 +302,134 @@
     </header>
 
     <main>
-      <h1>THOUGHTS</h1>
+      <div class="thoughts-head">
+        <h1>thoughts</h1>
+        <div class="layout-switch" role="tablist" aria-label="Layout">
+          <button data-mode="carousel" class="active" aria-selected="true">carousel</button>
+          <button data-mode="floating" aria-selected="false">floating</button>
+        </div>
+      </div>
 
-      <div class="thoughts-container">
-        <div class="thought-item" style="top: 20px; left: 48%;">
-          <p>When man can't find meaning in his life, he distracts himself with pleasure</p>
-          <span class="thought-author">- Viktor Frankl</span>
-        </div>
-        <div class="thought-item" style="top: 200px; left: 12%;">
-          <p>Nothing changes if nothing changes</p>
-          <span class="thought-author">- Roham</span>
-        </div>
-        <div class="thought-item" style="top: 380px; left: 8%;">
-          <p>The world is yours to take</p>
-          <span class="thought-author">- Roham</span>
-        </div>
-        <div class="thought-item" style="top: 560px; left: 52%;">
-          <p>You are under no obligation to be the same person you were 5 minutes ago</p>
-          <span class="thought-author">- Alan Watts</span>
-        </div>
-        <div class="thought-item" style="top: 740px; left: 12%;">
-          <p>A man suffers only because he takes seriously what the gods made for fun</p>
-          <span class="thought-author">- Alan Watts</span>
-        </div>
-        <div class="thought-item" style="top: 920px; left: 55%;">
-          <p>Let the young man in his desperation go out and hunt. If he kills the elephant, his poverty ends. If the elephant kills him, his poverty ends.</p>
-          <span class="thought-author">- African Proverb</span>
-        </div>
-        <div class="thought-item" style="top: 1100px; left: 15%;">
-          <p>You need to stop letting life happen to you and start happening to life</p>
-          <span class="thought-author">- Roham</span>
-        </div>
-        <div class="thought-item" style="top: 1280px; left: 50%;">
-          <p>Everyone wants to give their two cents but if you take everyone's two cents you'll end up with your wallet empty</p>
-          <span class="thought-author">- Roham</span>
-        </div>
-        <div class="thought-item" style="top: 1460px; left: 8%;">
-          <p>You become by already being</p>
-        </div>
-        <div class="thought-item" style="top: 1640px; left: 48%;">
-          <p>Don't let perfect be the enemy of progress</p>
-        </div>
-        <div class="thought-item" style="top: 1820px; left: 10%;">
-          <p>Wanting nothing attracts everything</p>
-        </div>
-        <div class="thought-item" style="top: 2000px; left: 55%;">
-          <p>Everything you need to be happy is already within you. You don't need anything external</p>
-        </div>
+      <div class="stage" data-mode="carousel" id="stage">
+        <div class="carousel" id="carousel" aria-label="Auto-scrolling thoughts"></div>
+        <div class="floating" id="floating" aria-label="Floating thoughts"></div>
       </div>
     </main>
     </div>
+
+    <script type="text/javascript">
+      // -----------------------------------------------------------------
+      // Single source of truth: edit this array to add / remove / reorder
+      // quotes. Both layouts (carousel + floating) render from this list.
+      // -----------------------------------------------------------------
+      const QUOTES = [
+        { text: "When man can't find meaning in his life, he distracts himself with pleasure", author: "Viktor Frankl", featured: true },
+        { text: "Nothing changes if nothing changes", author: "Roham" },
+        { text: "The world is yours to take", author: "Roham" },
+        { text: "You are under no obligation to be the same person you were 5 minutes ago", author: "Alan Watts" },
+        { text: "A man suffers only because he takes seriously what the gods made for fun", author: "Alan Watts" },
+        { text: "Let the young man in his desperation go out and hunt. If he kills the elephant, his poverty ends. If the elephant kills him, his poverty ends.", author: "African Proverb" },
+        { text: "You need to stop letting life happen to you and start happening to life", author: "Roham" },
+        { text: "Everyone wants to give their two cents but if you take everyone's two cents you'll end up with your wallet empty", author: "Roham" },
+        { text: "You become by already being" },
+        { text: "Don't let perfect be the enemy of progress" },
+        { text: "Wanting nothing attracts everything" },
+        { text: "Everything you need to be happy is already within you. You don't need anything external" }
+      ];
+
+      // -----------------------------------------------------------------
+      // Carousel renderer: split QUOTES into 3 rows round-robin and
+      // duplicate each row's contents so the marquee loops seamlessly.
+      // Rows alternate scroll direction and have slightly different
+      // durations for organic motion.
+      // -----------------------------------------------------------------
+      const ROW_COUNT = 3;
+      const ROW_SPEEDS = [70, 95, 80];      // seconds per full cycle
+      const ROW_DIRS   = ['left', 'right', 'left'];
+
+      function escapeHTML(s) {
+        return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      function cardHTML(q) {
+        const cls = 'quote-card' + (q.featured ? ' featured' : '');
+        const author = q.author ? `<span class="quote-author">— ${escapeHTML(q.author)}</span>` : '<span></span>';
+        return `<div class="${cls}"><p>${escapeHTML(q.text)}</p>${author}</div>`;
+      }
+
+      function renderCarousel() {
+        const rows = Array.from({ length: ROW_COUNT }, () => []);
+        QUOTES.forEach((q, i) => rows[i % ROW_COUNT].push(q));
+
+        const root = document.getElementById('carousel');
+        root.innerHTML = rows.map((items, i) => {
+          // Duplicate items so translateX(-50%) creates a seamless loop
+          const cards = items.concat(items).map(cardHTML).join('');
+          return `<div class="carousel-row">
+            <div class="carousel-track" data-dir="${ROW_DIRS[i]}" style="animation-duration: ${ROW_SPEEDS[i]}s;">${cards}</div>
+          </div>`;
+        }).join('');
+
+        // Touch-to-pause: tapping a row pauses; tapping again resumes
+        root.querySelectorAll('.carousel-row').forEach(row => {
+          row.addEventListener('touchstart', () => row.classList.toggle('is-touched'), { passive: true });
+        });
+      }
+
+      // -----------------------------------------------------------------
+      // Floating renderer: rebuild the legacy absolute-positioned layout
+      // deterministically from the same data.
+      // -----------------------------------------------------------------
+      const FLOATING_POSITIONS = [
+        { top:   20, left: '48%' },
+        { top:  200, left: '12%' },
+        { top:  380, left:  '8%' },
+        { top:  560, left: '52%' },
+        { top:  740, left: '12%' },
+        { top:  920, left: '55%' },
+        { top: 1100, left: '15%' },
+        { top: 1280, left: '50%' },
+        { top: 1460, left:  '8%' },
+        { top: 1640, left: '48%' },
+        { top: 1820, left: '10%' },
+        { top: 2000, left: '55%' }
+      ];
+
+      function renderFloating() {
+        const root = document.getElementById('floating');
+        root.innerHTML = QUOTES.map((q, i) => {
+          const pos = FLOATING_POSITIONS[i] || { top: 2000 + (i - FLOATING_POSITIONS.length) * 180, left: i % 2 ? '50%' : '12%' };
+          const author = q.author ? `<span class="quote-author">— ${escapeHTML(q.author)}</span>` : '';
+          return `<div class="thought-item" style="top: ${pos.top}px; left: ${pos.left};">
+            <p>${escapeHTML(q.text)}</p>${author}
+          </div>`;
+        }).join('');
+      }
+
+      // -----------------------------------------------------------------
+      // Layout switcher with localStorage persistence
+      // -----------------------------------------------------------------
+      const stage = document.getElementById('stage');
+      const buttons = document.querySelectorAll('.layout-switch button');
+
+      function setMode(mode) {
+        stage.setAttribute('data-mode', mode);
+        buttons.forEach(b => {
+          const on = b.dataset.mode === mode;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        try { localStorage.setItem('thoughts-layout', mode); } catch (e) {}
+      }
+
+      buttons.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
+      // Initial render
+      renderCarousel();
+      renderFloating();
+      const saved = (() => { try { return localStorage.getItem('thoughts-layout'); } catch (e) { return null; } })();
+      if (saved === 'carousel' || saved === 'floating') setMode(saved);
+    </script>
 
     <script type="text/javascript" src="/index.js?v=20260229k"></script>
     <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
