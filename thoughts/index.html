@@ -32,178 +32,169 @@
 
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { overscroll-behavior-y: none; }
-      html, body { min-height: 100%; height: 100%; }
+      html { height: 100%; }
       body {
+        height: 100%;
         background: #000;
         color: #fff;
         font-family: 'Manrope', sans-serif;
+        overflow: hidden;
       }
       #canvas {
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
         z-index: 0;
-        pointer-events: none;
-      }
-      .page-content {
-        position: relative;
-        z-index: 1;
-        background: rgba(0, 0, 0, 0.94);
-        min-height: 100%;
-        height: 100%;
-        overflow-y: auto;
       }
 
-      header {
-        background: #000;
-        position: sticky;
-        top: -3px;
-        z-index: 2;
-        padding: 35px 36px 32px 36px;
+      /* Header overlay — transparent so water shows through, with a
+         soft top-edge fade so the nav reads against busy water. */
+      .topbar {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 10;
+        padding: 28px 36px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0));
       }
-      header nav { display: flex; align-items: center; gap: 8px; }
-      header nav a {
+      .topbar > * { pointer-events: auto; }
+      .topbar nav { display: flex; align-items: center; gap: 8px; }
+      .topbar nav a {
         font-family: 'Syne', sans-serif;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 500;
         letter-spacing: -0.01em;
-        color: rgba(255, 255, 255, 0.45);
+        color: rgba(255, 255, 255, 0.65);
         text-transform: lowercase;
         text-decoration: none;
         transition: color 0.3s ease;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
       }
-      header nav a:hover, header nav a.active { color: rgba(255, 255, 255, 0.85); }
-      header nav .sep { color: rgba(255, 255, 255, 0.2); font-size: 16px; }
+      .topbar nav a:hover, .topbar nav a.active { color: #fff; }
+      .topbar nav .sep { color: rgba(255, 255, 255, 0.3); font-size: 15px; }
       .home-link {
         font-family: 'Syne', sans-serif;
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 700;
         letter-spacing: -0.02em;
         text-transform: lowercase;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.7);
         text-decoration: none;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
         transition: color 0.3s ease;
       }
       .home-link:hover { color: #fff; }
 
-      main {
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 60px 0 120px;
-        background: transparent;
-      }
-
-      .thoughts-head {
-        padding: 0 36px;
-        margin-bottom: 40px;
-      }
-
-      h1 {
+      .page-title {
+        position: fixed;
+        top: 80px;
+        left: 36px;
+        z-index: 9;
         font-family: 'Syne', sans-serif;
-        font-size: 48px;
+        font-size: 38px;
         font-weight: 700;
         letter-spacing: -0.04em;
         text-transform: lowercase;
-        color: #fff;
-        line-height: 1;
+        color: rgba(255, 255, 255, 0.85);
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+        pointer-events: none;
+      }
+      .page-hint {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9;
+        font-family: 'Manrope', sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+        pointer-events: none;
+        text-align: center;
       }
 
-      /* ============ Carousel layout ============ */
-      .carousel {
-        position: relative;
-        width: 100%;
-        /* Edge fades so cards drift in/out softly */
-        -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-        mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      /* Quote-stage overlay. pointer-events: none so taps fall through
+         to the canvas (which drives the water ripple sim). Each .water-
+         quote re-enables pointer events for hover. */
+      #quote-stage {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        z-index: 5;
+        pointer-events: none;
       }
-      .carousel-row {
-        display: flex;
-        overflow: hidden;
-        padding: 14px 0;
-      }
-      .carousel-track {
-        display: flex;
-        gap: 20px;
-        width: max-content;
-        will-change: transform;
-        animation-name: scroll-left;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-      }
-      .carousel-track[data-dir="right"] { animation-name: scroll-right; }
-      /* Pause when the user hovers the row */
-      .carousel-row:hover .carousel-track { animation-play-state: paused; }
-      /* Touch-pause for mobile */
-      .carousel-row.is-touched .carousel-track { animation-play-state: paused; }
-
-      @keyframes scroll-left {
-        0%   { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(-50%, 0, 0); }
-      }
-      @keyframes scroll-right {
-        0%   { transform: translate3d(-50%, 0, 0); }
-        100% { transform: translate3d(0, 0, 0); }
-      }
-
-      .quote-card {
-        flex: 0 0 320px;
-        min-height: 150px;
-        padding: 22px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        background: linear-gradient(160deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.005));
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 14px;
-        transition: transform 0.4s cubic-bezier(.2,.8,.2,1),
+      .water-quote {
+        position: absolute;
+        top: 0; left: 0;
+        max-width: 240px;
+        padding: 12px 16px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(10px) saturate(120%);
+        -webkit-backdrop-filter: blur(10px) saturate(120%);
+        color: rgba(255, 255, 255, 0.92);
+        pointer-events: auto;
+        cursor: default;
+        /* Apply only the visual transitions; the position transform
+           is rewritten every frame and must NOT animate. */
+        transition: opacity 0.4s ease,
                     border-color 0.4s ease,
                     background 0.4s ease,
                     box-shadow 0.4s ease;
+        will-change: transform;
+        opacity: 0.78;
       }
-      .quote-card:hover {
-        transform: translateY(-6px) scale(1.015);
-        border-color: rgba(255, 255, 255, 0.25);
-        background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
-        box-shadow: 0 18px 36px -22px rgba(0, 0, 0, 0.8),
-                    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      .water-quote.is-spot {
+        opacity: 1;
+        border-color: rgba(255, 255, 255, 0.28);
+        background: rgba(0, 0, 0, 0.6);
+        box-shadow: 0 14px 32px -16px rgba(0, 0, 0, 0.85),
+                    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
       }
-      .quote-card p {
+      .water-quote:hover {
+        opacity: 1;
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.9),
+                    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+        z-index: 1;
+      }
+      .water-quote p {
         font-family: 'Syne', sans-serif;
-        font-size: 18px;
+        font-size: 14.5px;
         font-weight: 500;
-        line-height: 1.35;
-        letter-spacing: -0.01em;
-        color: rgba(255, 255, 255, 0.92);
+        line-height: 1.4;
+        letter-spacing: -0.005em;
       }
-      .quote-card .quote-author {
+      .water-quote .quote-author {
+        display: block;
+        margin-top: 8px;
         font-family: 'Manrope', sans-serif;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 500;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.42);
       }
-      .quote-card.featured {
-        flex: 0 0 380px;
-        background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
-        border-color: rgba(255, 255, 255, 0.18);
-      }
-      .quote-card.featured p { font-size: 20px; }
 
-      /* ============ Mobile ============ */
-      @media (max-width: 768px) {
-        .thoughts-head { padding: 0 20px; }
-        h1 { font-size: 36px; }
-        .quote-card { flex-basis: 280px; min-height: 140px; padding: 20px; }
-        .quote-card.featured { flex-basis: 300px; }
-        .quote-card p { font-size: 17px; }
+      /* On smaller screens, drop to fewer columns + smaller cards.
+         Body becomes scrollable so all quotes are reachable. */
+      @media (max-width: 700px) {
+        body { overflow-y: auto; }
+        #quote-stage { position: relative; height: 1400px; }
+        #canvas { height: 100vh; }
+        .water-quote { max-width: 200px; padding: 11px 14px; }
+        .water-quote p { font-size: 13.5px; }
+        .page-title { top: 70px; left: 20px; font-size: 30px; }
+        .topbar { padding: 22px 20px; }
+        .page-hint { display: none; }
       }
     </style>
 
@@ -214,8 +205,7 @@
   <body>
     <canvas id="canvas"></canvas>
 
-    <div class="page-content">
-    <header>
+    <div class="topbar">
       <nav>
         <a href="/essays">essays</a>
         <span class="sep">|</span>
@@ -223,25 +213,28 @@
         <span class="sep">|</span>
         <a href="/projects">projects</a>
       </nav>
-      <a href="/" class="home-link">ROHAM</a>
-    </header>
-
-    <main>
-      <div class="thoughts-head">
-        <h1>thoughts</h1>
-      </div>
-
-      <div class="carousel" id="carousel" aria-label="Auto-scrolling thoughts"></div>
-    </main>
+      <a href="/" class="home-link">roham</a>
     </div>
 
+    <div class="page-title">thoughts</div>
+
+    <div id="quote-stage" aria-label="Floating thoughts on the water"></div>
+
+    <div class="page-hint">touch the water · hover a thought to read</div>
+
     <script type="text/javascript">
-      // -----------------------------------------------------------------
-      // Single source of truth: edit this array to add / remove / reorder
-      // quotes. Both layouts (carousel + floating) render from this list.
-      // -----------------------------------------------------------------
+    // IIFE — isolates this file's top-level `const` declarations from
+    // /index.js. Without this, both scripts declare `const canvas` at
+    // top-level (which shares lexical scope across classic scripts in
+    // the same realm), and the second one silently SyntaxErrors,
+    // killing the water sim. Belt: keep the wrapping; suspenders: this
+    // also shields page state from any other script in the page.
+    (function () {
+      // --------------------------------------------------------------
+      // QUOTES — single source of truth. Add/remove freely.
+      // --------------------------------------------------------------
       const QUOTES = [
-        { text: "When man can't find meaning in his life, he distracts himself with pleasure", author: "Viktor Frankl", featured: true },
+        { text: "When man can't find meaning in his life, he distracts himself with pleasure", author: "Viktor Frankl" },
         { text: "Nothing changes if nothing changes", author: "Roham" },
         { text: "The world is yours to take", author: "Roham" },
         { text: "You are under no obligation to be the same person you were 5 minutes ago", author: "Alan Watts" },
@@ -255,46 +248,241 @@
         { text: "Everything you need to be happy is already within you. You don't need anything external" }
       ];
 
-      // -----------------------------------------------------------------
-      // Carousel renderer: split QUOTES into 3 rows round-robin and
-      // duplicate each row's contents so the marquee loops seamlessly.
-      // Rows alternate scroll direction and have slightly different
-      // durations for organic motion.
-      // -----------------------------------------------------------------
-      const ROW_COUNT = 3;
-      const ROW_SPEEDS = [70, 95, 80];      // seconds per full cycle
-      const ROW_DIRS   = ['left', 'right', 'left'];
+      // --------------------------------------------------------------
+      // Camera math — mirrors the projection used in /index.js so we
+      // can convert world coordinates on the pool surface (y = 0) into
+      // pixel positions on the canvas, without touching the shared file.
+      //
+      // The pool camera sits at (0, cameraHeight, 0) and looks straight
+      // down (+Y to -Y). camera.up = (0, 0, -1), so the world Z axis
+      // maps to the screen Y axis with the sign flipped.
+      // --------------------------------------------------------------
+      const CAMERA_HEIGHT = 1.2;
+      const POOL_EXTENT   = 1.0;
+      const BASE_FOV      = 50;
 
-      function escapeHTML(s) {
-        return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      function computeFOV(aspect) {
+        const maxFOV = 2 * Math.atan(POOL_EXTENT / (CAMERA_HEIGHT * aspect)) * (180 / Math.PI);
+        return Math.min(BASE_FOV, Math.max(maxFOV, 20));
       }
 
-      function cardHTML(q) {
-        const cls = 'quote-card' + (q.featured ? ' featured' : '');
-        const author = q.author ? `<span class="quote-author">— ${escapeHTML(q.author)}</span>` : '<span></span>';
-        return `<div class="${cls}"><p>${escapeHTML(q.text)}</p>${author}</div>`;
+      // Project (worldX, 0, worldZ) -> { px, py } in screen pixels.
+      function projectToScreen(worldX, worldZ, vw, vh) {
+        const aspect = vw / vh;
+        const fovDeg = computeFOV(aspect);
+        const halfFovRad = fovDeg * Math.PI / 360;
+        const halfH = CAMERA_HEIGHT * Math.tan(halfFovRad);
+        const halfW = halfH * aspect;
+        const px = (worldX / halfW) * (vw / 2) + vw / 2;
+        // Z axis is flipped on screen because camera.up = (0, 0, -1)
+        const py = (-worldZ / halfH) * (vh / 2) + vh / 2;
+        return { px, py };
       }
 
-      function renderCarousel() {
-        const rows = Array.from({ length: ROW_COUNT }, () => []);
-        QUOTES.forEach((q, i) => rows[i % ROW_COUNT].push(q));
+      // Inverse: pixel -> world coordinates on the y=0 plane
+      function unprojectToWorld(px, py, vw, vh) {
+        const aspect = vw / vh;
+        const fovDeg = computeFOV(aspect);
+        const halfFovRad = fovDeg * Math.PI / 360;
+        const halfH = CAMERA_HEIGHT * Math.tan(halfFovRad);
+        const halfW = halfH * aspect;
+        const worldX = ((px - vw / 2) / (vw / 2)) * halfW;
+        const worldZ = -((py - vh / 2) / (vh / 2)) * halfH;
+        return { x: worldX, z: worldZ };
+      }
 
-        const root = document.getElementById('carousel');
-        root.innerHTML = rows.map((items, i) => {
-          // Duplicate items so translateX(-50%) creates a seamless loop
-          const cards = items.concat(items).map(cardHTML).join('');
-          return `<div class="carousel-row">
-            <div class="carousel-track" data-dir="${ROW_DIRS[i]}" style="animation-duration: ${ROW_SPEEDS[i]}s;">${cards}</div>
-          </div>`;
-        }).join('');
+      // --------------------------------------------------------------
+      // Layout — distribute the quotes in a 3x4 grid across the pool,
+      // with a small per-quote random offset so it doesn't feel rigid.
+      // Pool extends -1 to +1 in X and Z. Leave a margin so cards
+      // don't clip at the viewport edges.
+      // --------------------------------------------------------------
+      const COLS = 3;
+      const ROWS = 4;
+      const GRID_X_RANGE = 1.30;   // total span across the pool, centered
+      const GRID_Z_RANGE = 1.30;
+      const JITTER       = 0.06;   // per-quote random offset, world units
 
-        // Touch-to-pause: tapping a row pauses; tapping again resumes
-        root.querySelectorAll('.carousel-row').forEach(row => {
-          row.addEventListener('touchstart', () => row.classList.toggle('is-touched'), { passive: true });
+      function seededRandom(seed) {
+        // Tiny LCG so positions are stable across reloads
+        let s = seed | 0;
+        return () => {
+          s = (s * 1664525 + 1013904223) | 0;
+          return ((s >>> 0) % 1000) / 1000;
+        };
+      }
+
+      function buildLayout() {
+        const rand = seededRandom(7);
+        const cells = [];
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            const x = (c / (COLS - 1) - 0.5) * GRID_X_RANGE + (rand() - 0.5) * JITTER;
+            const z = (r / (ROWS - 1) - 0.5) * GRID_Z_RANGE + (rand() - 0.5) * JITTER;
+            cells.push({ x, z });
+          }
+        }
+        return cells.slice(0, QUOTES.length);
+      }
+
+      // --------------------------------------------------------------
+      // Per-quote state
+      // --------------------------------------------------------------
+      const cells = buildLayout();
+      const stage = document.getElementById('quote-stage');
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+
+      const items = QUOTES.map((q, i) => {
+        const home = cells[i];
+        const el = document.createElement('div');
+        el.className = 'water-quote';
+        const author = q.author ? `<span class="quote-author">— ${q.author.replace(/[<>&]/g, '')}</span>` : '';
+        el.innerHTML = `<p></p>${author}`;
+        el.querySelector('p').textContent = q.text;
+        stage.appendChild(el);
+        return {
+          el,
+          // Home position on the pool surface (world coords)
+          homeX: home.x,
+          homeZ: home.z,
+          // Drift offset from home (world coords)
+          ox: 0, oz: 0,
+          // Velocity (world units / second)
+          vx: 0, vz: 0,
+          // Per-quote sine phase + amplitude for ambient bob
+          phase: i * 1.7,
+          ampX: 0.025 + (i % 5) * 0.005,
+          ampZ: 0.030 + (i % 4) * 0.004,
+          // Cached size for offset
+          w: 240, h: 90,
+          // Hover state
+          hovered: false,
+        };
+      });
+
+      // Auto-spotlight cycler
+      let spotIdx = 0;
+      function rotateSpot() {
+        items.forEach((it, j) => it.el.classList.toggle('is-spot', j === spotIdx));
+        spotIdx = (spotIdx + 1) % items.length;
+      }
+      rotateSpot();
+      setInterval(rotateSpot, 9000);
+
+      // Hover bookkeeping
+      items.forEach(it => {
+        it.el.addEventListener('mouseenter', () => { it.hovered = true; });
+        it.el.addEventListener('mouseleave', () => { it.hovered = false; });
+      });
+
+      // --------------------------------------------------------------
+      // Touch interaction — when the user touches the canvas, find any
+      // quotes within world-radius IMPULSE_RADIUS and push them away.
+      // The shared /index.js still drops a water ripple at the same
+      // point, so the visual cause-and-effect is "you touched the
+      // water, ripples spread, nearby thoughts are jostled."
+      // --------------------------------------------------------------
+      const IMPULSE_RADIUS   = 0.45;
+      const IMPULSE_STRENGTH = 1.6;
+
+      function applyImpulseAt(worldX, worldZ) {
+        for (const it of items) {
+          const dx = (it.homeX + it.ox) - worldX;
+          const dz = (it.homeZ + it.oz) - worldZ;
+          const d  = Math.sqrt(dx * dx + dz * dz) + 1e-4;
+          if (d < IMPULSE_RADIUS) {
+            const falloff = (1 - d / IMPULSE_RADIUS);
+            const mag = falloff * IMPULSE_STRENGTH / d;
+            it.vx += dx * mag;
+            it.vz += dz * mag;
+          }
+        }
+      }
+
+      const canvas = document.getElementById('canvas');
+
+      function handleEventPos(clientX, clientY) {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const wp = unprojectToWorld(clientX, clientY, w, h);
+        applyImpulseAt(wp.x, wp.z);
+      }
+      canvas.addEventListener('pointerdown', e => handleEventPos(e.clientX, e.clientY));
+      canvas.addEventListener('pointermove', e => {
+        // Only on actual drag (left button held or active touch)
+        if (e.buttons === 0 && e.pointerType === 'mouse') return;
+        handleEventPos(e.clientX, e.clientY);
+      });
+
+      // --------------------------------------------------------------
+      // Animation loop — physics + DOM positioning
+      // --------------------------------------------------------------
+      const SPRING        = 4.5;     // per-second pull back to home
+      const DAMP          = 2.3;     // velocity damping per second
+      const MAX_DT        = 0.05;    // clamp to prevent giant jumps after tab-switch
+
+      let last = performance.now();
+      function frame(now) {
+        let dt = (now - last) / 1000;
+        if (dt > MAX_DT) dt = MAX_DT;
+        last = now;
+
+        const t  = now / 1000;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        for (const it of items) {
+          // Spring + damping (semi-implicit Euler for stability)
+          it.vx += (-SPRING * it.ox - DAMP * it.vx) * dt;
+          it.vz += (-SPRING * it.oz - DAMP * it.vz) * dt;
+          it.ox += it.vx * dt;
+          it.oz += it.vz * dt;
+
+          // Ambient sine bob, on top of the spring offset
+          const wobbleX = Math.sin(t * 0.55 + it.phase) * it.ampX;
+          const wobbleZ = Math.cos(t * 0.42 + it.phase * 1.3) * it.ampZ;
+
+          const worldX = it.homeX + it.ox + wobbleX;
+          const worldZ = it.homeZ + it.oz + wobbleZ;
+          const { px, py } = projectToScreen(worldX, worldZ, vw, vh);
+
+          // Lazily measure card size once; recompute on viewport changes
+          if (!it.w || !it.h) {
+            const rect = it.el.getBoundingClientRect();
+            it.w = rect.width;
+            it.h = rect.height;
+          }
+
+          // Center the card on the world point
+          const x = px - it.w / 2;
+          const y = py - it.h / 2;
+          // Subtle scale boost when spotlit / hovered (transform-only
+          // so layout never reflows mid-frame)
+          const scale = it.hovered ? 1.06 : (it.el.classList.contains('is-spot') ? 1.04 : 1);
+          it.el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+        }
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+
+      // Recompute card sizes after fonts load (so first projection is centered correctly)
+      window.addEventListener('load', () => {
+        items.forEach(it => {
+          const rect = it.el.getBoundingClientRect();
+          it.w = rect.width;
+          it.h = rect.height;
         });
-      }
-
-      renderCarousel();
+      });
+      // And on resize
+      window.addEventListener('resize', () => {
+        items.forEach(it => {
+          const rect = it.el.getBoundingClientRect();
+          it.w = rect.width;
+          it.h = rect.height;
+        });
+      });
+    })();
     </script>
 
     <script type="text/javascript" src="/index.js?v=20260229k"></script>
