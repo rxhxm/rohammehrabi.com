@@ -406,6 +406,40 @@ loadFile('shaders/utils.glsl').then((utils) => {
   // Animation time tracker
   let animationTime = 0;
 
+  // ----- Auto-drop scheduler ----------------------------------------
+  // Two improvements over the original "random every frame" model:
+  //   1. Pages can opt into a fully still water by setting
+  //      window.__waterMode = 'still' BEFORE this script loads.
+  //      Reading-heavy pages (essays, thoughts) use this so the
+  //      ambient ripple doesn't compete for the eye.
+  //   2. Even when animated, drops now happen in short ACTIVE bursts
+  //      separated by CALM lulls — gives the pool real "moments of
+  //      still water" and roughly halves the average drop rate.
+  // ------------------------------------------------------------------
+  const waterMode = (typeof window !== 'undefined' && window.__waterMode === 'still') ? 'still' : 'animated';
+  let dropMode = 'active';
+  let dropModeUntil = 0;
+
+  function maybeAutoDrop() {
+    if (waterMode === 'still') return;
+    if (animationTime > dropModeUntil) {
+      if (dropMode === 'active') {
+        dropMode = 'calm';
+        dropModeUntil = animationTime + 4 + Math.random() * 4;   // 4-8s calm
+      } else {
+        dropMode = 'active';
+        dropModeUntil = animationTime + 4 + Math.random() * 3;   // 4-7s active
+      }
+    }
+    if (dropMode === 'active' && Math.random() < params.dropFrequency) {
+      waterSimulation.addDrop(
+        renderer,
+        Math.random() * 2 - 1, Math.random() * 2 - 1,
+        params.dropRadius, (Math.random() > 0.5) ? params.dropStrength : -params.dropStrength
+      );
+    }
+  }
+
   // Main rendering loop
   function animate() {
     animationTime += 0.016;
@@ -413,13 +447,7 @@ loadFile('shaders/utils.glsl').then((utils) => {
     waterSimulation.speed = params.waveSpeed;
     waterSimulation.damping = params.damping;
 
-    if (Math.random() < params.dropFrequency) {
-      waterSimulation.addDrop(
-        renderer,
-        Math.random() * 2 - 1, Math.random() * 2 - 1,
-        params.dropRadius, (Math.random() > 0.5) ? params.dropStrength : -params.dropStrength
-      );
-    }
+    maybeAutoDrop();
 
     for (var s = 0; s < params.simStepsPerFrame; s++) {
       waterSimulation.stepSimulation(renderer);
@@ -492,12 +520,16 @@ loadFile('shaders/utils.glsl').then((utils) => {
     canvas.addEventListener('touchstart', onTouchMove, { passive: false });
     canvas.addEventListener('touchmove', onTouchMove, { passive: false });
 
-    for (var i = 0; i < 20; i++) {
-      waterSimulation.addDrop(
-        renderer,
-        Math.random() * 2 - 1, Math.random() * 2 - 1,
-        0.03, (i & 1) ? 0.02 : -0.02
-      );
+    // Skip the noisy seed-drops in still mode so reading pages start
+    // on a flat, calm pool. User touches still trigger ripples either way.
+    if (waterMode !== 'still') {
+      for (var i = 0; i < 20; i++) {
+        waterSimulation.addDrop(
+          renderer,
+          Math.random() * 2 - 1, Math.random() * 2 - 1,
+          0.03, (i & 1) ? 0.02 : -0.02
+        );
+      }
     }
 
     animate();
