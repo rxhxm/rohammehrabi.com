@@ -140,26 +140,18 @@
         backdrop-filter: blur(10px) saturate(120%);
         -webkit-backdrop-filter: blur(10px) saturate(120%);
         color: rgba(255, 255, 255, 0.92);
-        pointer-events: auto;
         cursor: default;
-        /* Apply only the visual transitions; the position transform
-           is rewritten every frame and must NOT animate. */
-        transition: opacity 0.4s ease,
-                    border-color 0.4s ease,
+        /* Apply only the visual transitions for hover state changes;
+           opacity AND the position transform are written every frame
+           and must NOT have CSS transitions on them. */
+        transition: border-color 0.4s ease,
                     background 0.4s ease,
                     box-shadow 0.4s ease;
-        will-change: transform;
-        opacity: 0.78;
-      }
-      .water-quote.is-spot {
-        opacity: 1;
-        border-color: rgba(255, 255, 255, 0.28);
-        background: rgba(0, 0, 0, 0.6);
-        box-shadow: 0 14px 32px -16px rgba(0, 0, 0, 0.85),
-                    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        will-change: transform, opacity;
+        opacity: 0;          /* JS sets per frame based on lifecycle */
+        pointer-events: none; /* JS toggles to auto when visible */
       }
       .water-quote:hover {
-        opacity: 1;
         border-color: rgba(255, 255, 255, 0.4);
         background: rgba(0, 0, 0, 0.7);
         box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.9),
@@ -357,23 +349,51 @@
           w: 240, h: 90,
           // Hover state
           hovered: false,
+          // Float-in/out lifecycle. State machine:
+          //   'hidden' -> after vChangeAt seconds, becomes 'visible'
+          //   'visible' -> after vChangeAt seconds, becomes 'hidden'
+          // Initial vChangeAt is staggered so the page reveals quotes
+          // gradually instead of dumping them all in at once.
+          vState: 'hidden',
+          vAlpha: 0,
+          vChangeAt: i * 0.35 + Math.random() * 0.4,  // seconds from page load
         };
       });
-
-      // Auto-spotlight cycler
-      let spotIdx = 0;
-      function rotateSpot() {
-        items.forEach((it, j) => it.el.classList.toggle('is-spot', j === spotIdx));
-        spotIdx = (spotIdx + 1) % items.length;
-      }
-      rotateSpot();
-      setInterval(rotateSpot, 9000);
 
       // Hover bookkeeping
       items.forEach(it => {
         it.el.addEventListener('mouseenter', () => { it.hovered = true; });
         it.el.addEventListener('mouseleave', () => { it.hovered = false; });
       });
+
+      // Per-frame fade lifecycle: each quote runs its own slow
+      // breath cycle (visible 7-12s, hidden 4-9s). When hovered,
+      // alpha snaps to 1 regardless of state. When alpha falls
+      // near zero, the card stops capturing pointer events so the
+      // user can't accidentally hover an invisible quote.
+      const VISIBLE_OPACITY = 0.85;
+      const FADE_LERP       = 0.045;   // how fast alpha eases each frame
+
+      function updateFadeLifecycle(now) {
+        for (const it of items) {
+          if (now >= it.vChangeAt) {
+            if (it.vState === 'hidden') {
+              it.vState = 'visible';
+              it.vChangeAt = now + 7 + Math.random() * 5;   // 7-12s on screen
+            } else {
+              it.vState = 'hidden';
+              it.vChangeAt = now + 4 + Math.random() * 5;   // 4-9s off screen
+            }
+          }
+          let target;
+          if (it.hovered)                target = 1;
+          else if (it.vState === 'visible') target = VISIBLE_OPACITY;
+          else                              target = 0;
+          // Exponential ease toward target
+          it.vAlpha += (target - it.vAlpha) * FADE_LERP;
+          if (it.vAlpha < 0.001) it.vAlpha = 0;
+        }
+      }
 
       // --------------------------------------------------------------
       // Touch interaction — when the user touches the canvas, find any
@@ -431,6 +451,10 @@
         const vw = window.innerWidth;
         const vh = window.innerHeight;
 
+        // Advance the float-in/out alphas for every card before
+        // we paint this frame.
+        updateFadeLifecycle(t);
+
         for (const it of items) {
           // Spring + damping (semi-implicit Euler for stability)
           it.vx += (-SPRING * it.ox - DAMP * it.vx) * dt;
@@ -456,10 +480,21 @@
           // Center the card on the world point
           const x = px - it.w / 2;
           const y = py - it.h / 2;
-          // Subtle scale boost when spotlit / hovered (transform-only
-          // so layout never reflows mid-frame)
-          const scale = it.hovered ? 1.06 : (it.el.classList.contains('is-spot') ? 1.04 : 1);
+          // Slight scale on hover for tactile feedback. Cards also
+          // start a hair smaller and ease up to full size as they
+          // fade in — gives a gentle "rising into focus" feel.
+          const fadeScale = 0.94 + it.vAlpha * 0.06;
+          const hoverScale = it.hovered ? 1.05 : 1;
+          const scale = fadeScale * hoverScale;
           it.el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+          it.el.style.opacity = it.vAlpha.toFixed(3);
+          // Stop capturing hover when essentially invisible so the
+          // user can't accidentally hover something they can't see.
+          const interactive = it.vAlpha > 0.15;
+          if (it._lastInteractive !== interactive) {
+            it.el.style.pointerEvents = interactive ? 'auto' : 'none';
+            it._lastInteractive = interactive;
+          }
         }
 
         requestAnimationFrame(frame);
