@@ -351,14 +351,23 @@
           // Hover state
           hovered: false,
           // Float-in/out lifecycle. State machine:
-          //   'hidden' -> after vChangeAt seconds, becomes 'visible'
           //   'visible' -> after vChangeAt seconds, becomes 'hidden'
-          // Initial vChangeAt is staggered so the page reveals quotes
-          // gradually instead of dumping them all in at once.
-          vState: 'hidden',
-          vAlpha: 0,
-          vChangeAt: i * 0.35 + Math.random() * 0.4,  // seconds from page load
+          //   'hidden'  -> after vChangeAt seconds, becomes 'visible'
+          // Quotes start VISIBLE so the page is immediately readable
+          // even before the first rAF tick fires (defends against
+          // mobile Safari pausing rAF after a screenshot or tab swap).
+          // First fade-out is staggered so they leave the page one at
+          // a time rather than all blinking out together.
+          vState: 'visible',
+          vAlpha: 0.85,
+          vChangeAt: 6 + i * 0.6 + Math.random() * 4,  // first fade-out at 6-15s
         };
+      });
+      // Apply initial inline opacity directly so they're visible BEFORE
+      // the first frame() runs.
+      items.forEach(it => {
+        it.el.style.opacity = '0.85';
+        it.el.style.pointerEvents = 'auto';
       });
 
       // Hover bookkeeping
@@ -460,8 +469,19 @@
           // Spring + damping (semi-implicit Euler for stability)
           it.vx += (-SPRING * it.ox - DAMP * it.vx) * dt;
           it.vz += (-SPRING * it.oz - DAMP * it.vz) * dt;
+          // Cap velocity so aggressive scrolling on mobile (every
+          // pointermove adds an impulse) can't catapult a card past
+          // the spring's recovery range.
+          const VMAX = 1.5;
+          if (it.vx >  VMAX) it.vx =  VMAX; else if (it.vx < -VMAX) it.vx = -VMAX;
+          if (it.vz >  VMAX) it.vz =  VMAX; else if (it.vz < -VMAX) it.vz = -VMAX;
           it.ox += it.vx * dt;
           it.oz += it.vz * dt;
+          // Hard offset cap — cards never wander more than ~half the
+          // pool away from home. Keeps them on screen no matter what.
+          const OMAX = 0.4;
+          if (it.ox >  OMAX) it.ox =  OMAX; else if (it.ox < -OMAX) it.ox = -OMAX;
+          if (it.oz >  OMAX) it.oz =  OMAX; else if (it.oz < -OMAX) it.oz = -OMAX;
 
           // Ambient sine bob, on top of the spring offset
           const wobbleX = Math.sin(t * 0.55 + it.phase) * it.ampX;
