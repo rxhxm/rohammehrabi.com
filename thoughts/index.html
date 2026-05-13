@@ -148,8 +148,11 @@
                     background 0.4s ease,
                     box-shadow 0.4s ease;
         will-change: transform, opacity;
-        opacity: 0;          /* JS sets per frame based on lifecycle */
-        pointer-events: none; /* JS toggles to auto when visible */
+        /* CSS-only default: visible. JS overrides per-frame for the
+           fade lifecycle; if JS ever fails to run for any reason,
+           cards are still visible from CSS alone. */
+        opacity: 0.85;
+        pointer-events: auto;
       }
       .water-quote:hover {
         border-color: rgba(255, 255, 255, 0.4);
@@ -261,6 +264,11 @@
       }
 
       // Project (worldX, 0, worldZ) -> { px, py } in screen pixels.
+      // With camera.up = (0, 0, -1) and the camera at (0, +H, 0) looking
+      // straight down, world Z runs in the same direction as screen Y
+      // (worldZ < 0 -> top of screen, worldZ > 0 -> bottom). No sign
+      // flip needed; an earlier version had one and that's why top/bottom
+      // rows of the layout were rendering off-screen.
       function projectToScreen(worldX, worldZ, vw, vh) {
         const aspect = vw / vh;
         const fovDeg = computeFOV(aspect);
@@ -268,12 +276,11 @@
         const halfH = CAMERA_HEIGHT * Math.tan(halfFovRad);
         const halfW = halfH * aspect;
         const px = (worldX / halfW) * (vw / 2) + vw / 2;
-        // Z axis is flipped on screen because camera.up = (0, 0, -1)
-        const py = (-worldZ / halfH) * (vh / 2) + vh / 2;
+        const py = (worldZ / halfH) * (vh / 2) + vh / 2;
         return { px, py };
       }
 
-      // Inverse: pixel -> world coordinates on the y=0 plane
+      // Inverse: pixel -> world coordinates on the y=0 plane.
       function unprojectToWorld(px, py, vw, vh) {
         const aspect = vw / vh;
         const fovDeg = computeFOV(aspect);
@@ -281,7 +288,7 @@
         const halfH = CAMERA_HEIGHT * Math.tan(halfFovRad);
         const halfW = halfH * aspect;
         const worldX = ((px - vw / 2) / (vw / 2)) * halfW;
-        const worldZ = -((py - vh / 2) / (vh / 2)) * halfH;
+        const worldZ = ((py - vh / 2) / (vh / 2)) * halfH;
         return { x: worldX, z: worldZ };
       }
 
@@ -291,10 +298,10 @@
       // Pool extends -1 to +1 in X and Z. Leave a margin so cards
       // don't clip at the viewport edges.
       // --------------------------------------------------------------
-      const COLS = 3;
-      const ROWS = 4;
-      const GRID_X_RANGE = 1.30;   // total span across the pool, centered
-      const GRID_Z_RANGE = 1.30;
+      const COLS         = 3;
+      const GRID_X_RANGE = 1.20;   // total span across the pool, centered
+      const GRID_Z_RANGE = 0.85;   // tighter than X so 5-row grids fit on screen
+      const GRID_Z_SHIFT = 0.12;   // shift grid center down so top row clears the header
       const JITTER       = 0.06;   // per-quote random offset, world units
 
       function seededRandom(seed) {
@@ -306,17 +313,26 @@
         };
       }
 
+      // Grid is sized to the actual number of quotes. ROWS grows as
+      // QUOTES grows so we never run short of cells -- earlier
+      // hardcoded ROWS=4 silently capped the layout at 12 cells and
+      // threw an undefined-read once we passed 12 quotes.
       function buildLayout() {
         const rand = seededRandom(7);
         const cells = [];
+        const COUNT = QUOTES.length;
+        const ROWS  = Math.max(1, Math.ceil(COUNT / COLS));
+        // Divisor uses (max(ROWS-1, 1)) so a 1-row layout doesn't divide by zero.
+        const denomR = Math.max(ROWS - 1, 1);
+        const denomC = Math.max(COLS - 1, 1);
         for (let r = 0; r < ROWS; r++) {
           for (let c = 0; c < COLS; c++) {
-            const x = (c / (COLS - 1) - 0.5) * GRID_X_RANGE + (rand() - 0.5) * JITTER;
-            const z = (r / (ROWS - 1) - 0.5) * GRID_Z_RANGE + (rand() - 0.5) * JITTER;
+            const x = (c / denomC - 0.5) * GRID_X_RANGE + (rand() - 0.5) * JITTER;
+            const z = (r / denomR - 0.5) * GRID_Z_RANGE + GRID_Z_SHIFT + (rand() - 0.5) * JITTER;
             cells.push({ x, z });
           }
         }
-        return cells.slice(0, QUOTES.length);
+        return cells.slice(0, COUNT);
       }
 
       // --------------------------------------------------------------
@@ -364,12 +380,33 @@
           vChangeAt: 6 + i * 0.6 + Math.random() * 4,  // first fade-out at 6-15s
         };
       });
-      // Apply initial inline opacity directly so they're visible BEFORE
-      // the first frame() runs.
-      items.forEach(it => {
-        it.el.style.opacity = '0.85';
-        it.el.style.pointerEvents = 'auto';
-      });
+      // Lay out and reveal every card SYNCHRONOUSLY now -- no rAF
+      // dependency. Even if the animation loop later stalls (Safari
+      // pauses rAF after screenshots / app switches / power events),
+      // the page lands with all 13 cards positioned at their home
+      // cells and visible at full opacity.
+      function paintStaticLayout() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        items.forEach(it => {
+          try {
+            const rect = it.el.getBoundingClientRect();
+            if (rect.width)  it.w = rect.width;
+            if (rect.height) it.h = rect.height;
+            const { px, py } = projectToScreen(it.homeX, it.homeZ, vw, vh);
+            const x = px - it.w / 2;
+            const y = py - it.h / 2;
+            it.el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            it.el.style.opacity = '0.85';
+            it.el.style.pointerEvents = 'auto';
+          } catch (e) { /* defensive: never let one card break the rest */ }
+        });
+      }
+      paintStaticLayout();
+      // Re-paint when fonts finish loading (card sizes settle then)
+      // and when the viewport resizes.
+      window.addEventListener('load', paintStaticLayout);
+      window.addEventListener('resize', paintStaticLayout);
 
       // Hover bookkeeping
       items.forEach(it => {
@@ -519,26 +556,17 @@
           }
         }
 
-        requestAnimationFrame(frame);
+        requestAnimationFrame(safeFrame);
       }
-      requestAnimationFrame(frame);
-
-      // Recompute card sizes after fonts load (so first projection is centered correctly)
-      window.addEventListener('load', () => {
-        items.forEach(it => {
-          const rect = it.el.getBoundingClientRect();
-          it.w = rect.width;
-          it.h = rect.height;
-        });
-      });
-      // And on resize
-      window.addEventListener('resize', () => {
-        items.forEach(it => {
-          const rect = it.el.getBoundingClientRect();
-          it.w = rect.width;
-          it.h = rect.height;
-        });
-      });
+      // Wrap the rAF entry in try/finally so any single-frame error
+      // never breaks the chain. The static layout already painted the
+      // cards, so even if the animation loop dies on frame 1, the
+      // page still looks correct.
+      function safeFrame(now) {
+        try { frame(now); }
+        catch (e) { try { requestAnimationFrame(safeFrame); } catch (e2) {} }
+      }
+      requestAnimationFrame(safeFrame);
     })();
     </script>
 
