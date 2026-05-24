@@ -378,9 +378,41 @@
         .video-card .title { font-size: 17px; }
       }
 
+      /* ---------- Pinned essays ---------- */
+      .pinned-essays {
+        margin-bottom: 56px;
+      }
+      .pinned-essays .entry-list { list-style: none; }
+      .pinned-essays .entry-list li {
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 8px;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.005));
+        position: relative;
+        overflow: hidden;
+      }
+      .pinned-essays .entry-list a {
+        display: block;
+        padding: 22px 24px;
+        text-decoration: none;
+      }
+      .pinned-essays .entry-list .pin-badge {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        font-family: 'Syne', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .pinned-essays .entry-list .entry-title { font-size: 24px; color: #fff; }
+      .pinned-essays .entry-list a:hover { background: rgba(255, 255, 255, 0.02); }
+
       @media (max-width: 600px) {
         main { padding: 40px 20px 80px; }
         h1 { font-size: 36px; margin-bottom: 36px; }
+        .pinned-essays .entry-list .entry-title { font-size: 20px; }
       }
 
     </style>
@@ -406,6 +438,19 @@
 
     <main>
       <h1>ESSAYS</h1>
+
+      <section class="pinned-essays" aria-label="Pinned essays">
+        <div class="section-label">pinned</div>
+        <ul class="entry-list">
+          <li>
+            <a href="/essays/flirting-with-the-lunch-lady">
+              <span class="pin-badge">Pinned</span>
+              <div class="entry-title">Flirting with the Lunch Lady</div>
+              <div class="entry-date">March 31, 2026 &nbsp;&middot;&nbsp; 3 min read</div>
+            </a>
+          </li>
+        </ul>
+      </section>
 
       <section class="video-essays" aria-label="Video essays">
         <div class="section-label">video essays</div>
