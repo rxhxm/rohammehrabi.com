@@ -32,164 +32,133 @@
 
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { height: 100%; }
+      html { overscroll-behavior-y: none; }
       body {
-        height: 100%;
         background: #000;
         color: #fff;
         font-family: 'Manrope', sans-serif;
-        overflow: hidden;
+        min-height: 100vh;
       }
       #canvas {
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
         z-index: 0;
+        pointer-events: none;
+      }
+      /* Dark overlay so the feed stays readable over the water. */
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.88);
+        min-height: 100vh;
       }
 
-      /* Header overlay — transparent so water shows through, with a
-         soft top-edge fade so the nav reads against busy water. */
-      .topbar {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 10;
-        padding: 28px 36px;
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        pointer-events: none;
-        background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0));
       }
-      .topbar > * { pointer-events: auto; }
-      .topbar nav { display: flex; align-items: center; gap: 8px; }
-      .topbar nav a {
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
         font-family: 'Syne', sans-serif;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 500;
         letter-spacing: -0.01em;
-        color: rgba(255, 255, 255, 0.65);
+        color: rgba(255, 255, 255, 0.45);
         text-transform: lowercase;
         text-decoration: none;
         transition: color 0.3s ease;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
       }
-      .topbar nav a:hover, .topbar nav a.active { color: #fff; }
-      .topbar nav .sep { color: rgba(255, 255, 255, 0.3); font-size: 15px; }
+      header nav a:hover, header nav a.active { color: rgba(255, 255, 255, 0.85); }
+      header nav .sep { color: rgba(255, 255, 255, 0.2); font-size: 16px; }
       .home-link {
         font-family: 'Syne', sans-serif;
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 700;
         letter-spacing: -0.02em;
         text-transform: lowercase;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
         transition: color 0.3s ease;
       }
       .home-link:hover { color: #fff; }
 
-      .page-title {
-        position: fixed;
-        top: 80px;
-        left: 36px;
-        z-index: 9;
+      main {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 56px 24px 140px;
+      }
+
+      h1 {
         font-family: 'Syne', sans-serif;
-        font-size: 38px;
+        font-size: 44px;
         font-weight: 700;
         letter-spacing: -0.04em;
         text-transform: lowercase;
-        color: rgba(255, 255, 255, 0.85);
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
-        pointer-events: none;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 64px;
       }
-      .page-hint {
-        position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 9;
+
+      .feed {
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+      }
+      .thought {
+        text-align: center;
+        animation: fade-up 0.6s ease both;
+      }
+      .thought p {
+        font-family: 'Syne', sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 1.45;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.92);
+      }
+      .thought cite {
+        display: block;
+        margin-top: 16px;
         font-family: 'Manrope', sans-serif;
         font-size: 11px;
-        font-weight: 400;
-        letter-spacing: 0.18em;
+        font-weight: 500;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.35);
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-        pointer-events: none;
-        text-align: center;
+        color: rgba(255, 255, 255, 0.38);
+        font-style: normal;
+      }
+      .thought + .thought {
+        padding-top: 64px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
       }
 
-      /* Quote-stage overlay. pointer-events: none so taps fall through
-         to the canvas (which drives the water ripple sim). Each .water-
-         quote re-enables pointer events for hover. */
-      #quote-stage {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        z-index: 5;
-        pointer-events: none;
-      }
-      .water-quote {
-        position: absolute;
-        top: 0; left: 0;
-        max-width: 240px;
-        padding: 12px 16px 14px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 10px;
-        background: rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(10px) saturate(120%);
-        -webkit-backdrop-filter: blur(10px) saturate(120%);
-        color: rgba(255, 255, 255, 0.92);
-        cursor: default;
-        /* Apply only the visual transitions for hover state changes;
-           opacity AND the position transform are written every frame
-           and must NOT have CSS transitions on them. */
-        transition: border-color 0.4s ease,
-                    background 0.4s ease,
-                    box-shadow 0.4s ease;
-        will-change: transform, opacity;
-        /* CSS-only default: visible. JS overrides per-frame for the
-           fade lifecycle; if JS ever fails to run for any reason,
-           cards are still visible from CSS alone. */
-        opacity: 0.85;
-        pointer-events: auto;
-      }
-      .water-quote:hover {
-        border-color: rgba(255, 255, 255, 0.4);
-        background: rgba(0, 0, 0, 0.7);
-        box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.9),
-                    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-        z-index: 1;
-      }
-      .water-quote p {
-        font-family: 'Syne', sans-serif;
-        font-size: 14.5px;
-        font-weight: 500;
-        line-height: 1.4;
-        letter-spacing: -0.005em;
-      }
-      .water-quote .quote-author {
-        display: block;
-        margin-top: 8px;
-        font-family: 'Manrope', sans-serif;
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.42);
+      /* Subtle stagger on first paint so the feed doesn't dump at once. */
+      .thought:nth-child(1) { animation-delay: 0.00s; }
+      .thought:nth-child(2) { animation-delay: 0.06s; }
+      .thought:nth-child(3) { animation-delay: 0.12s; }
+      .thought:nth-child(4) { animation-delay: 0.18s; }
+      .thought:nth-child(5) { animation-delay: 0.24s; }
+      .thought:nth-child(6) { animation-delay: 0.30s; }
+      .thought:nth-child(n+7) { animation-delay: 0.36s; }
+
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
 
-      /* On smaller screens, drop to fewer columns + smaller cards.
-         Body becomes scrollable so all quotes are reachable. */
-      @media (max-width: 700px) {
-        body { overflow-y: auto; }
-        #quote-stage { position: relative; height: 1400px; }
-        #canvas { height: 100vh; }
-        .water-quote { max-width: 200px; padding: 11px 14px; }
-        .water-quote p { font-size: 13.5px; }
-        .page-title { top: 70px; left: 20px; font-size: 30px; }
-        .topbar { padding: 22px 20px; }
-        .page-hint { display: none; }
+      @media (max-width: 600px) {
+        main { padding: 40px 20px 100px; }
+        h1 { font-size: 34px; margin-bottom: 48px; }
+        .feed { gap: 48px; }
+        .thought + .thought { padding-top: 48px; }
+        .thought p { font-size: 19px; line-height: 1.5; }
       }
     </style>
 
@@ -200,7 +169,8 @@
   <body>
     <canvas id="canvas"></canvas>
 
-    <div class="topbar">
+    <div class="page-content">
+    <header>
       <nav>
         <a href="/essays">essays</a>
         <span class="sep">|</span>
@@ -208,27 +178,21 @@
         <span class="sep">|</span>
         <a href="/projects">projects</a>
       </nav>
-      <a href="/" class="home-link">roham</a>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <h1>thoughts</h1>
+      <div class="feed" id="feed"></div>
+    </main>
     </div>
 
-    <div class="page-title">thoughts</div>
-
-    <div id="quote-stage" aria-label="Floating thoughts on the water"></div>
-
-    <div class="page-hint">touch the water · hover a thought to read</div>
-
     <script type="text/javascript">
-    // IIFE — isolates this file's top-level `const` declarations from
-    // /index.js. Without this, both scripts declare `const canvas` at
-    // top-level (which shares lexical scope across classic scripts in
-    // the same realm), and the second one silently SyntaxErrors,
-    // killing the water sim. Belt: keep the wrapping; suspenders: this
-    // also shields page state from any other script in the page.
+    // IIFE — isolates top-level consts from /index.js' top-level scope.
     (function () {
-      // --------------------------------------------------------------
-      // QUOTES — single source of truth. Add/remove freely.
-      // --------------------------------------------------------------
+      // Newest first. Add new thoughts at the top of this array.
       const QUOTES = [
+        { text: "Many build walls of muscle, never realising the mind is the first gate to fall" },
         { text: "The moment you're disturbed by insult or pleased by praise, you're still a slave", author: "Osho" },
         { text: "There is good content and there is content that does good", author: "Roham" },
         { text: "When man can't find meaning in his life, he distracts himself with pleasure", author: "Viktor Frankl" },
@@ -245,328 +209,15 @@
         { text: "Everything you need to be happy is already within you. You don't need anything external" }
       ];
 
-      // --------------------------------------------------------------
-      // Camera math — mirrors the projection used in /index.js so we
-      // can convert world coordinates on the pool surface (y = 0) into
-      // pixel positions on the canvas, without touching the shared file.
-      //
-      // The pool camera sits at (0, cameraHeight, 0) and looks straight
-      // down (+Y to -Y). camera.up = (0, 0, -1), so the world Z axis
-      // maps to the screen Y axis with the sign flipped.
-      // --------------------------------------------------------------
-      const CAMERA_HEIGHT = 1.2;
-      const POOL_EXTENT   = 1.0;
-      const BASE_FOV      = 50;
-
-      function computeFOV(aspect) {
-        const maxFOV = 2 * Math.atan(POOL_EXTENT / (CAMERA_HEIGHT * aspect)) * (180 / Math.PI);
-        return Math.min(BASE_FOV, Math.max(maxFOV, 20));
+      function escapeHTML(s) {
+        return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
       }
 
-      // Project (worldX, 0, worldZ) -> { px, py } in screen pixels.
-      // With camera.up = (0, 0, -1) and the camera at (0, +H, 0) looking
-      // straight down, world Z runs in the same direction as screen Y
-      // (worldZ < 0 -> top of screen, worldZ > 0 -> bottom). No sign
-      // flip needed; an earlier version had one and that's why top/bottom
-      // rows of the layout were rendering off-screen.
-      function projectToScreen(worldX, worldZ, vw, vh) {
-        const aspect = vw / vh;
-        const fovDeg = computeFOV(aspect);
-        const halfFovRad = fovDeg * Math.PI / 360;
-        const halfH = CAMERA_HEIGHT * Math.tan(halfFovRad);
-        const halfW = halfH * aspect;
-        const px = (worldX / halfW) * (vw / 2) + vw / 2;
-        const py = (worldZ / halfH) * (vh / 2) + vh / 2;
-        return { px, py };
-      }
-
-      // Inverse: pixel -> world coordinates on the y=0 plane.
-      function unprojectToWorld(px, py, vw, vh) {
-        const aspect = vw / vh;
-        const fovDeg = computeFOV(aspect);
-        const halfFovRad = fovDeg * Math.PI / 360;
-        const halfH = CAMERA_HEIGHT * Math.tan(halfFovRad);
-        const halfW = halfH * aspect;
-        const worldX = ((px - vw / 2) / (vw / 2)) * halfW;
-        const worldZ = ((py - vh / 2) / (vh / 2)) * halfH;
-        return { x: worldX, z: worldZ };
-      }
-
-      // --------------------------------------------------------------
-      // Layout — distribute the quotes in a 3x4 grid across the pool,
-      // with a small per-quote random offset so it doesn't feel rigid.
-      // Pool extends -1 to +1 in X and Z. Leave a margin so cards
-      // don't clip at the viewport edges.
-      // --------------------------------------------------------------
-      const COLS         = 3;
-      const GRID_X_RANGE = 1.20;   // total span across the pool, centered
-      const GRID_Z_RANGE = 0.85;   // tighter than X so 5-row grids fit on screen
-      const GRID_Z_SHIFT = 0.12;   // shift grid center down so top row clears the header
-      const JITTER       = 0.06;   // per-quote random offset, world units
-
-      function seededRandom(seed) {
-        // Tiny LCG so positions are stable across reloads
-        let s = seed | 0;
-        return () => {
-          s = (s * 1664525 + 1013904223) | 0;
-          return ((s >>> 0) % 1000) / 1000;
-        };
-      }
-
-      // Grid is sized to the actual number of quotes. ROWS grows as
-      // QUOTES grows so we never run short of cells -- earlier
-      // hardcoded ROWS=4 silently capped the layout at 12 cells and
-      // threw an undefined-read once we passed 12 quotes.
-      function buildLayout() {
-        const rand = seededRandom(7);
-        const cells = [];
-        const COUNT = QUOTES.length;
-        const ROWS  = Math.max(1, Math.ceil(COUNT / COLS));
-        // Divisor uses (max(ROWS-1, 1)) so a 1-row layout doesn't divide by zero.
-        const denomR = Math.max(ROWS - 1, 1);
-        const denomC = Math.max(COLS - 1, 1);
-        for (let r = 0; r < ROWS; r++) {
-          for (let c = 0; c < COLS; c++) {
-            const x = (c / denomC - 0.5) * GRID_X_RANGE + (rand() - 0.5) * JITTER;
-            const z = (r / denomR - 0.5) * GRID_Z_RANGE + GRID_Z_SHIFT + (rand() - 0.5) * JITTER;
-            cells.push({ x, z });
-          }
-        }
-        return cells.slice(0, COUNT);
-      }
-
-      // --------------------------------------------------------------
-      // Per-quote state
-      // --------------------------------------------------------------
-      const cells = buildLayout();
-      const stage = document.getElementById('quote-stage');
-      const isMobile = window.matchMedia('(max-width: 700px)').matches;
-
-      const items = QUOTES.map((q, i) => {
-        const home = cells[i];
-        const el = document.createElement('div');
-        el.className = 'water-quote';
-        const author = q.author ? `<span class="quote-author">— ${q.author.replace(/[<>&]/g, '')}</span>` : '';
-        el.innerHTML = `<p></p>${author}`;
-        el.querySelector('p').textContent = q.text;
-        stage.appendChild(el);
-        return {
-          el,
-          // Home position on the pool surface (world coords)
-          homeX: home.x,
-          homeZ: home.z,
-          // Drift offset from home (world coords)
-          ox: 0, oz: 0,
-          // Velocity (world units / second)
-          vx: 0, vz: 0,
-          // Per-quote sine phase + amplitude for ambient bob
-          phase: i * 1.7,
-          ampX: 0.025 + (i % 5) * 0.005,
-          ampZ: 0.030 + (i % 4) * 0.004,
-          // Cached size for offset
-          w: 240, h: 90,
-          // Hover state
-          hovered: false,
-          // Float-in/out lifecycle. State machine:
-          //   'visible' -> after vChangeAt seconds, becomes 'hidden'
-          //   'hidden'  -> after vChangeAt seconds, becomes 'visible'
-          // Quotes start VISIBLE so the page is immediately readable
-          // even before the first rAF tick fires (defends against
-          // mobile Safari pausing rAF after a screenshot or tab swap).
-          // First fade-out is staggered so they leave the page one at
-          // a time rather than all blinking out together.
-          vState: 'visible',
-          vAlpha: 0.85,
-          vChangeAt: 6 + i * 0.6 + Math.random() * 4,  // first fade-out at 6-15s
-        };
-      });
-      // Lay out and reveal every card SYNCHRONOUSLY now -- no rAF
-      // dependency. Even if the animation loop later stalls (Safari
-      // pauses rAF after screenshots / app switches / power events),
-      // the page lands with all 13 cards positioned at their home
-      // cells and visible at full opacity.
-      function paintStaticLayout() {
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        items.forEach(it => {
-          try {
-            const rect = it.el.getBoundingClientRect();
-            if (rect.width)  it.w = rect.width;
-            if (rect.height) it.h = rect.height;
-            const { px, py } = projectToScreen(it.homeX, it.homeZ, vw, vh);
-            const x = px - it.w / 2;
-            const y = py - it.h / 2;
-            it.el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-            it.el.style.opacity = '0.85';
-            it.el.style.pointerEvents = 'auto';
-          } catch (e) { /* defensive: never let one card break the rest */ }
-        });
-      }
-      paintStaticLayout();
-      // Re-paint when fonts finish loading (card sizes settle then)
-      // and when the viewport resizes.
-      window.addEventListener('load', paintStaticLayout);
-      window.addEventListener('resize', paintStaticLayout);
-
-      // Hover bookkeeping
-      items.forEach(it => {
-        it.el.addEventListener('mouseenter', () => { it.hovered = true; });
-        it.el.addEventListener('mouseleave', () => { it.hovered = false; });
-      });
-
-      // Per-frame fade lifecycle: each quote runs its own slow
-      // breath cycle (visible 7-12s, hidden 4-9s). When hovered,
-      // alpha snaps to 1 regardless of state. When alpha falls
-      // near zero, the card stops capturing pointer events so the
-      // user can't accidentally hover an invisible quote.
-      const VISIBLE_OPACITY = 0.85;
-      const FADE_LERP       = 0.045;   // how fast alpha eases each frame
-
-      function updateFadeLifecycle(now) {
-        for (const it of items) {
-          if (now >= it.vChangeAt) {
-            if (it.vState === 'hidden') {
-              it.vState = 'visible';
-              it.vChangeAt = now + 7 + Math.random() * 5;   // 7-12s on screen
-            } else {
-              it.vState = 'hidden';
-              it.vChangeAt = now + 4 + Math.random() * 5;   // 4-9s off screen
-            }
-          }
-          let target;
-          if (it.hovered)                target = 1;
-          else if (it.vState === 'visible') target = VISIBLE_OPACITY;
-          else                              target = 0;
-          // Exponential ease toward target
-          it.vAlpha += (target - it.vAlpha) * FADE_LERP;
-          if (it.vAlpha < 0.001) it.vAlpha = 0;
-        }
-      }
-
-      // --------------------------------------------------------------
-      // Touch interaction — when the user touches the canvas, find any
-      // quotes within world-radius IMPULSE_RADIUS and push them away.
-      // The shared /index.js still drops a water ripple at the same
-      // point, so the visual cause-and-effect is "you touched the
-      // water, ripples spread, nearby thoughts are jostled."
-      // --------------------------------------------------------------
-      const IMPULSE_RADIUS   = 0.45;
-      const IMPULSE_STRENGTH = 1.6;
-
-      function applyImpulseAt(worldX, worldZ) {
-        for (const it of items) {
-          const dx = (it.homeX + it.ox) - worldX;
-          const dz = (it.homeZ + it.oz) - worldZ;
-          const d  = Math.sqrt(dx * dx + dz * dz) + 1e-4;
-          if (d < IMPULSE_RADIUS) {
-            const falloff = (1 - d / IMPULSE_RADIUS);
-            const mag = falloff * IMPULSE_STRENGTH / d;
-            it.vx += dx * mag;
-            it.vz += dz * mag;
-          }
-        }
-      }
-
-      const canvas = document.getElementById('canvas');
-
-      function handleEventPos(clientX, clientY) {
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        const wp = unprojectToWorld(clientX, clientY, w, h);
-        applyImpulseAt(wp.x, wp.z);
-      }
-      canvas.addEventListener('pointerdown', e => handleEventPos(e.clientX, e.clientY));
-      canvas.addEventListener('pointermove', e => {
-        // Only on actual drag (left button held or active touch)
-        if (e.buttons === 0 && e.pointerType === 'mouse') return;
-        handleEventPos(e.clientX, e.clientY);
-      });
-
-      // --------------------------------------------------------------
-      // Animation loop — physics + DOM positioning
-      // --------------------------------------------------------------
-      const SPRING        = 4.5;     // per-second pull back to home
-      const DAMP          = 2.3;     // velocity damping per second
-      const MAX_DT        = 0.05;    // clamp to prevent giant jumps after tab-switch
-
-      let last = performance.now();
-      function frame(now) {
-        let dt = (now - last) / 1000;
-        if (dt > MAX_DT) dt = MAX_DT;
-        last = now;
-
-        const t  = now / 1000;
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-
-        // Advance the float-in/out alphas for every card before
-        // we paint this frame.
-        updateFadeLifecycle(t);
-
-        for (const it of items) {
-          // Spring + damping (semi-implicit Euler for stability)
-          it.vx += (-SPRING * it.ox - DAMP * it.vx) * dt;
-          it.vz += (-SPRING * it.oz - DAMP * it.vz) * dt;
-          // Cap velocity so aggressive scrolling on mobile (every
-          // pointermove adds an impulse) can't catapult a card past
-          // the spring's recovery range.
-          const VMAX = 1.5;
-          if (it.vx >  VMAX) it.vx =  VMAX; else if (it.vx < -VMAX) it.vx = -VMAX;
-          if (it.vz >  VMAX) it.vz =  VMAX; else if (it.vz < -VMAX) it.vz = -VMAX;
-          it.ox += it.vx * dt;
-          it.oz += it.vz * dt;
-          // Hard offset cap — cards never wander more than ~half the
-          // pool away from home. Keeps them on screen no matter what.
-          const OMAX = 0.4;
-          if (it.ox >  OMAX) it.ox =  OMAX; else if (it.ox < -OMAX) it.ox = -OMAX;
-          if (it.oz >  OMAX) it.oz =  OMAX; else if (it.oz < -OMAX) it.oz = -OMAX;
-
-          // Ambient sine bob, on top of the spring offset
-          const wobbleX = Math.sin(t * 0.55 + it.phase) * it.ampX;
-          const wobbleZ = Math.cos(t * 0.42 + it.phase * 1.3) * it.ampZ;
-
-          const worldX = it.homeX + it.ox + wobbleX;
-          const worldZ = it.homeZ + it.oz + wobbleZ;
-          const { px, py } = projectToScreen(worldX, worldZ, vw, vh);
-
-          // Lazily measure card size once; recompute on viewport changes
-          if (!it.w || !it.h) {
-            const rect = it.el.getBoundingClientRect();
-            it.w = rect.width;
-            it.h = rect.height;
-          }
-
-          // Center the card on the world point
-          const x = px - it.w / 2;
-          const y = py - it.h / 2;
-          // Slight scale on hover for tactile feedback. Cards also
-          // start a hair smaller and ease up to full size as they
-          // fade in — gives a gentle "rising into focus" feel.
-          const fadeScale = 0.94 + it.vAlpha * 0.06;
-          const hoverScale = it.hovered ? 1.05 : 1;
-          const scale = fadeScale * hoverScale;
-          it.el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
-          it.el.style.opacity = it.vAlpha.toFixed(3);
-          // Stop capturing hover when essentially invisible so the
-          // user can't accidentally hover something they can't see.
-          const interactive = it.vAlpha > 0.15;
-          if (it._lastInteractive !== interactive) {
-            it.el.style.pointerEvents = interactive ? 'auto' : 'none';
-            it._lastInteractive = interactive;
-          }
-        }
-
-        requestAnimationFrame(safeFrame);
-      }
-      // Wrap the rAF entry in try/finally so any single-frame error
-      // never breaks the chain. The static layout already painted the
-      // cards, so even if the animation loop dies on frame 1, the
-      // page still looks correct.
-      function safeFrame(now) {
-        try { frame(now); }
-        catch (e) { try { requestAnimationFrame(safeFrame); } catch (e2) {} }
-      }
-      requestAnimationFrame(safeFrame);
+      const feed = document.getElementById('feed');
+      feed.innerHTML = QUOTES.map(q => {
+        const author = q.author ? `<cite>— ${escapeHTML(q.author)}</cite>` : '';
+        return `<article class="thought"><p>${escapeHTML(q.text)}</p>${author}</article>`;
+      }).join('');
     })();
     </script>
 
