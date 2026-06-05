@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Breaking Bread</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A playbook for running an invitational dinner that builds the room before anyone sits down and books qualified calls the next morning.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/breaking-bread">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Breaking Bread">
+    <meta property="og:description" content="A playbook for running an invitational dinner that builds the room before anyone sits down and books qualified calls the next morning.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/breaking-bread">
+    <meta property="og:image" content="https://www.rohammehrabi.com/essays/_thumb-breaking-bread.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="896">
+    <meta property="og:image:alt" content="Pixel-art scene of people talking around a round restaurant table with appetizers and coffee under string lights.">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Breaking Bread">
+    <meta name="twitter:description" content="A playbook for running an invitational dinner that builds the room before anyone sits down and books qualified calls the next morning.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/essays/_thumb-breaking-bread.jpg">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Manrope', sans-serif;
+      }
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.94);
+        min-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      header {
+        background: #000;
+        position: sticky;
+        top: -3px;
+        z-index: 2;
+        padding: 35px 36px 32px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      header nav a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav a.active {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      header nav .sep {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+      }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .home-link:hover {
+        color: #fff;
+      }
+
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 60px 36px 120px;
+        background: transparent;
+        min-height: 100%;
+      }
+
+      .essay-date {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase;
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 32px;
+      }
+
+      .essay-hero {
+        width: 100%;
+        margin: 0 0 48px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: block;
+      }
+      .essay-hero img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .essay-body h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .essay-body p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 24px;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        text-transform: lowercase;
+        transition: color 0.3s ease;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">June 5, 2026 &nbsp;&middot;&nbsp; 4 min read</div>
+      <h1>Breaking Bread</h1>
+
+      <figure class="essay-hero">
+        <img src="/essays/_thumb-breaking-bread.jpg" alt="Pixel-art scene of people talking around a round restaurant table with appetizers and coffee under string lights.">
+      </figure>
+
+      <div class="essay-body">
+        <p>This is a playbook for how to run a dinner. I ran my first one this week. Thirteen out of fourteen people showed up, I booked two qualified calls the next morning, and it cost a hundred dollars a head for a three course at a michelin guide.</p>
+
+        <p>A conference ticket runs about twelve hundred dollars and you show up cold to a room full of strangers. A dinner is the opposite. You build the room, you pick the people, and by the time anyone sits down they already know who you are.</p>
+
+        <p>The first decision is who to invite. Operator-level people, not executives, at least when you are starting out. Operators bond over day-to-day problems in a way that executives do not. VPs can get territorial and political. Operators just talk. If you eventually do a VP dinner, keep it VP only. But start lower. Lower risk, higher warmth, and they actually have the problems you are solving.</p>
+
+        <p>Build the event and date around two anchor customers. These are existing customers you would show up for even if nobody else came. They validate the event, they create social proof for every new person you bring in, and they do some of the selling for you without you asking. Confirm them first. Then build everyone else around the date they give you.</p>
+
+        <p>Use Claude to find every company that looks like your anchors. Mix smaller companies with larger ones because the smaller companies come partly because of who else is on the list. Named brand companies are pull. Run a LinkedIn search of everyone in that role in your city, filter by location, and send the connection request with this message:</p>
+
+        <p>"Hosting an invitational dinner with top operations leads from [Competitor A], [Competitor B], [Competitor C], and [Competitor D]. A few seats left and would love to have you join us: [Luma link]"</p>
+
+        <p>That is the whole message. No personalization. No "given your background." Just name their competitors and call it an invitational. It worked extremely well exactly as written. LinkedIn Premium gives you a hundred and twenty of these a week.</p>
+
+        <p>When someone accepts and signs up, engage them immediately. Ask about dietary restrictions. Say you are looking forward to having them. Ask what made them sign up. It does not matter what the question is. What matters is that by the time they walk in, you have had a real conversation and they are not arriving blank. People who have talked to you show up. People who signed up and never heard from you ghost.</p>
+
+        <p>Invite fourteen or fifteen people for a twelve-seat dinner. Most invites were sent out and people signed up for my dinner on Sunday and Monday for a Wednesday event. Do not stress about the timeline.</p>
+
+        <p>For the venue, you can ask for two tables next to each other not necessarily private. We did eight and four at Kokkari in San Francisco. Arrive thirty minutes early to handle seating before anyone gets there. Order the appetizers and dessert for the table in advance and let people choose their own entree. It removes a surprising amount of friction and makes the whole thing feel handled and give them your card.</p>
+
+        <p>Seating is the most underrated part of this. Put your champion directly across from you. Put the prospects you most want to close next to you. Put net new people in between. If someone brings a plus one from their company, split them up no matter what. Two people from the same company sitting next to each other will just talk to each other the whole night. Circular tables over rectangular tables.</p>
+
+        <p>During the dinner, do not sell. These people just finished a full day of work and the last thing they want is a pitch. Build the personal relationship first. Ask what problems they are running into. Treat it like any good conversation where you are genuinely curious. The business part comes from one question: what are you doing at two PM tomorrow? You get the time booked while you are sitting there, and then you have a clean reason to stop talking about work at the table. "Let's keep tonight fun, we'll get into the real stuff tomorrow." It works because it is true.</p>
+
+        <p>Midway through, swap seats with your champion. It is not awkward because they understand exactly what you are trying to do and they have already been warming up their side of the table. You go do the same for the other half.</p>
+
+        <p>Before you leave, get everyone's number. The iPhone bump makes this frictionless. Take a selfie with each person and send it as the first text so you have a thread going that night.</p>
+
+        <p>The next morning send a short message to the group saying you loved having everyone and that if anyone wants an intro to someone else from the table you would be happy to make it. Then make a couple of those intros without being asked. For the people you did not get to spend real time with, send a separate note saying you know you did not get to chat much and you would love to grab coffee. They are far more likely to say yes now because they have already seen how you operate.</p>
+
+        <p>Dress well. Show up early. Pre-order the dessert. The whole thing is engineered to make people feel like they are in a room worth being in. That feeling is what they carry into the call the next day.</p>
+
+        <p>A conference puts you in someone else's room. A dinner puts them in yours.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript">window.__waterMode = "still";</script>
+
+    <script type="text/javascript" src="/index.js?v=20260229l"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
