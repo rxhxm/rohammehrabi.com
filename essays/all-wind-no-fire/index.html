@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>All Wind, No Fire</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="We built a beautiful machine for moving air and aimed it at four videos with nothing burning underneath.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/all-wind-no-fire">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="All Wind, No Fire">
+    <meta property="og:description" content="We built a beautiful machine for moving air and aimed it at four videos with nothing burning underneath.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/all-wind-no-fire">
+    <meta property="og:image" content="https://www.rohammehrabi.com/essays/_thumb-all-wind-no-fire.jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image:alt" content="Pixel-art scene of a man pointing a giant fan at a pile of dead embers while a tiny lone flame burns on the floor across the room.">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="All Wind, No Fire">
+    <meta name="twitter:description" content="We built a beautiful machine for moving air and aimed it at four videos with nothing burning underneath.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/essays/_thumb-all-wind-no-fire.jpg">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body { background: #000; color: #fff; font-family: 'Manrope', sans-serif; }
+      #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+      .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100%; height: 100%; overflow-y: auto; }
+      header { background: #000; position: sticky; top: -3px; z-index: 2; padding: 35px 36px 32px 36px; display: flex; align-items: center; justify-content: space-between; }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
+      header nav a:hover { color: rgba(255,255,255,0.85); }
+      header nav a.active { color: rgba(255,255,255,0.85); }
+      header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
+      .home-link:hover { color: #fff; }
+      main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100%; }
+      .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase; color: #fff; line-height: 1.1; margin-bottom: 32px; }
+      .essay-hero {
+        width: 100%;
+        margin: 0 0 48px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: block;
+      }
+      .essay-hero img { display: block; width: 100%; height: auto; }
+      .essay-body p { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
+      .back-link:hover { color: rgba(255,255,255,0.85); }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">June 6, 2026 &nbsp;&middot;&nbsp; 3 min read</div>
+      <h1>All Wind, No Fire</h1>
+
+      <figure class="essay-hero">
+        <img src="/essays/_thumb-all-wind-no-fire.jpg" alt="Pixel-art scene of a man pointing a giant fan at a pile of dead embers while a tiny lone flame burns on the floor across the room.">
+      </figure>
+
+      <div class="essay-body">
+        <p>The week before our launch I made a post in thirty minutes. I pointed our agents at Dario from Anthropic, posted what they pulled back, and went to bed. It got us a thousand signups and 200,000 views.</p>
+
+        <p>The week of our launch we shipped five produced videos across seven planned days. We had a countdown teaser, a supporter list, daily drops at nine in the morning, and a newsletter that offered people a free month of credits if they reposted us. All of it together got us about two hundred.</p>
+
+        <p>That was two weeks ago, and I have thought about that gap every day since.</p>
+
+        <p>The first day actually looked like a win. The launch video did 268,000 views on X and almost 25,000 on LinkedIn. Reposts came in from everyone I had asked, more than fifty people I had lined up on a single calendar invite. The team stayed up watching the number climb, and for one night it felt like the whole plan was working.</p>
+
+        <p>Then the second day did 4,400 views. The third did 1,300. We did not run a launch week. We ran one good day and four days of shouting into a feed that had already walked away.</p>
+
+        <p>I want to be honest about what that does to a person. When you put weeks of real work into something and watch it land on no one, it is not a neutral event. It drains you in a way that is hard to explain to people who have not done it.</p>
+
+        <p>We went in expecting a lot, and when the numbers came back flat there was a real toll on the whole team. I can usually tank this kind of thing, because after enough time pushing content you build the discipline for it. It was rougher on everyone else.</p>
+
+        <p>It is the same discipline day traders run on. You do not panic on a red day. You do not let one bad print spiral into ten. You cut the loss, keep your head level, and post again at nine the next morning. Being able to keep shipping while it is not working is most of the job.</p>
+
+        <p>Here is what I had wrong. The cadence, the five videos, the favors, the boost. None of that is an engine. All of it is amplification, and amplification only ever makes a signal louder. It cannot make a signal exist.</p>
+
+        <p>I always say there is a good video, and there is a video that does good.</p>
+
+        <p>We ran our agents on Demis Hassabis and it did almost seven thousand views with no push behind it. We rebuilt a professor the CEO of Cloudflare could barely remember and it did eleven thousand. The thirty minute Dario post was the same. A real person, a real trail, an opening you could not scroll past.</p>
+
+        <p>The launch videos had none of that. "We are releasing our API" is not a hook. Neither is "Company Intelligence." Neither is "Workflows." Those are product tours, and a product tour talks to someone who is already deciding whether to buy, which gives the algorithm no reason to carry it to anyone who has never heard of you.</p>
+
+        <p>We had made mid funnel videos and dressed them up as a launch.</p>
+
+        <p>The only question that matters is whether someone would stop their scroll for this. Not whether you can get them to stop so you can say what you want.</p>
+
+        <p>The mistake underneath the mistake was the order. I picked what I wanted to say and then tried to force it to spread. In everything I have made that has actually blown up, it has never worked in that direction. You find the thing that spreads first, and then you put your product inside it.</p>
+
+        <p>I keep landing on the same picture. A fire needs two things, a spark and air. That week we built a beautiful machine for moving air. The cadence, the boost, the favors, the begging, all of it was wind. And we aimed the whole thing at four videos with nothing burning underneath.</p>
+
+        <p>Wind does not start a fire. It only finds one.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript">window.__waterMode = "still";</script>
+
+    <script type="text/javascript" src="/index.js?v=20260229l"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
