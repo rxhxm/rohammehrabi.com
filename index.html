@@ -73,22 +73,26 @@
       
       #text-overlay {
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        top: auto;
+        transform: none;
         pointer-events: none;
         z-index: 10;
+        text-align: center;
       }
-      
+
       #ronin-text {
         font-family: 'Anton', sans-serif;
-        font-size: clamp(120px, 20vw, 280px);
+        font-size: clamp(140px, 27vw, 440px);
         font-weight: 400;
-        line-height: 0.82;
         letter-spacing: -0.03em;
         text-transform: uppercase;
         color: #e01e1e;
         text-align: center;
+        white-space: nowrap;
+        line-height: 0.9;
         user-select: none;
       }
 
@@ -99,7 +103,7 @@
         letter-spacing: 0.15em;
         color: rgba(255, 255, 255, 0.7);
         text-align: center;
-        margin-top: 12px;
+        margin-bottom: 14px;
         user-select: none;
         text-transform: uppercase;
       }
@@ -161,13 +165,13 @@
 
       @media (max-width: 600px) {
         #ronin-text {
-          font-size: clamp(72px, 24vw, 140px);
+          font-size: clamp(64px, 30vw, 220px);
           letter-spacing: -0.04em;
         }
         #subtitle {
           font-size: 12px;
           letter-spacing: 0.12em;
-          margin-top: 10px;
+          margin-bottom: 12px;
         }
         #top-left {
           top: max(20px, env(safe-area-inset-top));
@@ -206,8 +210,8 @@
     </div>
 
     <div id="text-overlay">
-      <div id="ronin-text">ROHAM</div>
       <div id="subtitle">A page for my work</div>
+      <div id="ronin-text">ROHAM</div>
     </div>
     
     <script type="text/javascript" src="index.js?v=20260229l"></script>
