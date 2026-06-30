@@ -81,13 +81,14 @@
       }
       
       #ronin-text {
-        font-family: 'Syne', sans-serif;
-        font-size: 110px;
-        font-weight: 700;
-        line-height: 0.85;
-        letter-spacing: -0.04em;
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(120px, 20vw, 280px);
+        font-weight: 400;
+        line-height: 0.82;
+        letter-spacing: -0.03em;
         text-transform: uppercase;
-        color: #ffffff;
+        color: #e01e1e;
+        text-align: center;
         user-select: none;
       }
 
@@ -160,8 +161,8 @@
 
       @media (max-width: 600px) {
         #ronin-text {
-          font-size: clamp(56px, 18vw, 84px);
-          letter-spacing: -0.05em;
+          font-size: clamp(72px, 24vw, 140px);
+          letter-spacing: -0.04em;
         }
         #subtitle {
           font-size: 12px;
