@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Farmer and the Hunter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="I have been running sales and marketing at once. Before our Series A I have to pick one — a walk through the tension between hunting and farming.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/the-farmer-and-the-hunter">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Farmer and the Hunter">
+    <meta property="og:description" content="I have been running sales and marketing at once. Before our Series A I have to pick one — a walk through the tension between hunting and farming.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/the-farmer-and-the-hunter">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="The Farmer and the Hunter">
+    <meta name="twitter:description" content="I have been running sales and marketing at once. Before our Series A I have to pick one — a walk through the tension between hunting and farming.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body { background: #000; color: #fff; font-family: 'Manrope', sans-serif; }
+      #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+      .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100%; height: 100%; overflow-y: auto; }
+      header { background: #000; position: sticky; top: -3px; z-index: 2; padding: 35px 36px 32px 36px; display: flex; align-items: center; justify-content: space-between; }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
+      header nav a:hover { color: rgba(255,255,255,0.85); }
+      header nav a.active { color: rgba(255,255,255,0.85); }
+      header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
+      .home-link:hover { color: #fff; }
+      main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100%; }
+      .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase; color: #fff; line-height: 1.1; margin-bottom: 32px; }
+      .essay-body p { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+      .essay-body h2 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: #fff; line-height: 1.25; margin: 44px 0 20px; }
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
+      .back-link:hover { color: rgba(255,255,255,0.85); }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">July 5, 2026 &nbsp;&middot;&nbsp; 6 min read</div>
+      <h1>The Farmer and the Hunter</h1>
+
+      <div class="essay-body">
+        <p>For the last few months I have been running two jobs at once. I have been closing deals and negotiating MSAs. I have also been running growth, writing content, generating the leads that end up in the pipeline.</p>
+
+        <p>But as we prepare to raise our Series A, I need to pick one. Staying generalist past a certain scale is how you get quietly outflanked by specialists brought in above you.</p>
+
+        <p>I have flipped back and forth more times than I want to admit. I want to walk through my actual reasoning, because I think the interesting part is the tension between the two answers.</p>
+
+        <h2>The case for sales</h2>
+
+        <p>Sales is more direct to value. You close a deal, money hits the bank, everyone knows who did it. Marketing outcomes get attributed across fifteen to forty touches in a six month sales cycle, which means the person who wrote the LinkedIn post that started the meeting gets no credit and the person who signed the paper gets all of it. In sales led B2B, marketing gets an MQL number and sales gets an ARR number. Boards only care about ARR.</p>
+
+        <p>Sales also has the cleaner scoreboard. Every quarter, every month, every deal. Win or lose. Nothing to argue about. And I like competition. I like knowing whether I won.</p>
+
+        <p>Then there is the money. Standard VP Sales comp is fifty percent base, fifty percent variable, with uncapped accelerators above plan. Top IC AEs at hot companies can clear a million in a strong year. You eat what you kill. Marketing bonuses are almost always capped. Sales commissions are not.</p>
+
+        <p>And there is a scarcity argument that keeps pulling at me. Every early stage startup needs a sales person. Not every early stage startup needs a marketing person. Founder led sales is universal. Founder led marketing is rare.</p>
+
+        <h2>The case for marketing</h2>
+
+        <p>At the VP level for sales, the eat what you kill dynamic weakens because you get paid on team quota, not personal deals. Series A VP Sales OTE lands around 250 to 400 thousand. Series A VP Marketing with revenue tied bonuses lands around 264 to 420 thousand.</p>
+
+        <p>Then look at the risk. Jason Lemkin has said publicly that seventy percent of first time VPs Sales fail in their first twelve months. Median CRO tenure is 1.8 years. Median CMO tenure is 4.2 years. Sixty five percent of departing CMOs land equal or larger roles. The fired VP Sales often drops back down.</p>
+
+        <h2>Sales is hunting. Marketing is farming.</h2>
+
+        <p>The classic sales analogy is the hunter and the farmer. Every VP Sales wants to be called a hunter. The word codes for aggression, decisive action, individual heroism.</p>
+
+        <p>Human civilization did not advance because we hunted better. It advanced because we started farming.</p>
+
+        <p>For hundreds of thousands of years, humans lived hand to mouth. Every meal required a new kill. If you were a great hunter in 5000 BC, none of your descendants got any benefit from your excellence, because there was nothing to hand down except technique.</p>
+
+        <p>Then the Neolithic Revolution happened. Global population went from 5 million to 200 million by 1 AD. Cities emerged. Writing was invented to track grain storage. Then law, then literature, then everything we call civilization.</p>
+
+        <p>The hunters did not lose because they were unskilled. They lost because their skill did not compound. A hunter's knowledge died with him. A farmer's field fed his grandchildren.</p>
+
+        <p>Sales is hunting. Every quarter resets. A deal closed today is closed, and next quarter you start over. When you stop hunting, you stop eating. Marketing is farming. A piece of content written today is still generating leads two years from now. A category defined in year one becomes the frame the market thinks in by year five. When you stop farming, the harvest keeps coming.</p>
+
+        <p>April Dunford has not held a full time job in a decade and reportedly earns 500 thousand to over a million a year on one book and a body of positioning frameworks.</p>
+
+        <p>The equivalent list of famous VP Sales operators is much shorter. Lemkin, Aaron Ross, Mark Roberge. All became famous when they stopped being sales operators and started teaching instead. The farmers became famous while they were still doing the work.</p>
+
+        <h2>Naval's frame finally made this click</h2>
+
+        <p>Naval Ravikant divides all leverage into four types: capital, labor, code, and media. Capital and labor are permissioned. Someone has to give them to you. Code and media are permissionless. Nobody has to grant you access.</p>
+
+        <p>Sales is permissioned labor leverage. Every deal requires permissioned leads, permissioned buy in, permissioned budget. You do not own the leverage. You rent it. When you leave the company, most of it stays behind.</p>
+
+        <p>Modern marketing at the founder brand level is permissionless media leverage. Nobody has to approve your post. The output compounds while you sleep.</p>
+
+        <p>Naval's rule: for every hour you work, ask whether the output will compound or die when you stop, and shift toward compounding outputs. Sales dies when you stop. Marketing keeps generating for years.</p>
+
+        <h2>The steelman for sales I keep coming back to</h2>
+
+        <p>Sales gives you credibility marketing simply cannot. "I closed Walmart" is more legible than "I did the campaign that generated Walmart." In VC, founder, and acquirer rooms, closed logos are the coin of the realm. You get taken more seriously as a former CRO than as a former CMO in most fundraising conversations.</p>
+
+        <p>Sales also has the shortest possible distance between action and outcome. You made the ask, they said yes or no, you know now. Marketing attributes across a six month cycle and involves a hundred variables you cannot isolate. If you are wired for immediate feedback, and I think I am, sales gives you something marketing cannot.</p>
+
+        <h2>The choice</h2>
+
+        <p>Sales is hunting. It is real, immediate, well compensated when you hit, and comes with psychological rewards marketing cannot match. But hunting does not scale. Every kill has to be repeated. Every quarter resets.</p>
+
+        <p>Marketing is farming. Slower, less legible, and the first year of any crop looks like nothing is happening. But farming is why we built cities.</p>
+
+        <p>I have not made the call yet. Both paths are real. Both have real pull.</p>
+
+        <p>What I know is that whichever I pick, I want to still be doing the other one, just with less of my time on it. The rare operator does both. The question is only which one goes on the business card.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript">window.__waterMode = "still";</script>
+
+    <script type="text/javascript" src="/index.js?v=20260229l"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
