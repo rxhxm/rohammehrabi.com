@@ -124,6 +124,15 @@
         color: rgba(255, 255, 255, 0.92);
       }
       .thought p + p { margin-top: 18px; }
+      .thought-img {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 10px;
+      }
+      .thought-img + p { margin-top: 22px; }
       .thought cite {
         display: block;
         margin-top: 16px;
@@ -250,9 +259,10 @@
 
       const feed = document.getElementById('feed');
       feed.innerHTML = QUOTES.map(q => {
+        const image = q.image ? `<img class="thought-img" src="${encodeURI(q.image)}" alt="${escapeHTML(q.alt || '')}" loading="lazy">` : '';
         const author = q.author ? `<cite>— ${escapeHTML(q.author)}</cite>` : '';
-        const paragraphs = q.text.split('\n\n').map(p => `<p>${escapeHTML(p)}</p>`).join('');
-        return `<article class="thought">${paragraphs}${author}</article>`;
+        const paragraphs = q.text ? q.text.split('\n\n').map(p => `<p>${escapeHTML(p)}</p>`).join('') : '';
+        return `<article class="thought">${image}${paragraphs}${author}</article>`;
       }).join('');
     })();
     </script>
