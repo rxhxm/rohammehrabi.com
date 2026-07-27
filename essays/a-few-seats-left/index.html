@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A Few Seats Left</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Cold email is dead and LinkedIn still works. How a dinner invitation — and the no that follows it — became my best outbound channel.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/a-few-seats-left">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="A Few Seats Left">
+    <meta property="og:description" content="Cold email is dead and LinkedIn still works. How a dinner invitation — and the no that follows it — became my best outbound channel.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/a-few-seats-left">
+    <meta property="og:image" content="https://www.rohammehrabi.com/essays/_thumb-a-few-seats-left.jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image:alt" content="Pixel-art maitre d' in a tuxedo holding out a blank dinner invitation card in a dim restaurant.">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="A Few Seats Left">
+    <meta name="twitter:description" content="Cold email is dead and LinkedIn still works. How a dinner invitation — and the no that follows it — became my best outbound channel.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/essays/_thumb-a-few-seats-left.jpg">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body { background: #000; color: #fff; font-family: 'Manrope', sans-serif; }
+      #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+      .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100%; height: 100%; overflow-y: auto; }
+      header { background: #000; position: sticky; top: -3px; z-index: 2; padding: 35px 36px 32px 36px; display: flex; align-items: center; justify-content: space-between; }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
+      header nav a:hover { color: rgba(255,255,255,0.85); }
+      header nav a.active { color: rgba(255,255,255,0.85); }
+      header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
+      .home-link:hover { color: #fff; }
+      main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100%; }
+      .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase; color: #fff; line-height: 1.1; margin-bottom: 32px; }
+      .essay-hero {
+        width: 100%;
+        margin: 0 0 48px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: block;
+      }
+      .essay-hero img { display: block; width: 100%; height: auto; }
+      .essay-body p { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
+      .back-link:hover { color: rgba(255,255,255,0.85); }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">July 26, 2026 &nbsp;&middot;&nbsp; 4 min read</div>
+      <h1>A Few Seats Left</h1>
+
+      <figure class="essay-hero">
+        <img src="/essays/_thumb-a-few-seats-left.jpg" alt="Pixel-art maitre d' in a tuxedo holding out a blank dinner invitation card in a dim restaurant." onerror="this.closest('.essay-hero').remove()">
+      </figure>
+
+      <div class="essay-body">
+        <p>Everyone I know has given up on cold emailing. It is the most scalable channel we have ever had, which is exactly why it is dead. Anyone can send ten thousand of them before lunch, so everyone does, and the inbox has learned to ignore all of it. LinkedIn is the opposite. It is annoying to scale, the limits are real, and that is the entire reason it still works. I have been doing outbound on it for five years, selling to doctors, landing jobs, and now finding customers for Sixtyfour, and it has beaten email every single time for anyone who learns how it behaves.</p>
+
+        <p>The first thing you learn is that InMail is a trap. It is expensive, it is capped, and it screams that you paid to reach someone. So the real game is the free connection request, and how many of them turn into a yes. For years the accepted wisdom was simple. Send the request with no note at all. A blank request beats "would love to connect and hear about your journey" every time, because the blank one looks like a peer and the noted one looks like a pitch.</p>
+
+        <p>Then I found the one note that beats a blank request.</p>
+
+        <p>The note is a dinner invitation.</p>
+
+        <p>Before I send a single request I lock in two or three champions I already know, people I actually want to get closer to. I text them something plain. "Planning to throw a dinner in the next couple of weeks, probably Wednesday. I would really love to have you there. Can you make it?" Once they are in, the table exists. Even if nobody else shows, I get a night with three customers I care about, so the whole thing is already worth it.</p>
+
+        <p>Then I go find the people I am not connected to yet, the ones who are exactly who we should be talking to. I filter by their city when I actually want them there, and sometimes by a city they could never get to, because half the time I do not need them at the table at all. Then I send the connection request with the dinner as the note.</p>
+
+        <p>LinkedIn gives you almost nothing to work with here. A few hundred characters, and if you are not paying, not many notes to spend.</p>
+
+        <p>That constraint is a gift. It forces the invite to be tight and specific.</p>
+
+        <p>Mine reads close to this. Hosting an invitational dinner with [role] leaders from [competitor 1], [competitor 2], and [competitor 3] during [event]. A few seats left and would love to have you join us: [link].</p>
+
+        <p>Read that as the person receiving it. It offers them a seat at a table with their own peers, and it tells them the seats are running out. Nobody has ever framed a cold request to them that way, so they accept.</p>
+
+        <p>And then most of them tell me they cannot make it.</p>
+
+        <p>This is the part everyone misses. The no is not the failure. The no is the whole point. When someone says they are in New York, or slammed that week, I say the same thing every time.</p>
+
+        <p>"No worries at all, we run these pretty often. Can I grab you for the next one?" They always say yes. And in saying it, something quiet happens. They now feel like they turned down your invitation, and people do not like owing you a small no.</p>
+
+        <p>So I give them the easy way to make it right. "We have been doing a lot of work with folks in your space. I would still love to show you what that could look like for you. Do you have twenty minutes next week?"</p>
+
+        <p>They take the call because they declined me first, and the call is how they square it.</p>
+
+        <p>You showed status instead of need, and status is the only thing that travels on that platform.</p>
+
+        <p>This is how I filled the room for many of our dinners with almost all competitors within our ICP. Almost everyone I invited this way turned into a warm discovery call, or a warm introduction to someone even more ICP on their team. A lot of those turned into deals.</p>
+
+        <p>The whole platform is people asking to be let in. Asking to connect, asking for time, asking for a minute of your attention. I stopped asking. I started handing people something good to turn down.</p>
+
+        <p>Almost no one who matters can ever actually make it. I used to think that was the flaw in the plan. It is the plan. The dinner was never the invitation.</p>
+
+        <p>The no was.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript">window.__waterMode = "still";</script>
+
+    <script type="text/javascript" src="/index.js?v=20260229l"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
