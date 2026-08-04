@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Bar Is on the Floor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Two failed college startups taught me to optimize for applause. Selling to enterprises taught me the only three things that matter: taste, truthfulness, and speed.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/the-bar-is-on-the-floor">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Bar Is on the Floor">
+    <meta property="og:description" content="Two failed college startups taught me to optimize for applause. Selling to enterprises taught me the only three things that matter: taste, truthfulness, and speed.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/the-bar-is-on-the-floor">
+    <meta property="og:image" content="https://www.rohammehrabi.com/essays/_thumb-the-bar-is-on-the-floor.jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image:alt" content="Pixel-art scene of a man in a suit striding across an office to hand a marked-up contract to a colleague.">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="The Bar Is on the Floor">
+    <meta name="twitter:description" content="Two failed college startups taught me to optimize for applause. Selling to enterprises taught me the only three things that matter: taste, truthfulness, and speed.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/essays/_thumb-the-bar-is-on-the-floor.jpg">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body { background: #000; color: #fff; font-family: 'Manrope', sans-serif; }
+      #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+      .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100%; height: 100%; overflow-y: auto; }
+      header { background: #000; position: sticky; top: -3px; z-index: 2; padding: 35px 36px 32px 36px; display: flex; align-items: center; justify-content: space-between; }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
+      header nav a:hover { color: rgba(255,255,255,0.85); }
+      header nav a.active { color: rgba(255,255,255,0.85); }
+      header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
+      .home-link:hover { color: #fff; }
+      main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100%; }
+      .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase; color: #fff; line-height: 1.1; margin-bottom: 32px; }
+      .essay-hero {
+        width: 100%;
+        margin: 0 0 48px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: block;
+      }
+      .essay-hero img { display: block; width: 100%; height: auto; }
+      .essay-body p { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
+      .back-link:hover { color: rgba(255,255,255,0.85); }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">August 4, 2026 &nbsp;&middot;&nbsp; 5 min read</div>
+      <h1>The Bar Is on the Floor</h1>
+
+      <figure class="essay-hero">
+        <img src="/essays/_thumb-the-bar-is-on-the-floor.jpg" alt="Pixel-art scene of a man in a suit striding across an office to hand a marked-up contract to a colleague." onerror="this.closest('.essay-hero').remove()">
+      </figure>
+
+      <div class="essay-body">
+        <p>Before my role at Sixtyfour, I attempted two startups in college. Socale and Dart. I went through the incubators you go through when you are nineteen and certain, Skydeck and the Blackstone Launchpad, all of them full of people exactly like me. I measured success with waitlist signups. Applause at demo day. Free users. The verbal yes from someone who thought it was very cool and was never going to pay. Both companies died. And when I look back at every number I was proud of, every one of them was a proxy for the same thing. Looking like a company. I got good at looking like a company without ever building one.</p>
+
+        <p>A year and a half out of school, selling software to actual enterprises, I found out that almost nothing I optimized for back then mattered. Three things do. Taste, truthfulness, and speed.</p>
+
+        <p>Taste is knowing what to say and, more often, what not to. The clearest place it shows is in writing. There is a famous line, "I have made this longer than usual because I have not had the time to make it shorter." Conciseness is the hardest thing to do and the most tasteful. Taste also shows up in a deal. When a prospect budgets a dollar a profile and we cost four, I say that on the call and offer a small paid test instead of pretending we can hit their number. It is the residue of a lot of mistakes and a lot of feedback. I have written hundreds of posts and watched most of them land on no one, which is the only way I ever learned which ones would.</p>
+
+        <p>Truthfulness is how honest you are with yourself about what is actually working. This is the one that quietly killed both college startups, though I could not see it at the time. I called waitlist signups traction. I called a free trial a customer. I called "this is so cool" a deal. Every one of those was a lie I told myself because the honest version was less exciting. The grown up version of the same lie is everywhere now, and it is called ARR. Someone gets paid twenty thousand dollars one time, annualizes it, multiplies it, and reports it as real recurring revenue. A single quarter pilot from a customer who has not decided yet is not an annual number. Pipeline is the same trap wearing a nicer suit. You can inflate it to infinity because nothing in it has to be true yet. The only two questions that survive contact with reality are how many qualified demos you booked and how many of them closed. Everything else is a story you tell yourself and others.</p>
+
+        <p>Speed is the one with the most evidence behind it. Startups run entirely on momentum, and momentum has a half life measured in hours. A Harvard Business Review audit of over two thousand companies found that reaching a lead within an hour makes you about seven times more likely to have a real conversation than waiting even sixty minutes longer, and sixty times more likely than waiting a day. A separate study out of MIT found that answering within five minutes makes you twenty one times more likely to qualify a lead than answering in thirty. Seventy eight percent of customers buy from whoever responds first.</p>
+
+        <p>I used to get back to a customer within an hour or two. Now I get back within the minute. When something breaks on a live demo, it is fixed that day. When a contract comes back marked up, it goes back within the hour, because enterprise deals almost never die from a hard no. They die in the silent days between emails. And you never leave a conversation without a next step and a real reason to take it now, a price going up next month, a minimum commitment rising, a number that has to land inside this quarter. Give a person an honest reason to move, and they move.</p>
+
+        <p>Speed only works if it carries something. Replying in a minute with something useful is urgency. Replying in a minute with nothing is desperation, and the only thing that tells them apart is whether every touch gives the person a reason, which is taste, and whether the reason is true, which is truthfulness.</p>
+
+        <p>None of it is glamorous. Nobody claps for a redline returned in under an hour, or for calling a fifty thousand dollar pilot exactly what it is, or for a cold email that is one honest line long. They are just the only things I have found that turn a room full of interest into money in the bank.</p>
+
+        <p>In college I optimized for the applause. Now I optimize for the wire.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript">window.__waterMode = "still";</script>
+
+    <script type="text/javascript" src="/index.js?v=20260229l"></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>
