@@ -73,13 +73,10 @@
       
       #scrim {
         position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 48%;
-        background: linear-gradient(to top,
-          rgba(0, 0, 0, 0.32) 0%,
-          rgba(0, 0, 0, 0.12) 42%,
+        inset: 0;
+        background: radial-gradient(ellipse 60% 55% at 50% 50%,
+          rgba(0, 0, 0, 0.45) 0%,
+          rgba(0, 0, 0, 0.16) 55%,
           rgba(0, 0, 0, 0) 100%);
         z-index: 5;
         pointer-events: none;
@@ -87,73 +84,69 @@
 
       #text-overlay {
         position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        top: auto;
-        transform: none;
-        pointer-events: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         z-index: 10;
-        text-align: center;
-      }
-
-      #ronin-text {
-        font-family: 'Anton', sans-serif;
-        font-size: clamp(70px, 13.5vw, 220px);
-        font-weight: 400;
-        letter-spacing: -0.03em;
-        text-transform: uppercase;
-        color: #ffffff;
-        text-shadow: 0 2px 40px rgba(0, 0, 0, 0.45);
-        text-align: left;
-        padding-left: 38px;
-        white-space: nowrap;
-        line-height: 0.9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        pointer-events: none;
         user-select: none;
       }
 
       #subtitle {
         font-family: 'Syne', sans-serif;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 500;
-        letter-spacing: 0.15em;
-        color: rgba(255, 255, 255, 0.9);
-        text-align: left;
-        padding-left: 38px;
-        margin-bottom: 12px;
+        letter-spacing: 0.22em;
+        color: rgba(255, 255, 255, 0.75);
+        text-align: center;
+        margin-bottom: 30px;
         text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
-        user-select: none;
         text-transform: uppercase;
       }
 
-      #top-left {
-        position: fixed;
-        top: 32px;
-        left: 36px;
-        z-index: 10;
-        pointer-events: none;
-        user-select: none;
+      #hero-lockup {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
       }
 
-      #top-left a {
+      #ronin-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(44px, 12vh, 132px);
+        font-weight: 400;
+        line-height: 0.92;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        color: #ffffff;
+        text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      #hero-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        pointer-events: auto;
+      }
+      #hero-nav a {
         font-family: 'Syne', sans-serif;
-        font-size: 16px;
+        font-size: clamp(16px, 2.4vh, 22px);
         font-weight: 500;
-        letter-spacing: -0.01em;
-        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 0.02em;
+        color: rgba(255, 255, 255, 0.5);
         text-transform: lowercase;
         text-decoration: none;
-        pointer-events: auto;
-        cursor: pointer;
         transition: color 0.3s ease;
+        text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5);
       }
-      #top-left a:hover {
-        color: rgba(255, 255, 255, 0.85);
-      }
-      #top-left .sep {
-        color: rgba(255, 255, 255, 0.2);
-        margin: 0 8px;
-        font-size: 16px;
+      #hero-nav a:hover {
+        color: rgba(255, 255, 255, 0.95);
       }
 
       #social-links {
@@ -182,27 +175,14 @@
       }
 
       @media (max-width: 600px) {
-        #ronin-text {
-          font-size: clamp(64px, 30vw, 220px);
-          letter-spacing: -0.04em;
-          padding-left: 20px;
-        }
+        #hero-lockup { gap: 24px; }
+        #ronin-text { font-size: clamp(40px, 10.5vh, 100px); }
+        #hero-nav { gap: 9px; }
+        #hero-nav a { font-size: 16px; }
         #subtitle {
           font-size: 12px;
-          letter-spacing: 0.12em;
-          padding-left: 20px;
-          margin-bottom: 8px;
-        }
-        #top-left {
-          top: max(20px, env(safe-area-inset-top));
-          left: 20px;
-        }
-        #top-left a,
-        #top-left .sep {
-          font-size: 14px;
-        }
-        #top-left .sep {
-          margin: 0 6px;
+          letter-spacing: 0.18em;
+          margin-bottom: 24px;
         }
         #social-links {
           bottom: max(20px, env(safe-area-inset-bottom));
@@ -220,10 +200,6 @@
     <canvas id="canvas"></canvas>
     <div id="scrim"></div>
 
-    <div id="top-left">
-      <a href="/essays">essays</a><span class="sep">|</span><a href="/projects">projects</a><span class="sep">|</span><a href="/thoughts">thoughts</a>
-    </div>
-
     <div id="social-links">
       <a href="https://github.com/rxhxm" target="_blank" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.02 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
       <a href="https://www.linkedin.com/in/rxhxm/" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
@@ -232,7 +208,14 @@
 
     <div id="text-overlay">
       <div id="subtitle">A page for my work</div>
-      <div id="ronin-text">ROHAM</div>
+      <div id="hero-lockup">
+        <div id="ronin-text"><span>R</span><span>O</span><span>H</span><span>A</span><span>M</span></div>
+        <nav id="hero-nav">
+          <a href="/essays">essays</a>
+          <a href="/projects">projects</a>
+          <a href="/thoughts">thoughts</a>
+        </nav>
+      </div>
     </div>
     
     <script type="text/javascript" src="index.js?v=20260229l"></script>
