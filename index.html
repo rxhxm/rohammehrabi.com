@@ -156,6 +156,28 @@
         font-size: 16px;
       }
 
+      #view-toggle {
+        position: fixed;
+        top: 32px;
+        right: 36px;
+        z-index: 10;
+        user-select: none;
+      }
+      #view-toggle a {
+        font-family: 'Syne', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: lowercase;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+      #view-toggle a:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
       #social-links {
         position: fixed;
         bottom: 32px;
@@ -204,6 +226,13 @@
         #top-left .sep {
           margin: 0 6px;
         }
+        #view-toggle {
+          top: max(20px, env(safe-area-inset-top));
+          right: 20px;
+        }
+        #view-toggle a {
+          font-size: 14px;
+        }
         #social-links {
           bottom: max(20px, env(safe-area-inset-bottom));
           right: 20px;
@@ -222,6 +251,10 @@
 
     <div id="top-left">
       <a href="/essays">essays</a><span class="sep">|</span><a href="/projects">projects</a><span class="sep">|</span><a href="/thoughts">thoughts</a>
+    </div>
+
+    <div id="view-toggle">
+      <a href="/minimal" title="Minimal version">minimal</a>
     </div>
 
     <div id="social-links">
