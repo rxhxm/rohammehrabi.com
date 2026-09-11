@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Never Send the Proposal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Proposals die in inboxes. I read the business terms out loud, face to face, and the paper does not leave the room until we have shaken on it.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.rohammehrabi.com/essays/never-send-the-proposal">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Never Send the Proposal">
+    <meta property="og:description" content="Proposals die in inboxes. I read the business terms out loud, face to face, and the paper does not leave the room until we have shaken on it.">
+    <meta property="og:url" content="https://www.rohammehrabi.com/essays/never-send-the-proposal">
+    <meta property="og:image" content="https://www.rohammehrabi.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:author" content="Roham Mehrabi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ronin_xy">
+    <meta name="twitter:creator" content="@Ronin_xy">
+    <meta name="twitter:title" content="Never Send the Proposal">
+    <meta name="twitter:description" content="Proposals die in inboxes. I read the business terms out loud, face to face, and the paper does not leave the room until we have shaken on it.">
+    <meta name="twitter:image" content="https://www.rohammehrabi.com/og-image.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { overscroll-behavior-y: none; }
+      html, body { min-height: 100%; height: 100%; }
+      body { background: #000; color: #fff; font-family: 'Manrope', sans-serif; }
+      #canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+      .page-content { position: relative; z-index: 1; background: rgba(0,0,0,0.94); min-height: 100%; height: 100%; overflow-y: auto; }
+      header { background: #000; position: sticky; top: -3px; z-index: 2; padding: 35px 36px 32px 36px; display: flex; align-items: center; justify-content: space-between; }
+      header nav { display: flex; align-items: center; gap: 8px; }
+      header nav a {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.45); text-transform: lowercase; text-decoration: none; transition: color 0.3s ease; }
+      header nav a:hover { color: rgba(255,255,255,0.85); }
+      header nav a.active { color: rgba(255,255,255,0.85); }
+      header nav .sep { color: rgba(255,255,255,0.2); font-size: 13px; }
+      .home-link {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: lowercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s ease; }
+      .home-link:hover { color: #fff; }
+      main { max-width: 680px; margin: 0 auto; padding: 60px 36px 120px; background: transparent; min-height: 100%; }
+      .essay-date { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 16px; }
+      h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        text-transform: lowercase; color: #fff; line-height: 1.1; margin-bottom: 32px; }
+      .essay-body p { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.8; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+      .back-link {
+        display: inline-block;
+        margin-top: 48px;
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.05em; color: rgba(255,255,255,0.35); text-decoration: none; text-transform: lowercase; transition: color 0.3s ease; }
+      .back-link:hover { color: rgba(255,255,255,0.85); }
+    </style>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.113.0/build/three.min.js" defer></script>
+  </head>
+
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div class="page-content">
+    <header>
+      <nav>
+        <a href="/essays" class="active">essays</a>
+        <span class="sep">|</span>
+        <a href="/thoughts">thoughts</a>
+        <span class="sep">|</span>
+        <a href="/projects">projects</a>
+      </nav>
+      <a href="/" class="home-link">ROHAM</a>
+    </header>
+
+    <main>
+      <div class="essay-date">September 10, 2026 &nbsp;&middot;&nbsp; 6 min read</div>
+      <h1>Never Send the Proposal</h1>
+
+      <div class="essay-body">
+        <p>The fastest way to kill a deal is to email someone a proposal and let them review it on their own time. I know because I did it for years. You attach the PDF, you write something warm, you hit send, and then you wait. What comes back is silence, or a polite note that they are taking it to the team, and then a slower silence after that. You never find out what they actually objected to. You never see their face when they hit the price. The decision gets made in a room you are not in, and you lose.</p>
+
+        <p>So I stopped sending proposals. What I send now, and only ever after the fact, is a BTO. A business terms overview. The name matters, because I am not proposing anything. I am not asking whether they want to work with us. I am walking through the terms of the agreement we are about to enter, out loud, together, live. Everybody wants to take the document away and review it async. That instinct is exactly where deals go cold. I do not give them that. We go through it face to face, I watch every reaction, and the paper does not leave the room until we have shaken on it.</p>
+
+        <p>Here is how the whole thing actually goes.</p>
+
+        <p>It starts before the document is even open. Even when the call is only fifteen minutes, I spend the first three or four just talking to them like a person, because some of these buyers are not your friend yet, and you want them hopping on future calls out of respect, not obligation. Joke with them. Tell them they were hard to pin down and that you respect it. Then I set the frame, and I do it by taking the pressure off and turning it into speed at the same time. I am here today to finalize, we will land on a number by the end of this call, and I am flexible if you are willing to move fast. That makes any number I show later feel safe, because they know it is not firm and we will work it out together, and it quietly commits them to closing today.</p>
+
+        <p>Then I open the document, and the first thing on it is their logos next to ours, and I start on product, never price. The entire product section is just me repeating their own words back to them. In the discovery calls leading up to this, they told me what hurt, so now I say it back as something solved. They told me their current tools cap them around two thousand profiles when they need fifty thousand, so I say, I know you mentioned you are stuck at two thousand and you need fifty, our limit is fifty thousand and we give you bulk sourcing at scale. They told me the real unlock would be MCP and API access, so I say, you said MCP was the thing, here is your MCP. Deep research agents on the niche profiles they care about. The first author papers those people wrote, the citations, the datasets they own. They told me they were stitching together personal email, work email, and phone through Clay, so I say, we take that over and we verify all three, which Clay does not. They mentioned a stubborn gap in verified emails, so I say, we are putting dedicated engineering on closing that last seven or eight percent, and we are committing to it. A dedicated Slack channel. Onboarding workshops for every new hire on their team. Engineering support. And at the price I am about to show you, unlimited search across a billion profile database.</p>
+
+        <p>By the time I finish that section I have not made a single argument. I have just recited their own priorities back to them until the value is not in question. So I ask, before we get into commercials, any questions on the product. Almost always the scope is already closed. Now we go to money.</p>
+
+        <p>And the first number I put in front of them is not the price. It is what they lose without us.</p>
+
+        <p>You never do this in the abstract. You take what we already caught in the pilot and you scale it to their real volume. On one platform we work with, one with a firehose of signups, we ran a blind sample of fifteen accounts their own team had already reviewed, and our agents caught twelve of the bad actors cold, plus two more the team had waved through as fine. Then you do the arithmetic out loud. At their signup volume, tens of thousands a year, that is around 800 fraudulent accounts a year they would have passed as good even with a human checking every one. And then the line that seals it: that is assuming no growth, and they were one of the fastest growing platforms in their category, so even if they flatlined completely, this is what we catch.</p>
+
+        <p>And if their team ever gave you a real cost per incident, you turn that count into dollars on the spot, because dollars move people faster than counts do. Even a conservative number per account puts the damage well above what we are charging. If there was a pilot, better still: you already caught this much in the trial, so they make their money back in the first weeks of the year and everything after is free.</p>
+
+        <p>Then you make the harm concrete, because a number is forgettable and a story is not. You name what got through before. The account that had quietly renamed itself to look like a major company's support desk. The label that had already taken money from artists, with public complaints sitting online that our agents would have flagged before it ever signed up. The clean looking signup, real name and real email, that traced back to sixteen shell companies running the same data mining scam. At that point you are not selling software. You are showing them the cost of the version of their business that does not have you in it.</p>
+
+        <p>Only now, with that number hanging over the table, do I show them the price, and it always looks small.</p>
+
+        <p>The single most important rule of the commercials is this. Always have a standard price, and always cross it out, right next to the number you are actually giving them. Our standard platform license is sixty five thousand. I highlight it, strike through it, and next to it sits forty eight, their preferred rate. Then the credit rate, marked down from standard. Then their per contact rate, marked down from what they have been paying. Every single line shows a discount off a real anchor. This does two things. It makes the number feel like something they won instead of something they were charged. And it hands your champion a document they can walk upstairs and show their boss as a victory, because the person across from you almost always has to go sell this internally, and you want every line to read as a win they negotiated. Then the term, twelve months. And then the line that does most of the work: these rates only hold if we sign by the end of the month. I give them this week, and if they push, the end of next.</p>
+
+        <p>Then I give them the number, and I shut up. This is the part almost nobody can do. You state the price, you go completely silent, and you let it sit. You watch their face. You do not fill the air. The silence is where the real reaction lives, and the real reaction is where the negotiation actually starts.</p>
+
+        <p>Two more moves on the money. First, never show the scary annual total. Nobody wants to see six hundred thousand. Show fifty thousand a month, annualized. It is the same number, but broken down it is easier on the eyes, and sticker shock is a visual reflex before it is a rational one. Second, when they counter, and they will, you open a fresh document and you do the math live, on the screen, in front of them. They say they can only run it every other week instead of daily, so I pull up the calculator and go, alright, point two times ten credits, times two thousand companies, biweekly, that is a hundred and four thousand, right there in front of them. It is the jewelry store move. When you buy a watch, the person behind the counter does not slide you a printed quote, they pull out the calculator and work the number with you, and it makes the whole thing feel real and fair. Do that.</p>
+
+        <p>The last thing on the page is the part I never talk about. The marketing terms, the right to use their logo, all of that just sits there for them to review, and we only ever claim a logo a customer has explicitly agreed to, never one we did not earn. It is not the point. The point is everything above it, and the point is that this entire document is a record of an agreement, not a request for one. I do not send it to open a negotiation. I read it to close one.</p>
+
+        <p>Every deal I have ever lost, I lost in the quiet days after I sent something for someone to review on their own. So I do not do that anymore. I put it on a screen, I read it to their face, I watch them the whole way down, and the only thing that ever leaves the room is a contract for the thing we already shook on.</p>
+
+        <p>A proposal asks for the decision later. This takes it now.</p>
+      </div>
+
+      <a href="/essays" class="back-link">&larr; back to essays</a>
+    </main>
+    </div>
+
+    <script type="text/javascript">window.__waterMode = "still";</script>
+
+    <script type="text/javascript" src="/index.js?v=20260911a" defer></script>
+    <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
+  </body>
+</html>

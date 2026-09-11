@@ -49,14 +49,7 @@ loadFile('shaders/utils.glsl').then((utils) => {
   // Light direction
   const light = [0.7559289460184544, 0.7559289460184544, -0.3779644730092272];
 
-  // Camera is locked - controls created but fully disabled
-  const controls = new THREE.TrackballControls(camera, canvas);
-  controls.screen.width = width;
-  controls.screen.height = height;
-  controls.enabled = false;
-  controls.noRotate = true;
-  controls.noZoom = true;
-  controls.noPan = true;
+  // Camera is locked — no controls needed (TrackballControls removed as dead weight).
 
   // Ray caster
   const raycaster = new THREE.Raycaster();
@@ -125,7 +118,7 @@ loadFile('shaders/utils.glsl').then((utils) => {
           uniforms: {
               delta: { value: [1 / 256, 1 / 256] },
               texture: { value: null },
-              damping: { value: 0.995 },
+              damping: { value: 0.9975 },
               speed: { value: 2.0 },
           },
           vertexShader: vertexShader,
@@ -391,16 +384,20 @@ loadFile('shaders/utils.glsl').then((utils) => {
   // ============================================
 
   // Tunable parameters (driven by GUI)
+  // Tuned for a more fluid feel: two sim substeps per frame make waves
+  // propagate smoother and faster; per-step damping raised so total decay
+  // stays the same but ripples glide farther. Mouse trail is wider and
+  // softer so dragging feels silky instead of splashy.
   const params = {
-    dropFrequency: 0.02,
-    dropRadius: 0.03,
-    dropStrength: 0.01,
-    mouseRadius: 0.03,
-    mouseStrength: 0.04,
+    dropFrequency: 0.025,
+    dropRadius: 0.035,
+    dropStrength: 0.008,
+    mouseRadius: 0.04,
+    mouseStrength: 0.03,
     waveSpeed: 2.0,
-    damping: 0.995,
+    damping: 0.9975,
     cameraHeight: cameraHeight,
-    simStepsPerFrame: 1,
+    simStepsPerFrame: 2,
   };
 
   // Animation time tracker
@@ -533,6 +530,10 @@ loadFile('shaders/utils.glsl').then((utils) => {
     }
 
     animate();
+
+    // Fade the pool in on the next frame instead of popping (pages that
+    // define a transition on #canvas get a soft bloom-in).
+    window.requestAnimationFrame(() => { canvas.style.opacity = '1'; });
   });
   
   // Handle window resize

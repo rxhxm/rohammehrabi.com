@@ -53,7 +53,16 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@700&family=Anton&family=Syne:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Warm up the water textures while three.js downloads -->
+    <link rel="preload" href="/tiles.jpg" as="image">
+    <link rel="preload" href="/xpos.jpg" as="image">
+    <link rel="preload" href="/xneg.jpg" as="image">
+    <link rel="preload" href="/ypos.jpg" as="image">
+    <link rel="preload" href="/zpos.jpg" as="image">
+    <link rel="preload" href="/zneg.jpg" as="image">
 
     <style>
       * {
@@ -69,6 +78,8 @@
         display: block;
         width: 100vw;
         height: 100vh;
+        opacity: 0;
+        transition: opacity 1.4s ease;
       }
       
       #scrim {
@@ -92,6 +103,11 @@
         z-index: 10;
         text-align: center;
         user-select: none;
+        animation: hero-in 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s both;
+      }
+      @keyframes hero-in {
+        from { opacity: 0; transform: translate(-50%, -47%); }
+        to   { opacity: 1; transform: translate(-50%, -50%); }
       }
 
       #ronin-svg {
@@ -229,8 +245,7 @@
       }
     </style>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@v0.113.0/examples/js/controls/TrackballControls.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/three@0.113.0/build/three.min.js" defer></script>
   </head>
 
   <body>
@@ -289,7 +304,7 @@
     })();
     </script>
 
-    <script type="text/javascript" src="index.js?v=20260229l"></script>
+    <script type="text/javascript" src="index.js?v=20260911a" defer></script>
     <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
   </body>
