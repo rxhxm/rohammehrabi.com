@@ -73,13 +73,10 @@
       
       #scrim {
         position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 48%;
-        background: linear-gradient(to top,
-          rgba(0, 0, 0, 0.32) 0%,
-          rgba(0, 0, 0, 0.12) 42%,
+        inset: 0;
+        background: radial-gradient(ellipse 62% 55% at 50% 52%,
+          rgba(0, 0, 0, 0.4) 0%,
+          rgba(0, 0, 0, 0.14) 55%,
           rgba(0, 0, 0, 0) 100%);
         z-index: 5;
         pointer-events: none;
@@ -87,40 +84,37 @@
 
       #text-overlay {
         position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        top: auto;
-        transform: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(94vw, 1040px);
         pointer-events: none;
         z-index: 10;
         text-align: center;
+        user-select: none;
       }
 
-      #ronin-text {
+      #ronin-svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      .ronin-txt {
         font-family: 'Anton', sans-serif;
-        font-size: clamp(70px, 13.5vw, 220px);
-        font-weight: 400;
-        letter-spacing: -0.03em;
-        text-transform: uppercase;
-        color: #ffffff;
-        text-shadow: 0 2px 40px rgba(0, 0, 0, 0.45);
-        text-align: left;
-        padding-left: 38px;
-        white-space: nowrap;
-        line-height: 0.9;
-        user-select: none;
+        font-size: 250px;
+        letter-spacing: -0.02em;
+        fill: #ffffff;
       }
 
       #subtitle {
         font-family: 'Syne', sans-serif;
         font-size: 16px;
         font-weight: 500;
-        letter-spacing: 0.15em;
-        color: rgba(255, 255, 255, 0.9);
-        text-align: left;
-        padding-left: 38px;
-        margin-bottom: 12px;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.85);
+        text-align: center;
+        margin-bottom: 6px;
         text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
         user-select: none;
         text-transform: uppercase;
@@ -204,16 +198,10 @@
       }
 
       @media (max-width: 600px) {
-        #ronin-text {
-          font-size: clamp(64px, 30vw, 220px);
-          letter-spacing: -0.04em;
-          padding-left: 20px;
-        }
         #subtitle {
           font-size: 12px;
-          letter-spacing: 0.12em;
-          padding-left: 20px;
-          margin-bottom: 8px;
+          letter-spacing: 0.15em;
+          margin-bottom: 4px;
         }
         #top-left {
           top: max(20px, env(safe-area-inset-top));
@@ -265,9 +253,42 @@
 
     <div id="text-overlay">
       <div id="subtitle">A page for my work</div>
-      <div id="ronin-text">ROHAM</div>
+      <svg id="ronin-svg" viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="ROHAM">
+        <defs>
+          <filter id="liquid" x="-25%" y="-25%" width="150%" height="150%">
+            <feTurbulence id="liquid-turb" type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n"/>
+            <feDisplacementMap id="liquid-disp" in="SourceGraphic" in2="n" scale="30" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+        <text class="ronin-txt" x="500" y="238" text-anchor="middle" filter="url(#liquid)">ROHAM</text>
+      </svg>
     </div>
-    
+
+    <script type="text/javascript">
+    // Slow water-like drift for the hero name: oscillate the turbulence
+    // frequency and displacement strength on long, offset sine cycles so the
+    // motion never visibly loops. Throttled to ~30fps to stay light next to
+    // the water shader.
+    (function () {
+      var turb = document.getElementById('liquid-turb');
+      var disp = document.getElementById('liquid-disp');
+      if (!turb || !disp) return;
+      var t0 = performance.now();
+      var last = 0;
+      function tick(now) {
+        requestAnimationFrame(tick);
+        if (now - last < 33) return;
+        last = now;
+        var t = (now - t0) / 1000;
+        var bfx = 0.012 + 0.004 * Math.sin(t * 2 * Math.PI / 19);
+        var bfy = 0.020 + 0.005 * Math.sin(t * 2 * Math.PI / 13 + 1.7);
+        turb.setAttribute('baseFrequency', bfx.toFixed(5) + ' ' + bfy.toFixed(5));
+        disp.setAttribute('scale', (30 + 8 * Math.sin(t * 2 * Math.PI / 11 + 0.6)).toFixed(2));
+      }
+      requestAnimationFrame(tick);
+    })();
+    </script>
+
     <script type="text/javascript" src="index.js?v=20260229l"></script>
     <script data-goatcounter="https://roham.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vnsp5xxubc");</script>
